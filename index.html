@@ -1,340 +1,662 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>벗꽃낭시 | 꿈꿀단지 팁박스</title>
+<title>벗꽃낭시</title>
 <meta name="description" content="벗·꽃·낭만·시인. 전국 20개 라이브클럽을 잇는 벗꽃낭시와 꿈꿀단지 팁박스.">
-<meta property="og:title" content="벗꽃낭시 | 꿈꿀단지 팁박스">
-<meta property="og:description" content="무대 위의 밤을 응원하는 가장 반짝이는 방법.">
+<meta property="og:title" content="벗꽃낭시">
+<meta property="og:description" content="전국 20개 라이브클럽을 잇는 코인 팁박스 네트워크, 꿈꿀단지.">
 <meta property="og:url" content="https://beotkkotnangsi.com">
-<meta name="theme-color" content="#0d0b08">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐝</text></svg>">
+<meta name="theme-color" content="#120E17">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
-  :root{
-    --bg:#0d0b08; --bg2:#15120d; --card:#1b1711; --line:#3a3122;
-    --gold:#e8b53a; --gold2:#f6d77e; --honey:#c98a14;
-    --text:#f3ecdf; --muted:#a99d88;
-    --yellow:#f5c518; --red:#e0413a; --blue:#3a7be0; --pink:#f07bb5;
-    --radius:18px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--text);font-family:"Noto Sans KR",system-ui,sans-serif;line-height:1.7;overflow-x:hidden}
-  a{color:inherit}
-  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
-  .serif{font-family:"Noto Serif KR",serif}
+:root{
+  --ink:#120E17; --ink2:#1B1522; --ink3:#2A2233;
+  --line:rgba(255,155,182,.16);
+  --blossom:#FF9BB6; --blossom-dim:#A8657C; --gold:#EFC06A;
+  --paper:#F6EDF0; --muted:#9A8CA3; --faint:#6B5F74;
+  --disp:"Jua",sans-serif;
+  --body:"Pretendard Variable",system-ui,sans-serif;
+  --mono:"Nunito",sans-serif;
+  /* 지도 */
+  --face:#EDE4E8; --face-side:#6A5F6E;
+  --face-hi:#FF9BB6; --face-hi-side:#8E4459;
+  --face-off:#B7AEBB; --face-off-side:#57505C;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+.rk,.rcoin2,.rnum,.rcoins,.vco,.rcode,.tally,.kinput{font-variant-numeric:tabular-nums}
+body{background:var(--ink);color:var(--paper);font-family:var(--body);
+  -webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;font-size:16px}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+:focus-visible{outline:2px solid var(--blossom);outline-offset:3px;border-radius:4px}
 
-  /* nav */
-  nav{position:sticky;top:0;z-index:10;background:rgba(13,11,8,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
-  .logo{font-family:"Noto Serif KR",serif;font-weight:900;font-size:20px;text-decoration:none;letter-spacing:-.02em}
-  .logo span{color:var(--gold)}
-  nav ul{display:flex;gap:22px;list-style:none;font-size:14px;color:var(--muted)}
-  nav ul a{text-decoration:none}
-  nav ul a:hover{color:var(--gold2)}
-  @media (max-width:720px){nav ul{display:none}}
+.bar{position:sticky;top:0;z-index:40;flex:none;display:flex;align-items:center;
+  height:60px;padding:0 clamp(1rem,4vw,2.4rem);
+  background:rgba(18,14,23,.92);border-bottom:1px solid var(--ink3)}
+.logo{font-family:var(--disp);font-weight:400;font-size:1.45rem;letter-spacing:.01em;
+  margin-right:auto;white-space:nowrap}
+.logo i{font-style:normal;color:var(--blossom)}
+.navwrap{display:flex;gap:.25rem;overflow-x:auto;scrollbar-width:none}
+.navwrap::-webkit-scrollbar{display:none}
+.nav{padding:.5rem .95rem;font-size:.88rem;font-weight:500;color:var(--muted);
+  border-radius:99px;white-space:nowrap;transition:.2s}
+.nav:hover{color:var(--paper)}
+.nav.on{color:var(--ink);background:var(--blossom);font-weight:700}
 
-  /* hero */
-  .hero{position:relative;padding:110px 0 90px;text-align:center;overflow:hidden}
-  .hero::before{content:"";position:absolute;inset:0;background:
-      radial-gradient(600px 320px at 50% 30%,rgba(232,181,58,.18),transparent 70%),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 56 98'%3E%3Cpath d='M28 0 56 16v33L28 65 0 49V16z M28 98V65' fill='none' stroke='%23e8b53a' stroke-opacity='.07' stroke-width='1.2'/%3E%3C/svg%3E");
-    pointer-events:none}
-  .hero > *{position:relative}
-  .eyebrow{display:inline-block;font-size:13px;letter-spacing:.3em;color:var(--gold);border:1px solid var(--line);border-radius:99px;padding:6px 16px;margin-bottom:28px}
-  .hero h1{font-family:"Noto Serif KR",serif;font-weight:900;font-size:clamp(52px,11vw,112px);line-height:1.05;letter-spacing:-.04em}
-  .hero h1 em{font-style:normal;background:linear-gradient(180deg,var(--gold2),var(--honey));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .meaning{margin:26px auto 0;display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
-  .meaning span{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 14px;font-size:15px}
-  .meaning b{color:var(--gold);font-family:"Noto Serif KR",serif}
-  .hero p.lead{margin:30px auto 0;max-width:560px;color:var(--muted);font-size:17px}
-  .motto{margin-top:34px;font-family:"Noto Serif KR",serif;letter-spacing:.35em;font-size:13px;color:var(--gold)}
-  .btns{margin-top:36px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-  .btn{display:inline-block;padding:14px 26px;border-radius:99px;font-weight:700;text-decoration:none;font-size:15px}
-  .btn.primary{background:var(--gold);color:#1a1206}
-  .btn.primary:hover{background:var(--gold2)}
-  .btn.ghost{border:1px solid var(--line)}
-  .btn.ghost:hover{border-color:var(--gold)}
+.pg{display:none;flex:1}
+.pg.on{display:block}
+#pg-map.on{display:flex;flex-direction:column}
+#pg-key.on{display:flex;align-items:center;justify-content:center}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}.petal{display:none}}
 
-  section{padding:90px 0;border-top:1px solid var(--line)}
-  .kicker{color:var(--gold);font-size:13px;letter-spacing:.25em;margin-bottom:10px}
-  h2{font-family:"Noto Serif KR",serif;font-weight:900;font-size:clamp(28px,5vw,42px);line-height:1.3;letter-spacing:-.03em;margin-bottom:18px}
-  .sub{color:var(--muted);max-width:640px}
+/* ── 지도 무대 ── */
+.stage{position:relative;flex:1;display:flex;align-items:center;justify-content:center;
+  padding:1rem;overflow:hidden}
+.stage::before{content:'';position:absolute;left:50%;top:44%;width:min(820px,105vw);height:min(820px,105vw);
+  transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(255,155,182,.12) 0%,transparent 65%)}
+.map-tilt{position:relative;z-index:1;width:100%;max-width:980px;margin:0 auto;
+  transform:rotateX(14deg) rotateZ(-3deg);
+  filter:drop-shadow(0 38px 50px rgba(0,0,0,.62))}
+.map-tilt svg{width:100%;height:auto;max-height:84vh;overflow:visible;display:block;margin:0 auto}
 
-  /* three names */
-  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
-  @media (max-width:820px){.grid3{grid-template-columns:1fr}}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
-  .card .num{font-family:"Noto Serif KR",serif;color:var(--gold);font-size:30px;font-weight:900}
-  .card h3{font-size:19px;margin:6px 0 8px}
-  .card p{color:var(--muted);font-size:15px}
+.side{stroke:none}
+.side.hv{fill:var(--face-hi-side)}
+.side.off{fill:var(--face-off-side)}
+.province{stroke:#FFFFFF;stroke-width:1.4;stroke-linejoin:round;
+  cursor:pointer;transition:fill .2s}
 
-  /* story flow */
-  .flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:12px;margin-top:44px}
-  .flow .step{text-align:center;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px 16px}
-  .flow .icon{font-size:40px;line-height:1}
-  .flow h4{margin-top:10px;font-size:18px}
-  .flow small{color:var(--muted);font-size:13px}
-  .flow .arrow{color:var(--gold);font-size:24px}
-  @media (max-width:720px){.flow{grid-template-columns:1fr}.flow .arrow{transform:rotate(90deg);text-align:center}}
+.province.hv{stroke:#FFFFFF}
 
-  /* tipbox */
-  .tip{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center}
-  @media (max-width:860px){.tip{grid-template-columns:1fr}}
-  .box{position:relative;aspect-ratio:4/5;max-width:380px;margin:0 auto;width:100%;border-radius:26px;
-    background:linear-gradient(160deg,#2a2419,#100d09);border:2px solid rgba(232,181,58,.55);
-    box-shadow:0 0 0 6px rgba(232,181,58,.06),0 0 60px rgba(232,181,58,.18),inset 0 0 40px rgba(0,0,0,.6);padding:26px;display:flex;flex-direction:column}
-  .screen{background:#050403;border:1px solid var(--line);border-radius:12px;padding:16px;font-size:13px}
-  .screen .team{color:var(--gold2);font-weight:700;font-size:15px;margin-bottom:10px}
-  .screen .row{display:flex;justify-content:space-between;color:var(--muted)}
-  .screen .row b{color:var(--text);font-variant-numeric:tabular-nums}
-  .buttons{flex:1;display:flex;align-items:center;justify-content:center;gap:16px}
-  .pbtn{width:54px;height:54px;border-radius:50%;border:none;cursor:pointer;box-shadow:inset 0 -5px 0 rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.5);transition:transform .08s}
-  .pbtn:active{transform:translateY(3px)}
-  .pbtn.y{background:var(--yellow)} .pbtn.r{background:var(--red)} .pbtn.b{background:var(--blue)}
-  .star{width:62px;height:62px;border:2px dashed rgba(240,123,181,.6);border-radius:14px;display:grid;place-items:center;color:var(--pink);font-size:30px;background:rgba(240,123,181,.06)}
-  .slot{height:10px;width:60%;margin:0 auto;border-radius:99px;background:#050403;border:1px solid var(--gold);box-shadow:0 0 14px rgba(232,181,58,.5)}
-  .boxlabel{text-align:center;margin-top:14px;font-family:"Noto Serif KR",serif;color:var(--gold);letter-spacing:.2em;font-size:12px}
-  .fx{position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:26px}
-  .spark{position:absolute;width:6px;height:6px;border-radius:50%;animation:fly 900ms ease-out forwards}
-  @keyframes fly{to{transform:translate(var(--dx),var(--dy));opacity:0}}
-  .hint{text-align:center;color:var(--muted);font-size:13px;margin-top:14px}
+.province.seoul{cursor:default}
 
-  .coins{display:grid;gap:12px;margin-top:28px}
-  .coin{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px}
-  .disc{flex:none;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-size:20px;box-shadow:inset 0 0 0 3px rgba(0,0,0,.25)}
-  .disc.cu{background:radial-gradient(circle at 35% 30%,#e3a27a,#8a4a26)}
-  .disc.ag{background:radial-gradient(circle at 35% 30%,#f1f1ec,#80817c)}
-  .disc.au{background:radial-gradient(circle at 35% 30%,#ffe08a,#a8741a)}
-  .coin h4{font-size:16px}
-  .coin p{color:var(--muted);font-size:13px}
-  .coin .price{margin-left:auto;font-weight:700;color:var(--gold2);white-space:nowrap}
-  .silent{margin-top:18px;font-size:14px;color:var(--muted)}
+.plabel{font-family:var(--disp);font-size:12px;font-weight:400;fill:#2E2634;
+  text-anchor:middle;dominant-baseline:middle;pointer-events:none}
+.plabel.hv{fill:#5C1F30;font-size:13px}
+.plabel.q{font-family:var(--disp);font-size:20px;fill:#6C6474}
+.pdot{fill:#7A2038}
+.pdot-ring{fill:none;stroke:#FFFFFF;stroke-width:1.6;opacity:.9;
+  animation:ping 2.4s ease-out infinite;transform-origin:center;transform-box:fill-box}
+@keyframes ping{0%{transform:scale(.3);opacity:.85}100%{transform:scale(1.7);opacity:0}}
 
-  /* 20 */
-  .dots{display:grid;grid-template-columns:repeat(10,1fr);gap:10px;margin-top:40px;max-width:560px}
-  .dot{aspect-ratio:1;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:12px;color:var(--muted)}
-  .dot.jeju{border-color:#5fb38a;color:#8fd6b1}
-  .dot.seoul{background:var(--gold);color:#1a1206;border-color:var(--gold);font-weight:700}
-  .legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px;font-size:13px;color:var(--muted)}
-  .legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle;border:1px solid var(--line)}
-  .soon{margin-top:30px;display:inline-block;font-size:14px;color:var(--muted);border:1px dashed var(--line);border-radius:12px;padding:12px 16px}
+.petal{position:absolute;top:-20px;width:8px;height:8px;z-index:0;pointer-events:none;
+  background:var(--blossom);opacity:.2;border-radius:100% 0 100% 0;animation:fall linear infinite}
+@keyframes fall{0%{transform:translateY(-20px) rotate(0);opacity:0}
+  14%{opacity:.22}100%{transform:translateY(95vh) rotate(400deg);opacity:0}}
 
-  /* partner */
-  .partner{background:linear-gradient(135deg,#231b0c,#120e08);border:1px solid rgba(232,181,58,.4);border-radius:26px;padding:48px;display:grid;grid-template-columns:1.3fr 1fr;gap:30px;align-items:center}
-  @media (max-width:820px){.partner{grid-template-columns:1fr;padding:32px 22px}}
-  .partner ul{list-style:none;margin-top:18px;display:grid;gap:10px}
-  .partner li::before{content:"🍯 ";}
-  .partner .cta{text-align:center}
-  .partner .cta small{display:block;color:var(--muted);margin-top:12px;font-size:13px}
+/* ── 랭킹 패널 (지도 우측 상단) ── */
+.rank{width:186px;pointer-events:none;background:rgba(27,21,34,.8);backdrop-filter:blur(12px);
+  border:1px solid var(--ink3);border-radius:20px;padding:.85rem .9rem .75rem}
+.hud{position:absolute;top:1.5rem;left:1.8rem;right:1.6rem;z-index:5;
+  display:flex;justify-content:space-between;align-items:flex-start;pointer-events:none}
+.rank-h{display:flex;align-items:baseline;justify-content:space-between;
+  padding-bottom:.7rem;margin-bottom:.35rem;border-bottom:1px solid var(--ink3)}
+.rank-h .t{font-family:var(--disp);font-weight:400;font-size:.9rem}
+.rank-h .s{font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;color:var(--blossom-dim)}
+.rrow2{display:flex;align-items:center;padding:.48rem 0}
+.rrow2+.rrow2{border-top:1px solid rgba(255,255,255,.05)}
+.rk{font-family:var(--mono);font-size:.66rem;font-weight:600;color:var(--faint);
+  width:1.15rem;flex:none}
+.rrow2.top .rk{color:var(--gold)}
+.rmeta{flex:1;min-width:0}
+.rteam2{font-family:var(--disp);font-weight:400;font-size:.83rem;line-height:1.3;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rrow2.top .rteam2{color:var(--blossom);font-size:.94rem}
+.rcoin2{font-family:var(--mono);font-size:.63rem;color:var(--muted);margin-top:.1rem}
+.rrow2.top .rcoin2{color:var(--gold)}
+.rempty{font-family:var(--mono);font-size:.76rem;color:var(--faint);padding:.6rem 0}
+.tally{pointer-events:none;font-family:var(--mono);font-size:.74rem;color:var(--faint);letter-spacing:.06em}
+.tally b{color:var(--gold);font-weight:600}
 
-  /* music */
-  .songs{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
-  .song{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 18px;font-family:"Noto Serif KR",serif}
+@media(max-width:860px){
+  /* 세로로 분리 — 겹칠 수 없는 구조 */
+  .stage{flex-direction:column;align-items:stretch;padding:.7rem .7rem 1rem}
+  .hud{position:static;margin-bottom:.5rem}
+  .map-tilt{flex:1;min-height:0;max-width:100%}
+  .map-tilt svg{width:100%;height:100%;max-height:none}
+  .rank{width:150px;padding:.55rem .6rem .45rem;border-radius:26px}
+  .rank-h{padding-bottom:.4rem;margin-bottom:.1rem}
+  .rank-h .t{font-size:.76rem}
+  .rank-h .s{display:none}
+  .rrow2{padding:.3rem 0}
+  .rk{font-size:.56rem;width:.9rem}
+  .rteam2{font-size:.72rem}
+  .rrow2.top .rteam2{font-size:.78rem}
+  .rcoin2{font-size:.56rem;margin-top:0}
+  .tally{font-size:.64rem;padding-top:.2rem}
+  .map-tilt{transform:rotateX(10deg) rotateZ(-2deg)}
+}
+@media(max-width:640px){
+  .bar{height:54px;padding:0 .8rem}
+  .logo{font-size:1.08rem}
+  .nav{padding:.38rem .6rem;font-size:.78rem}
+}
 
-  footer{border-top:1px solid var(--line);padding:40px 0 60px;color:var(--muted);font-size:13px}
-  footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+/* ── 오버레이 ── */
+.ov{position:fixed;inset:0;z-index:60;background:rgba(10,7,14,.8);
+  display:none;align-items:center;justify-content:center;padding:1.15rem}
+.ov.on{display:flex}
+.pbox{background:var(--ink2);border:1px solid var(--ink3);border-radius:26px;
+  width:100%;max-width:440px;max-height:82vh;overflow-y:auto}
+.phead{display:flex;justify-content:space-between;align-items:flex-start;
+  padding:1.4rem 1.4rem .95rem;border-bottom:1px solid var(--ink3);
+  position:sticky;top:0;background:var(--ink2)}
+.phead h3{font-family:var(--disp);font-weight:400;font-size:1.3rem}
+.ptag{font-family:var(--mono);font-size:.72rem;color:var(--muted);display:block;margin-top:.3rem}
+.pclose{color:var(--faint);font-size:1.05rem;line-height:1;padding:.3rem}
+.pclose:hover{color:var(--blossom)}
+.pbody{padding:1.25rem 1.4rem 1.6rem}
+.vcard{display:flex;justify-content:space-between;align-items:center;width:100%;
+  background:var(--ink);border:1px solid var(--ink3);border-radius:26px;
+  padding:.95rem 1.1rem;margin-bottom:.6rem;text-align:left;transition:.2s}
+.vcard:hover{border-color:var(--line);transform:translateX(3px)}
+.vn{font-family:var(--disp);font-weight:400;font-size:1.02rem}
+.vc{font-size:.79rem;color:var(--muted);margin-top:.1rem}
+.vco{font-family:var(--mono);font-size:.75rem;color:var(--blossom-dim)}
+.slot-empty{padding:.95rem;border:1px dashed var(--ink3);border-radius:26px;
+  text-align:center;color:var(--faint);margin-bottom:.6rem;font-size:.84rem}
+.rrow{display:flex;align-items:center;padding:.8rem .2rem;border-bottom:1px solid var(--ink3)}
+.rrow:last-child{border-bottom:none}
+.rnum{font-family:var(--mono);font-size:.8rem;color:var(--faint);width:1.5rem;flex:none}
+.rteam{flex:1;font-family:var(--disp);font-weight:400;font-size:.98rem}
+.rcode{font-family:var(--mono);font-size:.7rem;color:var(--faint);margin-left:.4rem}
+.rcoins{font-family:var(--mono);font-size:.8rem;color:var(--muted);flex:none}
+.rcoins b{color:var(--gold);font-weight:600}
+.rrow.r1 .rteam{color:var(--blossom)}
+.bbtn{color:var(--muted);font-size:.84rem;font-weight:600;margin-bottom:1.1rem}
+.bbtn:hover{color:var(--blossom)}
+
+/* ── 밴드대회 ── */
+.cuphead{text-align:center;padding:clamp(2rem,6vw,3.4rem) 1rem 0}
+.cuphead .e{font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;
+  color:var(--blossom-dim);margin-bottom:.8rem}
+.cuphead h2{font-family:var(--disp);font-weight:400;
+  font-size:clamp(1.7rem,5.5vw,2.6rem);letter-spacing:.01em;margin-bottom:1.1rem}
+.pill{display:inline-block;margin-bottom:.4rem;font-family:var(--mono);font-size:.68rem;
+  letter-spacing:.16em;border:1px solid var(--line);color:var(--blossom);
+  padding:.4rem 1rem;border-radius:99px}
+.bwrap{overflow-x:auto;padding:clamp(2rem,5vw,3rem) 1.2rem 3.5rem}
+.bracket{display:flex;gap:clamp(1rem,3vw,2.4rem);min-width:620px;max-width:900px;
+  margin:0 auto;align-items:stretch}
+.round{flex:1;display:flex;flex-direction:column}
+.rname{font-family:var(--mono);font-size:.68rem;letter-spacing:.18em;color:var(--blossom-dim);
+  text-align:center;margin-bottom:1rem}
+.mlist{flex:1;display:flex;flex-direction:column;justify-content:space-around}
+.match{background:var(--ink2);border:1px solid var(--ink3);border-radius:16px;
+  overflow:hidden;margin:.42rem 0}
+.mslot{display:flex;align-items:center;padding:.62rem .8rem;font-size:.83rem;color:var(--faint)}
+.mslot+.mslot{border-top:1px solid var(--ink3)}
+.mseed{font-family:var(--mono);font-size:.68rem;color:var(--blossom-dim);width:1.5rem;flex:none}
+.mname{flex:1;font-family:var(--mono);letter-spacing:.02em}
+.match.fin{border-color:var(--line);background:linear-gradient(180deg,rgba(255,155,182,.09),var(--ink2))}
+.cupfoot{text-align:center;font-family:var(--mono);font-size:.73rem;color:var(--faint);padding:0 1rem 3rem}
+
+/* ── 키링 확인 ── */
+.kbox{width:100%;max-width:420px;text-align:center;padding:2rem 1.2rem}
+.kbox .e{font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;
+  color:var(--blossom-dim);margin-bottom:.7rem}
+.kbox h2{font-family:var(--disp);font-weight:400;font-size:clamp(1.7rem,5vw,2.3rem);margin-bottom:1.9rem}
+
+/* 입력줄: BKNS 고정 + 입력칸 */
+.kfield{display:flex;align-items:stretch;background:var(--ink2);
+  border:1px solid var(--ink3);border-radius:26px;overflow:hidden;
+  transition:border-color .2s}
+.kfield:focus-within{border-color:var(--blossom)}
+.kfix{display:flex;align-items:center;gap:.5rem;padding:0 .35rem 0 1.15rem;
+  font-family:var(--mono);font-size:1.05rem;font-weight:700;
+  color:var(--blossom);letter-spacing:.06em;user-select:none;flex:none}
+.kfix::after{content:'';width:1px;height:1.5rem;background:var(--ink3)}
+.kinput{flex:1;min-width:0;background:none;border:none;
+  padding:.95rem .9rem;color:var(--paper);font-family:var(--mono);
+  font-size:1.05rem;letter-spacing:.12em;text-transform:uppercase}
+.kinput:focus{outline:none}
+.kinput::placeholder{color:var(--faint);letter-spacing:.1em}
+.btn{background:var(--blossom);color:var(--ink);font-weight:700;
+  width:100%;padding:.95rem 1.5rem;border-radius:26px;font-size:.95rem;
+  margin-top:.7rem;transition:.2s}
+.btn:hover{background:#FFB3C6}
+.khint{font-size:.76rem;color:var(--faint);margin-top:.85rem}
+.kresult{margin-top:1.5rem;padding:1.1rem;border-radius:20px;display:none;text-align:left;font-size:.88rem}
+.kresult.show{display:block}
+.kresult.ok{background:rgba(255,155,182,.09);border:1px solid var(--line);color:var(--paper)}
+.kresult.fail{background:rgba(255,139,122,.08);border:1px solid rgba(255,139,122,.24);color:#FFB3A6}
+.kresult .kt{font-family:var(--disp);font-weight:400;font-size:1.08rem;margin-bottom:.35rem}
+
+/* ── 예시 표시 ── */
+.demo{display:inline-block;font-family:var(--body);font-size:.58rem;font-weight:700;letter-spacing:.04em;
+  color:var(--ink);background:var(--gold);border-radius:99px;padding:.12rem .45rem;margin-left:.4rem;vertical-align:middle}
+.demonote{font-size:.66rem;color:var(--faint);margin-top:.45rem;line-height:1.4}
+
+/* ── 소개 ── */
+#pg-about{padding-bottom:3rem}
+.awrap{max-width:980px;margin:0 auto;padding:0 clamp(1rem,4vw,2rem)}
+.ahero{text-align:center;padding:clamp(3rem,9vw,5.5rem) 0 clamp(2.4rem,6vw,3.6rem)}
+.ahero .e,.asec .e{font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;color:var(--blossom-dim);margin-bottom:.8rem}
+.ahero h2{font-family:var(--disp);font-weight:400;font-size:clamp(2.6rem,10vw,4.6rem);line-height:1.1}
+.ahero h2 i{font-style:normal;color:var(--blossom)}
+.mean{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-top:1.4rem}
+.mean span{background:var(--ink2);border:1px solid var(--ink3);border-radius:99px;padding:.4rem .9rem;font-size:.88rem}
+.mean b{font-family:var(--disp);font-weight:400;color:var(--blossom);margin-right:.3rem}
+.ahero p{color:var(--muted);max-width:520px;margin:1.5rem auto 0;line-height:1.75}
+.motto{font-family:var(--mono);letter-spacing:.3em;font-size:.72rem;color:var(--gold);margin-top:1.6rem}
+.asec{padding:clamp(2.4rem,6vw,3.4rem) 0;border-top:1px solid var(--ink3)}
+.asec h3{font-family:var(--disp);font-weight:400;font-size:clamp(1.6rem,5vw,2.2rem);line-height:1.3;margin-bottom:.8rem}
+.asec .sub{color:var(--muted);max-width:620px;line-height:1.75}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-top:1.6rem}
+@media(max-width:760px){.g3{grid-template-columns:1fr}}
+.acard{background:var(--ink2);border:1px solid var(--ink3);border-radius:22px;padding:1.3rem 1.25rem}
+.acard .n{font-family:var(--mono);font-weight:700;color:var(--blossom);font-size:.8rem}
+.acard h4{font-family:var(--disp);font-weight:400;font-size:1.2rem;margin:.3rem 0 .35rem}
+.acard p{color:var(--muted);font-size:.88rem;line-height:1.6}
+.coinlist{display:grid;gap:.6rem;margin-top:1.4rem}
+.coinrow{display:flex;align-items:center;gap:.9rem;background:var(--ink2);border:1px solid var(--ink3);border-radius:18px;padding:.8rem 1rem}
+.disc{flex:none;width:40px;height:40px;border-radius:50%;box-shadow:inset 0 0 0 3px rgba(0,0,0,.25)}
+.disc.cu{background:radial-gradient(circle at 35% 30%,#e3a27a,#8a4a26)}
+.disc.ag{background:radial-gradient(circle at 35% 30%,#f1f1ec,#80817c)}
+.disc.au{background:radial-gradient(circle at 35% 30%,#ffe08a,#a8741a)}
+.coinrow h5{font-size:.95rem;font-weight:700}
+.coinrow p{color:var(--muted);font-size:.8rem}
+.coinrow .pr{margin-left:auto;font-family:var(--mono);font-weight:700;color:var(--gold);white-space:nowrap}
+.silent{margin-top:1rem;font-size:.85rem;color:var(--muted)}
+.flow{display:flex;align-items:center;justify-content:center;gap:.6rem;margin-top:1.5rem;flex-wrap:wrap}
+.flow div{background:var(--ink2);border:1px solid var(--ink3);border-radius:18px;padding:.9rem 1.2rem;text-align:center;min-width:110px}
+.flow b{display:block;font-family:var(--disp);font-weight:400;font-size:1.15rem}
+.flow small{color:var(--muted);font-size:.75rem}
+.flow .ar{background:none;border:none;min-width:0;padding:0;color:var(--blossom)}
+.partner{background:linear-gradient(135deg,rgba(255,155,182,.12),var(--ink2));border:1px solid var(--line);
+  border-radius:26px;padding:clamp(1.5rem,5vw,2.6rem);display:grid;grid-template-columns:1.3fr 1fr;gap:1.4rem;align-items:center}
+@media(max-width:760px){.partner{grid-template-columns:1fr}}
+.partner ul{list-style:none;display:grid;gap:.5rem;margin-top:1rem;color:var(--paper);font-size:.92rem}
+.partner li::before{content:"🌸 "}
+.partner .cta{text-align:center}
+.partner .cta a{display:inline-block;background:var(--blossom);color:var(--ink);font-weight:700;padding:.9rem 1.6rem;border-radius:26px;text-decoration:none}
+.partner .cta a:hover{background:#FFB3C6}
+.partner .cta small{display:block;color:var(--muted);margin-top:.7rem;font-size:.8rem}
+.songs{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.2rem}
+.songs span{background:var(--ink2);border:1px solid var(--ink3);border-radius:99px;padding:.5rem 1rem;font-family:var(--disp)}
+.ytb{display:inline-block;margin-top:1.2rem;border:1px solid var(--line);color:var(--blossom);border-radius:99px;padding:.65rem 1.2rem;text-decoration:none;font-weight:600;font-size:.9rem}
+.afoot{text-align:center;color:var(--faint);font-size:.75rem;padding:2rem 1rem 0}
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="wrap">
-    <a class="logo" href="#">벗꽃<span>낭시</span></a>
-    <ul>
-      <li><a href="#about">벗꽃낭시</a></li>
-      <li><a href="#tipbox">꿈꿀단지</a></li>
-      <li><a href="#network">20개 지점</a></li>
-      <li><a href="#partner">파트너 문의</a></li>
-      <li><a href="#music">음악</a></li>
-    </ul>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="wrap">
-    <div class="eyebrow">LIVE CLUB NETWORK</div>
-    <h1>벗꽃<em>낭시</em></h1>
-    <div class="meaning">
-      <span><b>벗</b> 친구</span><span><b>꽃</b> 꽃</span><span><b>낭</b> 낭만</span><span><b>시</b> 시인들</span>
-    </div>
-    <p class="lead">무대 위의 밤을 응원하는 가장 반짝이는 방법.<br>관객의 마음이 코인이 되고, 코인이 공연팀의 내일이 됩니다.</p>
-    <div class="motto">LOVE · LIBERTY · LABOR</div>
-    <div class="btns">
-      <a class="btn primary" href="#tipbox">꿈꿀단지 보기</a>
-      <a class="btn ghost" href="#partner">우리 클럽에 설치하기</a>
-    </div>
-  </div>
+<header class="bar">
+  <div class="logo">벗꽃<i>낭시</i></div>
+  <nav class="navwrap">
+    <button class="nav on" onclick="go('map',this)">랭킹</button>
+    <button class="nav" onclick="go('cup',this)">밴드대회</button>
+    <button class="nav" onclick="go('key',this)">키링 확인</button>
+    <button class="nav" onclick="go('about',this)">소개</button>
+  </nav>
 </header>
 
-<section id="about">
-  <div class="wrap">
-    <div class="kicker">ABOUT</div>
-    <h2>하나의 이름, 세 개의 무대</h2>
-    <p class="sub">“음악 하려면 홍대로 가야 한다”는 공식을 지우고 싶었습니다. 각 지역에는 각 지역의 밴드가 있고, 그 밴드를 사랑하는 관객이 있습니다.</p>
-    <div class="grid3">
-      <div class="card"><div class="num">01</div><h3>라이브클럽 네트워크</h3><p>전국의 밴드클럽을 꿈꿀단지 하나로 잇는 시스템 브랜드입니다.</p></div>
-      <div class="card"><div class="num">02</div><h3>클럽 벗꽃낭시</h3><p>서울 서촌에 문을 열 스무 번째이자 마지막 지점입니다.</p></div>
-      <div class="card"><div class="num">03</div><h3>밴드 벗꽃낭시</h3><p>수염맨이 쓴 노래를 연주하는 밴드입니다.</p></div>
+<div class="pg on" id="pg-map">
+  <div class="stage" id="petalHost">
+    <div class="hud">
+      <div class="tally">전국 <b id="litB">1</b> / 20 운영 중</div>
+      <aside class="rank">
+        <div class="rank-h"><span class="t">랭킹<span class="demo">예시</span></span><span class="s">TOP 3</span></div>
+        <div id="ranks"></div>
+        <div class="demonote">파일럿 운영 전 예시 데이터입니다</div>
+      </aside>
+    </div>
+    <div class="map-tilt">
+      <svg id="krmap" viewBox="88 6 300 412" role="img" aria-label="전국 공연장 지도"></svg>
     </div>
   </div>
-</section>
+</div>
 
-<section>
-  <div class="wrap">
-    <div class="kicker">STORY</div>
-    <h2>벌은 꽃에서 꿀을 따<br>꿀단지에 담습니다</h2>
-    <div class="flow">
-      <div class="step"><div class="icon">🌸</div><h4>꽃</h4><small>코인 교환기</small></div>
-      <div class="arrow">→</div>
-      <div class="step"><div class="icon">🪙</div><h4>꿀</h4><small>코인</small></div>
-      <div class="arrow">→</div>
-      <div class="step"><div class="icon">🍯</div><h4>꿀단지</h4><small>꿈꿀단지 팁박스</small></div>
-    </div>
+<div class="pg" id="pg-cup">
+  <div class="cuphead">
+    <div class="e">CHERRY BLOSSOM BAND CUP</div>
+    <h2>천하제일밴드대회</h2>
+    <span class="pill">준비 중</span>
   </div>
-</section>
+  <div class="bwrap"><div class="bracket" id="bracket"></div></div>
+  <div class="cupfoot">참가 팀이 확정되면 대진이 공개됩니다</div>
+</div>
 
-<section id="tipbox">
-  <div class="wrap tip">
-    <div>
-      <div class="box" id="box">
-        <div class="screen">
-          <div class="team">오늘의 무대 · 벗꽃낭시</div>
-          <div class="row"><span>Balance</span><b id="bal">12</b></div>
-          <div class="row"><span>Total</span><b id="tot">488</b></div>
-        </div>
-        <div class="buttons">
-          <button class="pbtn y" data-cost="1" aria-label="노랑 버튼"></button>
-          <button class="pbtn r" data-cost="10" aria-label="빨강 버튼"></button>
-          <div class="star" id="star" title="500 크레딧에 열리는 히든 버튼">★</div>
-          <button class="pbtn b" data-cost="100" aria-label="파랑 버튼"></button>
-        </div>
-        <div class="slot"></div>
-        <div class="boxlabel">HONEY POT TIP BOX</div>
-        <div class="fx" id="fx"></div>
+<div class="pg" id="pg-key">
+  <div class="kbox">
+    <div class="e">AUTHENTICITY CHECK</div>
+    <h2>키링 확인</h2>
+    <div class="kfield">
+      <span class="kfix">BKNS</span>
+      <input class="kinput" id="ci" type="text" placeholder="XXXX-XXXX" maxlength="9"
+        inputmode="latin" autocapitalize="characters" autocomplete="off" spellcheck="false"
+        oninput="fmt(this)" onkeydown="if(event.key==='Enter')verify()">
+    </div>
+    <button class="btn" onclick="verify()">확인</button>
+    <p class="khint">카드에 적힌 뒤 8자리만 입력하세요. 하이픈은 자동으로 붙습니다.</p>
+    <div class="kresult" id="kr"></div>
+  </div>
+</div>
+
+<div class="pg" id="pg-about">
+  <div class="awrap">
+    <section class="ahero">
+      <div class="e">LIVE CLUB NETWORK</div>
+      <h2>벗꽃<i>낭시</i></h2>
+      <div class="mean"><span><b>벗</b>친구</span><span><b>꽃</b>꽃</span><span><b>낭</b>낭만</span><span><b>시</b>시인들</span></div>
+      <p>무대 위의 밤을 응원하는 가장 반짝이는 방법.<br>관객의 마음이 코인이 되고, 코인이 공연팀의 내일이 됩니다.</p>
+      <div class="motto">LOVE · LIBERTY · LABOR</div>
+    </section>
+
+    <section class="asec">
+      <div class="e">ABOUT</div>
+      <h3>하나의 이름, 세 개의 무대</h3>
+      <p class="sub">“음악 하려면 홍대로 가야 한다”는 공식을 지우고 싶었습니다. 각 지역에는 각 지역의 밴드가 있고, 그 밴드를 사랑하는 관객이 있습니다.</p>
+      <div class="g3">
+        <div class="acard"><div class="n">01</div><h4>라이브클럽 네트워크</h4><p>전국의 밴드클럽을 꿈꿀단지 하나로 잇는 시스템 브랜드입니다.</p></div>
+        <div class="acard"><div class="n">02</div><h4>클럽 벗꽃낭시</h4><p>서울 서촌에 문을 열 스무 번째이자 마지막 지점입니다.</p></div>
+        <div class="acard"><div class="n">03</div><h4>밴드 벗꽃낭시</h4><p>수염맨이 쓴 노래를 연주하는 밴드입니다.</p></div>
       </div>
-      <p class="hint">버튼을 눌러보세요. 실제 기기는 소리 없이 화면으로만 반응합니다.</p>
-    </div>
-    <div>
-      <div class="kicker">KKUMKKULDANJI</div>
-      <h2>꿈꿀단지 팁박스</h2>
-      <p class="sub">관객이 코인을 넣고 버튼을 누르면, 무대 옆 화면에 응원이 터집니다. 누적 500 크레딧이 모이면 별 모양 히든 버튼이 열립니다.</p>
-      <div class="coins">
-        <div class="coin"><div class="disc cu">🐝</div><div><h4>동코인</h4><p>1 크레딧 · 노랑 버튼 폭죽</p></div><div class="price">2,000원</div></div>
-        <div class="coin"><div class="disc ag">🎤</div><div><h4>은화</h4><p>10 크레딧 · 빨강 버튼 대형 폭죽</p></div><div class="price">20,000원</div></div>
-        <div class="coin"><div class="disc au">🎹</div><div><h4>금화</h4><p>100 크레딧 · 파랑 버튼 꿀통 애니메이션</p></div><div class="price">200,000원</div></div>
+    </section>
+
+    <section class="asec">
+      <div class="e">KKUMKKULDANJI</div>
+      <h3>꿈꿀단지 팁박스</h3>
+      <p class="sub">관객이 코인을 넣고 버튼을 누르면 무대 옆 화면에 응원이 터집니다. 누적 500 크레딧이 모이면 별 모양 히든 버튼이 열립니다.</p>
+      <div class="flow">
+        <div><b>꽃</b><small>코인 교환기</small></div><div class="ar">→</div>
+        <div><b>꿀</b><small>코인</small></div><div class="ar">→</div>
+        <div><b>꿀단지</b><small>팁박스</small></div>
+      </div>
+      <div class="coinlist">
+        <div class="coinrow"><div class="disc cu"></div><div><h5>동코인</h5><p>1 크레딧 · 노랑 버튼 폭죽</p></div><div class="pr">2,000원</div></div>
+        <div class="coinrow"><div class="disc ag"></div><div><h5>은화</h5><p>10 크레딧 · 빨강 버튼 대형 폭죽</p></div><div class="pr">20,000원</div></div>
+        <div class="coinrow"><div class="disc au"></div><div><h5>금화</h5><p>100 크레딧 · 파랑 버튼 꿀통 애니메이션</p></div><div class="pr">200,000원</div></div>
       </div>
       <p class="silent">🔇 공연을 방해하지 않도록 완전 무음으로 설계했습니다.</p>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section id="network">
-  <div class="wrap">
-    <div class="kicker">NETWORK</div>
-    <h2>딱 20곳에서 끝납니다</h2>
-    <p class="sub">지방 18곳, 제주 1곳, 그리고 서울은 서촌의 클럽 벗꽃낭시 단 한 곳. 더 늘리지 않습니다. 그래서 한 자리 한 자리가 귀합니다.</p>
-    <div class="dots" id="dots"></div>
-    <div class="legend">
-      <span><i></i>지방 파트너 클럽 (18)</span>
-      <span><i style="border-color:#5fb38a"></i>제주 (1)</span>
-      <span><i style="background:var(--gold);border-color:var(--gold)"></i>서울 · 클럽 벗꽃낭시 (1)</span>
-    </div>
-    <div class="soon">🗺️ 전국 지도 코인 랭킹은 준비 중입니다.</div>
-  </div>
-</section>
+    <section class="asec">
+      <div class="e">NETWORK</div>
+      <h3>딱 20곳에서 끝납니다</h3>
+      <p class="sub">지방 18곳, 제주 1곳, 그리고 서울은 서촌의 클럽 벗꽃낭시 단 한 곳. 더 늘리지 않습니다. 그래서 한 자리 한 자리가 귀합니다.</p>
+    </section>
 
-<section id="partner">
-  <div class="wrap">
-    <div class="partner">
-      <div>
-        <div class="kicker">FOR CLUB OWNERS</div>
-        <h2>우리 클럽에<br>꿈꿀단지를 들이세요</h2>
-        <ul>
-          <li>기기를 두기만 하면 공연마다 수익이 생깁니다</li>
-          <li>유지보수와 기기 교체는 본사가 책임집니다</li>
-          <li>권역별 설치 수를 제한해 지역의 자리를 지킵니다</li>
-          <li>처음 함께하는 3곳에는 우대 조건을 드립니다</li>
-        </ul>
+    <section class="asec">
+      <div class="partner">
+        <div>
+          <div class="e" style="font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;color:var(--blossom-dim)">FOR CLUB OWNERS</div>
+          <h3 style="font-family:var(--disp);font-weight:400;font-size:clamp(1.5rem,5vw,2rem);line-height:1.3">우리 클럽에<br>꿈꿀단지를 들이세요</h3>
+          <ul>
+            <li>기기를 두기만 하면 공연마다 수익이 생깁니다</li>
+            <li>유지보수와 기기 교체는 본사가 책임집니다</li>
+            <li>권역별 설치 수를 제한해 지역의 자리를 지킵니다</li>
+            <li>처음 함께하는 3곳에는 우대 조건을 드립니다</li>
+          </ul>
+        </div>
+        <div class="cta">
+          <a href="mailto:salsuga1@gmail.com?subject=%5B%EA%BF%88%EA%BF%80%EB%8B%A8%EC%A7%80%5D%20%ED%8C%8C%ED%8A%B8%EB%84%88%20%EB%AC%B8%EC%9D%98">파트너 문의하기</a>
+          <small>salsuga1@gmail.com</small>
+        </div>
       </div>
-      <div class="cta">
-        <a class="btn primary" href="mailto:salsuga1@gmail.com?subject=%5B%EA%BF%88%EA%BF%80%EB%8B%A8%EC%A7%80%5D%20%ED%8C%8C%ED%8A%B8%EB%84%88%20%EB%AC%B8%EC%9D%98">파트너 문의하기</a>
-        <small>salsuga1@gmail.com</small>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section id="music">
-  <div class="wrap">
-    <div class="kicker">MUSIC</div>
-    <h2>밴드 벗꽃낭시</h2>
-    <p class="sub">수염맨이 쓴 노래들. 정식 발매곡과 자작곡을 유튜브에서 들을 수 있습니다.</p>
-    <div class="songs">
-      <div class="song">꽃비</div>
-      <div class="song">가난한 사랑노래</div>
-    </div>
-    <div class="btns" style="justify-content:flex-start">
-      <a class="btn ghost" href="https://www.youtube.com/@rjokerz" target="_blank" rel="noopener">▶ 유튜브에서 듣기</a>
-    </div>
-  </div>
-</section>
+    <section class="asec">
+      <div class="e">MUSIC</div>
+      <h3>밴드 벗꽃낭시</h3>
+      <p class="sub">수염맨이 쓴 노래들. 정식 발매곡과 자작곡을 유튜브에서 들을 수 있습니다.</p>
+      <div class="songs"><span>꽃비</span><span>가난한 사랑노래</span></div>
+      <a class="ytb" href="https://www.youtube.com/@rjokerz" target="_blank" rel="noopener">▶ 유튜브에서 듣기</a>
+    </section>
 
-<footer>
-  <div class="wrap">
-    <div>© 2026 벗꽃낭시 · 꿈꿀단지 팁박스 (상표출원 중)</div>
-    <div>beotkkotnangsi.com</div>
+    <div class="afoot">© 2026 벗꽃낭시 · 꿈꿀단지 팁박스 (상표출원 중) · beotkkotnangsi.com</div>
   </div>
-</footer>
+</div>
+
+<div class="ov" id="ov"><div class="pbox" id="pb"></div></div>
 
 <script>
-  // 20 dots
-  const dots = document.getElementById('dots');
-  for (let i = 1; i <= 20; i++) {
-    const d = document.createElement('div');
-    d.className = 'dot' + (i === 19 ? ' jeju' : i === 20 ? ' seoul' : '');
-    d.textContent = i;
-    dots.appendChild(d);
+const SHEET_URL='';
+
+const SLOTS={
+  "경기도":2,"부산광역시":2,"인천광역시":2,
+  "대구광역시":1,"광주광역시":1,"대전광역시":1,
+  "울산광역시":1,"세종특별자치시":1,"강원도":1,
+  "충청북도":1,"충청남도":1,"전라북도":1,
+  "전라남도":1,"경상북도":1,"경상남도":1,"제주특별자치도":1
+};
+
+const VENUES={
+  "전라북도":[
+    {code:"JJ.TM",city:"전주",name:"더뮤지션",
+     bands:[{team:"소나기밴드",coins:842},{team:"청춘멜로디",coins:611},{team:"늦은오후",coins:398}]}
+  ]
+};
+
+const SHORT={
+  "서울특별시":"서울","부산광역시":"부산","대구광역시":"대구","인천광역시":"인천",
+  "광주광역시":"광주","대전광역시":"대전","울산광역시":"울산","세종특별자치시":"세종",
+  "경기도":"경기","강원도":"강원","충청북도":"충북","충청남도":"충남",
+  "전라북도":"전북","전라남도":"전남","경상북도":"경북","경상남도":"경남","제주특별자치도":"제주"
+};
+
+const PATHS={"제주특별자치도":{"d":"M 173.6,378.4 Q 169.5,375.7 164.9,377.7 L 129.0,393.6 Q 124.9,395.4 128.3,398.3 L 129.6,399.5 Q 133.0,402.4 137.3,401.5 L 168.5,395.2 Q 173.4,394.2 176.2,390.1 L 178.1,387.3 Q 180.9,383.2 176.7,380.4 Z","cx":158.6,"cy":388.7},"경상남도":{"d":"M 288.0,227.1 Q 283.4,229.2 279.2,226.5 L 253.0,210.1 Q 248.8,207.4 244.7,210.3 L 236.7,215.8 Q 232.6,218.6 231.7,223.5 L 227.5,245.9 Q 226.6,250.8 229.2,255.1 L 238.3,269.6 Q 240.9,273.8 245.9,274.2 L 275.8,276.6 Q 280.8,277.0 282.6,281.6 L 284.1,285.4 Q 286.0,290.0 287.8,285.3 L 291.5,275.5 Q 292.9,272.0 289.2,270.9 L 287.8,270.5 Q 284.1,269.5 287.6,268.0 L 292.0,266.2 Q 295.1,264.9 298.2,266.3 L 299.4,266.8 Q 302.5,268.1 301.4,265.0 L 300.4,262.2 Q 298.8,258.0 302.9,259.9 L 311.3,263.8 Q 315.8,265.9 319.8,262.9 L 339.1,248.2 Q 343.1,245.2 339.8,241.4 L 332.0,232.3 Q 328.8,228.5 323.8,227.9 L 299.5,224.7 Q 294.6,224.1 290.0,226.2 Z","cx":283.2,"cy":248.0},"경상북도":{"d":"M 355.8,226.7 Q 360.8,226.3 362.5,221.6 L 368.6,204.6 Q 370.3,199.9 365.4,199.2 L 360.4,198.5 Q 355.5,197.7 356.2,192.8 L 362.1,151.2 Q 362.8,146.3 361.4,141.5 L 356.1,123.9 Q 354.6,119.2 349.6,119.7 L 308.6,124.4 Q 303.6,125.0 300.2,128.7 L 290.4,139.5 Q 287.0,143.2 282.0,143.1 L 266.1,142.9 Q 261.1,142.8 257.3,146.1 L 246.1,155.7 Q 242.3,158.9 243.2,163.9 L 245.4,176.6 Q 246.2,181.6 251.2,182.0 L 255.2,182.4 Q 260.2,182.9 257.3,187.0 L 249.9,197.1 Q 248.0,199.7 248.3,202.9 L 248.5,204.2 Q 248.8,207.4 251.5,209.2 L 279.2,226.5 Q 283.4,229.2 284.2,224.2 L 286.1,211.9 Q 286.8,207.0 291.6,205.7 L 304.0,202.3 Q 308.8,201.0 308.2,205.9 L 307.0,215.5 Q 306.4,220.5 301.6,221.9 L 299.4,222.6 Q 294.6,224.1 299.5,224.7 L 323.8,227.9 Q 328.8,228.5 333.7,228.2 Z","cx":301.8,"cy":170.2},"전라남도":{"d":"M 229.2,255.1 Q 226.6,250.8 221.6,250.9 L 198.5,251.4 Q 193.5,251.5 189.3,248.8 L 176.9,240.8 Q 172.7,238.1 168.4,240.7 L 155.4,248.7 Q 151.6,251.0 149.1,247.3 L 148.1,245.8 Q 145.6,242.2 143.0,245.7 L 137.8,252.7 Q 134.8,256.7 138.0,260.5 L 141.9,265.2 Q 145.1,269.0 140.1,268.8 L 130.1,268.4 Q 125.1,268.2 130.0,268.6 L 135.9,269.2 Q 140.8,269.6 141.4,274.6 L 144.4,300.4 Q 144.7,302.4 142.9,301.5 L 142.2,301.2 Q 140.5,300.4 139.6,298.7 L 136.5,292.9 Q 135.0,290.0 133.7,293.0 L 133.1,294.1 Q 131.8,297.1 133.7,299.7 L 147.7,319.2 Q 150.6,323.3 153.8,319.4 L 165.6,305.3 Q 168.8,301.4 171.6,305.6 L 174.3,309.8 Q 177.1,313.9 180.7,310.5 L 199.5,292.3 Q 202.3,289.6 204.5,292.7 L 205.5,293.9 Q 207.7,297.0 204.4,298.9 L 197.5,302.9 Q 193.2,305.5 197.8,307.5 L 204.9,310.7 Q 209.4,312.7 213.2,309.4 L 217.7,305.5 Q 221.5,302.2 219.4,297.7 L 215.4,288.9 Q 213.9,285.5 217.3,283.9 L 218.7,283.3 Q 222.0,281.7 223.8,285.0 L 228.7,294.0 Q 231.1,298.4 233.7,294.1 L 238.1,287.3 Q 240.7,283.0 236.0,281.5 L 232.3,280.3 Q 227.5,278.8 232.2,277.1 L 236.2,275.6 Q 240.9,273.8 238.3,269.6 Z","cx":187.1,"cy":280.3},"전라북도":{"d":"M 235.8,197.4 Q 230.9,196.4 226.6,199.0 L 224.4,200.3 Q 220.1,202.9 215.4,201.3 L 186.8,191.7 Q 182.1,190.1 178.0,193.0 L 170.3,198.4 Q 166.2,201.3 161.2,201.9 L 155.8,202.7 Q 150.9,203.4 155.6,205.1 L 166.0,208.7 Q 170.7,210.4 166.7,213.3 L 150.9,224.6 Q 146.8,227.6 151.7,228.8 L 156.8,230.1 Q 161.6,231.4 157.5,234.2 L 149.3,239.7 Q 145.6,242.2 148.1,245.8 L 149.1,247.3 Q 151.6,251.0 155.4,248.7 L 168.4,240.7 Q 172.7,238.1 176.9,240.8 L 189.3,248.8 Q 193.5,251.5 198.5,251.4 L 221.6,250.9 Q 226.6,250.8 227.5,245.9 L 231.7,223.5 Q 232.6,218.6 236.7,215.8 L 246.1,209.3 Q 248.8,207.4 248.5,204.2 L 248.3,202.9 Q 248.0,199.7 244.8,199.1 Z","cx":192.4,"cy":223.1},"충청남도":{"d":"M 183.6,136.6 Q 178.6,136.5 174.0,134.6 L 153.9,126.8 Q 149.2,125.0 144.6,126.9 L 141.5,128.2 Q 136.8,130.1 137.2,135.1 L 137.6,141.0 Q 137.7,142.7 136.0,142.7 L 135.3,142.7 Q 133.6,142.7 133.9,141.0 L 134.8,136.2 Q 135.6,131.5 132.2,134.8 L 124.4,142.4 Q 120.8,145.9 124.3,149.4 L 130.9,156.0 Q 134.5,159.5 139.0,157.3 L 142.1,155.8 Q 146.6,153.7 147.1,158.7 L 149.7,185.5 Q 150.2,190.5 154.4,193.3 L 162.0,198.5 Q 166.2,201.3 170.3,198.4 L 178.0,193.0 Q 182.1,190.1 186.8,191.7 L 215.4,201.3 Q 220.1,202.9 224.4,200.3 L 226.6,199.0 Q 230.9,196.4 227.6,192.6 L 223.7,188.1 Q 220.5,184.3 215.5,184.3 L 210.5,184.4 Q 205.5,184.4 205.4,179.4 L 205.4,176.6 Q 205.4,171.6 203.1,167.2 L 196.8,154.7 Q 194.8,150.7 199.3,151.1 L 201.4,151.4 Q 205.7,151.8 209.4,149.8 L 210.9,149.0 Q 214.7,147.0 211.9,143.9 L 209.3,141.0 Q 205.9,137.3 201.0,137.1 Z","cx":175.0,"cy":165.5},"충청북도":{"d":"M 300.2,128.7 Q 303.6,125.0 299.0,123.1 L 275.9,113.7 Q 271.2,111.8 266.2,112.2 L 243.8,113.8 Q 238.8,114.1 234.7,117.0 L 210.0,134.4 Q 205.9,137.3 209.3,141.0 L 211.9,143.9 Q 214.7,147.0 210.9,149.0 L 209.4,149.8 Q 205.7,151.8 207.7,155.5 L 211.1,161.7 Q 213.5,166.1 217.9,168.6 L 220.6,170.2 Q 225.0,172.7 223.2,177.4 L 222.3,179.6 Q 220.5,184.3 223.7,188.1 L 227.6,192.6 Q 230.9,196.4 235.8,197.4 L 243.1,198.8 Q 248.0,199.7 251.0,195.7 L 257.3,187.0 Q 260.2,182.9 255.2,182.4 L 251.2,182.0 Q 246.2,181.6 245.4,176.6 L 243.2,163.9 Q 242.3,158.9 246.1,155.7 L 257.3,146.1 Q 261.1,142.8 266.1,142.9 L 282.0,143.1 Q 287.0,143.2 290.4,139.5 Z","cx":227.1,"cy":155.4},"강원도":{"d":"M 349.6,119.7 Q 354.6,119.2 351.8,115.0 L 284.8,18.1 Q 282.0,14.0 278.5,17.6 L 264.9,31.9 Q 261.4,35.5 256.4,35.6 L 198.0,36.9 Q 193.0,37.1 197.1,39.9 L 225.1,59.5 Q 229.2,62.3 227.9,67.2 L 224.9,78.7 Q 223.7,83.6 228.5,84.9 L 241.3,88.6 Q 246.1,90.0 244.6,94.8 L 240.2,109.3 Q 238.8,114.1 243.8,113.8 L 266.2,112.2 Q 271.2,111.8 275.9,113.7 L 299.0,123.1 Q 303.6,125.0 308.6,124.4 Z","cx":274.6,"cy":72.9},"경기도":{"d":"M 234.7,117.0 Q 238.8,114.1 240.2,109.3 L 244.6,94.8 Q 246.1,90.0 241.3,88.6 L 228.5,84.9 Q 223.7,83.6 224.9,78.7 L 227.9,67.2 Q 229.2,62.3 225.1,59.5 L 197.1,39.9 Q 193.0,37.1 188.5,39.1 L 171.6,46.8 Q 167.1,48.8 171.4,51.1 L 173.2,52.0 Q 177.5,54.3 173.6,57.2 L 154.4,71.7 Q 150.4,74.7 151.9,79.4 L 153.0,82.8 Q 154.5,87.5 159.5,87.7 L 165.4,87.8 Q 170.4,88.0 174.8,85.6 L 181.9,81.8 Q 186.3,79.4 190.1,82.6 L 194.4,86.2 Q 198.2,89.4 194.7,93.0 L 192.4,95.4 Q 188.9,98.9 184.3,96.9 L 169.8,90.5 Q 168.5,89.9 167.9,91.1 L 167.6,91.6 Q 166.9,92.8 166.8,94.2 L 166.6,97.8 Q 166.3,101.3 168.6,104.0 L 170.0,105.8 Q 172.7,109.0 169.4,111.5 L 163.9,115.7 Q 160.9,118.0 164.7,117.6 L 166.3,117.5 Q 170.2,117.1 171.7,120.7 L 176.6,131.9 Q 178.6,136.5 183.6,136.6 L 201.0,137.1 Q 205.9,137.3 210.0,134.4 Z","cx":212.1,"cy":85.5},"세종특별자치시":{"d":"M 207.8,155.8 Q 205.7,151.8 201.1,151.3 L 199.3,151.1 Q 194.8,150.7 196.8,154.7 L 203.6,168.0 Q 205.4,171.6 208.8,169.3 L 210.2,168.4 Q 213.5,166.1 211.6,162.5 Z","cx":204.3,"cy":158.9},"울산광역시":{"d":"M 358.7,230.9 Q 360.8,226.3 355.8,226.7 L 333.7,228.2 Q 328.8,228.5 332.0,232.3 L 340.8,242.5 Q 343.1,245.2 346.1,246.9 L 347.3,247.6 Q 350.3,249.4 351.8,246.2 Z","cx":346.0,"cy":236.9},"대전광역시":{"d":"M 215.5,184.3 Q 220.5,184.3 222.3,179.6 L 223.2,177.4 Q 225.0,172.7 220.6,170.2 L 217.1,168.1 Q 213.5,166.1 210.2,168.4 L 208.8,169.3 Q 205.4,171.6 205.4,175.7 L 205.4,179.4 Q 205.5,184.4 210.5,184.4 Z","cx":214.1,"cy":178.5},"광주광역시":{"d":"M 179.7,259.3 Q 178.5,254.4 173.5,254.6 L 171.0,254.7 Q 166.3,254.9 163.8,258.9 L 162.7,260.4 Q 160.2,264.4 164.8,265.1 L 176.8,267.0 Q 181.7,267.8 180.6,262.9 Z","cx":171.5,"cy":259.6},"인천광역시":{"d":"M 166.8,94.2 Q 166.9,92.8 167.6,91.6 L 168.0,90.9 Q 168.5,89.9 169.3,89.1 L 169.6,88.8 Q 170.4,88.0 169.3,87.9 L 159.5,87.7 Q 154.5,87.5 155.4,92.4 L 157.1,101.3 Q 157.8,105.1 161.3,103.5 L 163.0,102.7 Q 166.3,101.3 166.6,97.8 Z","cx":161.4,"cy":97.1},"대구광역시":{"d":"M 290.0,226.2 Q 294.6,224.1 299.4,222.6 L 301.6,221.9 Q 306.4,220.5 307.0,215.5 L 308.2,205.9 Q 308.8,201.0 304.0,202.3 L 291.6,205.7 Q 286.8,207.0 286.1,211.9 L 284.2,224.2 Q 283.4,229.2 288.0,227.1 Z","cx":296.5,"cy":213.7},"부산광역시":{"d":"M 348.2,252.1 Q 350.3,249.4 347.3,247.6 L 346.1,246.9 Q 343.1,245.2 340.3,247.3 L 319.8,262.9 Q 315.8,265.9 320.7,266.8 L 329.6,268.5 Q 334.5,269.4 337.6,265.5 Z","cx":335.2,"cy":257.6},"서울특별시":{"d":"M 169.3,89.1 Q 168.5,89.9 169.6,90.4 L 184.3,96.9 Q 188.9,98.9 192.4,95.4 L 194.7,93.0 Q 198.2,89.4 194.4,86.2 L 190.1,82.6 Q 186.3,79.4 181.9,81.8 L 171.4,87.4 Q 170.4,88.0 169.6,88.8 Z","cx":183.5,"cy":88.7}};
+
+function go(id,el){
+  var ps=document.querySelectorAll('.pg');
+  for(var i=0;i<ps.length;i++) ps[i].classList.remove('on');
+  var ns=document.querySelectorAll('.nav');
+  for(var j=0;j<ns.length;j++) ns[j].classList.remove('on');
+  document.getElementById('pg-'+id).classList.add('on');
+  if(el) el.classList.add('on');
+  window.scrollTo(0,0);
+}
+
+function buildStatus(){
+  var n=0; for(var p in VENUES) n+=VENUES[p].length;
+  document.getElementById('litB').textContent=n;
+}
+
+function buildRanks(){
+  var all=[];
+  for(var p in VENUES) VENUES[p].forEach(function(v){
+    v.bands.forEach(function(b){all.push({team:b.team,coins:b.coins,code:v.code});});
+  });
+  all.sort(function(a,b){return b.coins-a.coins;});
+  var w=document.getElementById('ranks');
+  if(!all.length){w.innerHTML='<div class="rempty">집계된 순위가 없습니다</div>';return;}
+  var h='';
+  for(var i=0;i<3;i++){
+    var b=all[i]; if(!b) break;
+    h+='<div class="rrow2'+(i===0?' top':'')+'"><div class="rk">'+(i+1)+
+       '</div><div class="rmeta"><div class="rteam2">'+b.team+
+       '</div><div class="rcoin2">'+b.coins.toLocaleString()+' 코인</div></div></div>';
   }
+  w.innerHTML=h;
+}
 
-  // tip box demo
-  let bal = 12, tot = 488;
-  const balEl = document.getElementById('bal'), totEl = document.getElementById('tot');
-  const fx = document.getElementById('fx'), star = document.getElementById('star');
-  const colors = {1:'#f5c518', 10:'#e0413a', 100:'#3a7be0'};
+var NS='http://www.w3.org/2000/svg';
+function el(t,a){var n=document.createElementNS(NS,t);for(var k in a)n.setAttribute(k,a[k]);return n;}
 
-  function burst(n, color) {
-    const r = fx.getBoundingClientRect();
-    for (let i = 0; i < n; i++) {
-      const s = document.createElement('div');
-      s.className = 'spark';
-      s.style.background = color;
-      s.style.left = r.width / 2 + 'px';
-      s.style.top = r.height * 0.45 + 'px';
-      const a = Math.random() * Math.PI * 2, dist = 60 + Math.random() * 140;
-      s.style.setProperty('--dx', Math.cos(a) * dist + 'px');
-      s.style.setProperty('--dy', Math.sin(a) * dist + 'px');
-      fx.appendChild(s);
-      setTimeout(() => s.remove(), 950);
+
+/* 지역별 파스텔 */
+var TINT={
+ "경기도":"#A9C9E8","인천광역시":"#BFE3EA","강원도":"#B6D79F","충청북도":"#B3AADB",
+ "충청남도":"#F0C9A9","대전광역시":"#F3E0B6","세종특별자치시":"#E6D8AE",
+ "전라북도":"#C8B7A6","전라남도":"#F0D293","광주광역시":"#DAD2C4",
+ "경상북도":"#C3CE79","대구광역시":"#C9C1E6","경상남도":"#9BD1DC",
+ "부산광역시":"#C9DCA3","울산광역시":"#F0BA9B","제주특별자치도":"#E9C9D8",
+ "서울특별시":"#9B94A1"
+};
+function shade(hex,f){
+  var n=parseInt(hex.slice(1),16);
+  var r=Math.min(255,Math.round((n>>16)*f));
+  var g=Math.min(255,Math.round((n>>8&255)*f));
+  var b=Math.min(255,Math.round((n&255)*f));
+  return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);
+}
+var DEPTH=13, STEP=1.0;
+
+
+function buildMap(){
+  var svg=document.getElementById('krmap');
+  var names=[]; for(var n in PATHS) names.push(n);
+
+  /* 측면 — 깊은 층부터 쌓아 두께를 만든다 */
+  var sides=el('g',{});
+  for(var dp=DEPTH; dp>=1; dp--){
+    for(var i=0;i<names.length;i++){
+      var nm=names[i], o=PATHS[nm];
+      sides.appendChild(el('path',{d:o.d, fill:shade(TINT[nm]||'#CFC7D6',.42),
+        transform:'translate(0,'+(dp*STEP).toFixed(2)+')'}));
     }
   }
-  function render() {
-    balEl.textContent = bal; totEl.textContent = tot;
-    if (tot >= 500) { star.style.borderStyle = 'solid'; star.style.background = 'rgba(240,123,181,.25)'; }
+  svg.appendChild(sides);
+
+  /* 윗면 + 라벨 */
+  var top=el('g',{});
+  for(var k=0;k<names.length;k++){
+    (function(name){
+      var o=PATHS[name];
+      var hv=!!(VENUES[name]&&VENUES[name].length);
+      var seoul=name==='서울특별시';
+      var base=hv?'#FF9BB6':(TINT[name]||'#CFC7D6');
+      var path=el('path',{d:o.d,'class':'province'+(hv?' hv':'')+(seoul?' seoul':''),
+        fill:base, tabindex:seoul?'-1':'0'});
+      path.dataset.base=base;
+      if(!seoul){
+        path.addEventListener('click',function(){openP(name);});
+        path.addEventListener('mouseenter',function(){this.setAttribute('fill',shade(base,1.14));});
+        path.addEventListener('mouseleave',function(){this.setAttribute('fill',base);});
+        path.addEventListener('keydown',function(e){
+          if(e.key==='Enter'||e.key===' '){e.preventDefault();openP(name);}});
+      }
+      top.appendChild(path);
+      if(hv){
+        top.appendChild(el('circle',{cx:o.cx,cy:o.cy-14,r:10,'class':'pdot-ring'}));
+        top.appendChild(el('circle',{cx:o.cx,cy:o.cy-14,r:3.6,'class':'pdot'}));
+      }
+      if(!seoul){
+        var t=el('text',{x:o.cx,y:o.cy+2,'class':'plabel'+(hv?' hv':'')});
+        t.textContent=SHORT[name]||name;
+        top.appendChild(t);
+      }
+    })(names[k]);
   }
-  document.querySelectorAll('.pbtn').forEach(b => b.addEventListener('click', () => {
-    const cost = +b.dataset.cost;
-    if (bal < cost) { bal += cost; tot += cost; }   // 데모: 크레딧이 부족하면 코인을 넣은 셈 치기
-    bal -= cost;
-    burst(cost === 1 ? 14 : cost === 10 ? 40 : 90, colors[cost]);
-    render();
-  }));
-  star.addEventListener('click', () => { if (tot >= 500) burst(120, '#f07bb5'); });
-  render();
+  svg.appendChild(top);
+}
+
+function openP(n){document.getElementById('ov').classList.add('on');showList(n);}
+function closeP(){document.getElementById('ov').classList.remove('on');}
+document.getElementById('ov').addEventListener('click',function(e){
+  if(e.target===e.currentTarget)closeP();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeP();});
+
+function showList(name){
+  var box=document.getElementById('pb');
+  var list=VENUES[name]||[];
+  var total=SLOTS[name]||1;
+  var left=total-list.length;
+  var h='<div class="phead"><div><h3>'+(SHORT[name]||name)+'</h3><span class="ptag">'+
+    total+'자리 중 '+list.length+'곳 · '+left+'자리 남음'+
+    '</span></div><button class="pclose" onclick="closeP()" aria-label="닫기">✕</button></div><div class="pbody">';
+  list.forEach(function(v,i){
+    h+='<button class="vcard" data-i="'+i+'"><div><div class="vn">'+v.name+
+      '</div><div class="vc">'+v.city+'</div></div><div class="vco">'+v.code+'</div></button>';
+  });
+  for(var i=0;i<left;i++) h+='<div class="slot-empty">빈 자리</div>';
+  h+='</div>';box.innerHTML=h;
+  var cards=box.querySelectorAll('.vcard');
+  for(var k=0;k<cards.length;k++){
+    (function(btn){btn.addEventListener('click',function(){
+      showDetail(name,list[+btn.getAttribute('data-i')]);});})(cards[k]);
+  }
+}
+
+function showDetail(pn,v){
+  var box=document.getElementById('pb');
+  var s=v.bands.slice().sort(function(a,b){return b.coins-a.coins;});
+  var h='<div class="phead"><div><h3>'+v.name+'</h3><span class="ptag">'+v.city+' · '+v.code+
+    '</span></div><button class="pclose" onclick="closeP()" aria-label="닫기">✕</button></div>'+
+    '<div class="pbody"><button class="bbtn" id="bb">← '+(SHORT[pn]||pn)+' 목록으로</button><div class="demonote" style="margin:-.6rem 0 1rem">※ 파일럿 운영 전 예시 데이터입니다</div>';
+  s.forEach(function(b,i){
+    h+='<div class="rrow '+(i===0?'r1':'')+'"><div class="rnum">'+(i+1)+
+      '</div><div class="rteam">'+b.team+'<span class="rcode">('+v.code+
+      ')</span></div><div class="rcoins"><b>'+b.coins.toLocaleString()+'</b> 코인</div></div>';
+  });
+  h+='</div>';box.innerHTML=h;
+  box.querySelector('#bb').addEventListener('click',function(){showList(pn);});
+}
+
+function buildBracket(){
+  var rounds=[{n:'8강',m:4},{n:'4강',m:2},{n:'결승',m:1}];
+  var wrap=document.getElementById('bracket');
+  var seed=1, html='';
+  rounds.forEach(function(r,ri){
+    html+='<div class="round"><div class="rname">'+r.n+'</div><div class="mlist">';
+    for(var i=0;i<r.m;i++){
+      html+='<div class="match'+(ri===rounds.length-1?' fin':'')+'">';
+      for(var s=0;s<2;s++){
+        var lab=(ri===0)?String(seed++):'—';
+        html+='<div class="mslot"><span class="mseed">'+lab+
+          '</span><span class="mname">미정</span></div>';
+      }
+      html+='</div>';
+    }
+    html+='</div></div>';
+  });
+  wrap.innerHTML=html;
+}
+
+function petals(){
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  var host=document.getElementById('petalHost');
+  for(var i=0;i<12;i++){
+    var p=document.createElement('div');
+    p.className='petal';
+    p.style.left=(Math.random()*100)+'%';
+    p.style.animationDuration=(8+Math.random()*7)+'s';
+    p.style.animationDelay=(Math.random()*10)+'s';
+    host.appendChild(p);
+  }
+}
+
+function fmt(inp){
+  var v=inp.value.replace(/[^A-Za-z0-9]/g,'').toUpperCase();
+  /* BKNS를 그대로 붙여넣은 경우 앞부분을 떼어낸다 */
+  if(v.indexOf('BKNS')===0) v=v.slice(4);
+  v=v.slice(0,8);
+  if(v.length>4) v=v.slice(0,4)+'-'+v.slice(4);
+  inp.value=v;
+}
+
+function verify(){
+  var raw=document.getElementById('ci').value.replace(/[^A-Za-z0-9]/g,'').toUpperCase();
+  if(raw.indexOf('BKNS')===0) raw=raw.slice(4);
+  var code='BKNS-'+raw.slice(0,4)+'-'+raw.slice(4,8);
+  if(!raw){show('fail','코드를 입력해 주세요.','카드에 적힌 뒤 8자리입니다.');return;}
+  if(raw.length<8){show('fail','8자리를 모두 입력해 주세요.','현재 '+raw.length+'자리 입력되었습니다.');return;}
+  if(!SHEET_URL){show('fail','조회 서버가 연결되지 않았습니다.','잠시 후 다시 시도해 주세요.');return;}
+  show('ok','확인 중...','조회하고 있습니다.');
+  fetch(SHEET_URL+'?code='+encodeURIComponent(code))
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d&&d.valid) show('ok','정품이 맞습니다.',(d.issued?'발급일 '+d.issued+' · ':'')+(d.note||'벗꽃낭시 공식 키링'));
+      else show('fail','확인되지 않는 코드입니다.','코드를 다시 확인해 주세요.');
+    })
+    .catch(function(){show('fail','조회에 실패했습니다.','잠시 후 다시 시도해 주세요.');});
+}
+
+function show(kind,title,detail){
+  var res=document.getElementById('kr');
+  res.className='kresult show '+kind;
+  res.innerHTML='<div class="kt">'+title+'</div><div>'+(detail||'')+'</div>';
+}
+
+buildStatus();
+buildRanks();
+buildMap();
+buildBracket();
+petals();
 </script>
 </body>
 </html>
