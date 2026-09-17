@@ -587,7 +587,7 @@ a.logo{color:inherit;text-decoration:none;cursor:pointer;user-select:none;-webki
 <div class="ov" id="ov"><div class="pbox" id="pb"></div></div>
 
 <script>
-const SHEET_URL='';
+const SHEET_URL='https://script.google.com/macros/s/AKfycbxcVjXYTeRCsayP_qhx0Wz-YQJEN-FE8sggaHb0Q7Z6fUERBfs8Vj1eOZoTsoAQ7CkiKg/exec';
 
 const SLOTS={
   "경기도":2,"부산광역시":2,"인천광역시":2,
@@ -856,6 +856,7 @@ function loadLive(){
           bands:(v.bands||[]).map(function(b){return {team:pyEsc(b.team),coins:Number(b.coins)||0};})};
       });
     }
+    if(!Object.keys(clean).length) return; /* 아직 등록된 공연장이 없으면 예시 지도 유지 */
     var sig=JSON.stringify(clean);
     document.body.classList.add('live');
     if(sig===LIVE_SIG) return;
@@ -875,7 +876,7 @@ function goHome(){
 }
 
 /* ── 공연자 정산 ── */
-const CLAIM_FORM_URL=''; /* 구글폼 청구서 링크를 넣으면 버튼이 켜집니다 */
+const CLAIM_FORM_URL='https://docs.google.com/forms/d/e/1FAIpQLSdFnY-OlD8uej0jLr9_yaED5mVPmY741k5HjBuBsp7EGz9Wgg/viewform'; /* 구글폼 청구서 링크를 넣으면 버튼이 켜집니다 */
 var PY_WON={pyB:2000,pyS:20000,pyG:200000};
 function pyEsc(t){return String(t==null?'':t).replace(/[&<>"']/g,function(c){
   return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
