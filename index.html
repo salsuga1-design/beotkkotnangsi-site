@@ -362,6 +362,66 @@ a.logo{color:inherit;text-decoration:none;cursor:pointer;user-select:none;-webki
 .pyfaq summary::after{content:'+';color:var(--blossom);font-family:var(--mono);font-weight:700}
 .pyfaq[open] summary::after{content:'−'}
 .pyfaq p{font-size:.85rem;color:var(--muted);margin-top:.45rem}
+
+/* ══════════ 2026-09 디자인 시안 ══════════ */
+.plabel.q{font-size:22px;fill:#F3EEF5}
+.seatdot{fill:#2E2634;opacity:.28}
+#krmap.calm .plabel{paint-order:stroke fill;stroke:#D6CDD9;stroke-width:3.2px;stroke-linejoin:round}
+#krmap.calm .plabel.hv{stroke:#FF9BB6}
+#krmap.calm .plabel.q{stroke:#8A8390;stroke-width:2px}
+#krmap .plabel.sm{font-size:10.5px}
+#krmap.calm .seatdot.halo{stroke:#D6CDD9;stroke-width:1.2px;paint-order:stroke fill;opacity:.6}
+/* 코인 그림 */
+.disc.art{background:none!important;box-shadow:none!important}
+.disc.art svg,.cpair svg{width:100%;height:100%;display:block}
+.cpair{flex:none;display:flex;gap:4px}
+.cpair span{width:40px;height:40px;display:block}
+/* 사진 자리 */
+.ph3{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:1.6rem}
+.ph{margin:0;background:var(--ink2);border:1px dashed #3d3347;border-radius:22px;overflow:hidden;display:flex;flex-direction:column}
+.phin{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 40%,rgba(255,155,182,.07),transparent 70%)}
+.phin img{width:100%;height:100%;object-fit:cover;display:block}
+.phin svg.line{width:46%;height:auto;stroke:#6B5F74;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.phin.coins{gap:0}
+.phin.coins span{width:26%;display:block;margin:0 -2%}
+.phin.coins span:nth-child(2){transform:translateY(-10%)}
+.ph figcaption{padding:.7rem .95rem .85rem;font-size:.9rem;font-weight:700;border-top:1px solid var(--ink3)}
+.ph figcaption small{display:block;font-weight:400;font-size:.74rem;color:var(--faint);margin-top:.1rem}
+.ph.has{border-style:solid;border-color:var(--ink3)}
+@media(max-width:760px){.ph3{grid-template-columns:1fr 1fr}.ph3 .ph:first-child{grid-column:1/-1}}
+/* 스무 자리 */
+.seats{display:grid;grid-template-columns:repeat(10,minmax(0,68px));gap:.55rem;margin-top:1.6rem}
+.seat{aspect-ratio:1;border-radius:50%;border:1px dashed #4a3f55;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:var(--faint);background:rgba(255,255,255,.015)}
+.seat b{font-family:var(--mono);font-size:.62rem;font-weight:700;opacity:.8}
+.seat span{font-family:var(--disp);font-size:.86rem;line-height:1.1;margin-top:.05rem}
+.seat.on{border:1px solid var(--blossom);background:rgba(255,155,182,.16);color:var(--paper);box-shadow:0 0 18px rgba(255,155,182,.35)}
+.seat.on b{color:var(--blossom)}
+.seat.last{border:1px solid #8B8491;background:rgba(139,132,145,.18);color:#D9D3DE}
+.seat.last span{font-size:.8rem}
+.seatlegend{display:flex;flex-wrap:wrap;gap:.4rem 1.1rem;margin-top:.9rem;font-size:.78rem;color:var(--muted)}
+.seatlegend i{display:inline-block;width:.7rem;height:.7rem;border-radius:50%;border:1px dashed #6B5F74;margin-right:.35rem;vertical-align:-.05rem}
+.seatlegend i.on{border:1px solid var(--blossom);background:rgba(255,155,182,.4)}
+.seatlegend i.last{border:1px solid #8B8491;background:rgba(139,132,145,.4)}
+.seatlegend .demo{margin-left:.3rem}
+body.live .seatlegend .demo{display:none}
+.seatwhy .n{font-family:var(--disp)!important;font-weight:400!important;font-size:.95rem!important}
+@media(max-width:760px){.seats{grid-template-columns:repeat(5,1fr);max-width:360px}.seat span{font-size:.8rem}}
+/* 밴드대회 규칙 */
+.cupwrap{max-width:760px;margin:0 auto;padding:clamp(1.6rem,4vw,2.4rem) 1.1rem 3rem}
+.cuplead{text-align:center;color:var(--muted);line-height:1.75;max-width:520px;margin:0 auto 1.8rem;word-break:keep-all}
+.rules{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+@media(max-width:640px){.rules{grid-template-columns:1fr}}
+.rule{background:var(--ink2);border:1px solid var(--ink3);border-radius:22px;padding:1.25rem 1.2rem;display:flex;gap:1rem;align-items:flex-start;word-break:keep-all}
+.rule .rn{flex:none;width:2.4rem;height:2.4rem;border-radius:50%;background:rgba(255,155,182,.12);color:var(--blossom);
+  font-family:var(--mono);font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center}
+.rule .rn.coin{background:none;width:2.6rem;height:2.6rem}
+.rule h4{font-family:var(--disp);font-weight:400;font-size:1.2rem;margin-bottom:.3rem}
+.rule p{color:var(--muted);font-size:.88rem;line-height:1.6}
+.rule.win{border-color:var(--line);background:linear-gradient(135deg,rgba(239,192,106,.1),var(--ink2))}
+.cupwrap .cupfoot{padding:1.6rem 0 0}
+[data-ko]{letter-spacing:.08em!important;font-family:var(--body)!important;font-weight:600}
+.rank-h .s[data-ko]{letter-spacing:.04em!important}
 </style>
 </head>
 <body>
@@ -382,7 +442,7 @@ a.logo{color:inherit;text-decoration:none;cursor:pointer;user-select:none;-webki
     <div class="hud">
       <div class="tally">전국 <b id="litB">1</b> / 20 운영 중</div>
       <aside class="rank">
-        <div class="rank-h"><span class="t">랭킹<span class="demo">예시</span></span><span class="s">TOP 3</span></div>
+        <div class="rank-h"><span class="t">랭킹<span class="demo">예시</span></span><span class="s" data-ko="상위 3">상위 3</span></div>
         <div id="ranks"></div>
         <div class="demonote">파일럿 운영 전 예시 데이터입니다</div>
       </aside>
@@ -395,17 +455,25 @@ a.logo{color:inherit;text-decoration:none;cursor:pointer;user-select:none;-webki
 
 <div class="pg" id="pg-cup">
   <div class="cuphead">
-    <div class="e">CHERRY BLOSSOM BAND CUP</div>
+    <div class="e" data-ko="신인 밴드 토너먼트">신인 밴드 토너먼트</div>
     <h2>천하제일밴드대회</h2>
     <span class="pill">준비 중</span>
   </div>
-  <div class="bwrap"><div class="bracket" id="bracket"></div></div>
-  <div class="cupfoot">참가 팀이 확정되면 대진이 공개됩니다</div>
+  <div class="cupwrap">
+    <p class="cuplead">꿈꿀단지 공연장에서 활동하는 신인 밴드끼리 겨루는 토너먼트입니다.<br>전국 네트워크가 갖춰지면 첫 대회를 엽니다.</p>
+    <div class="rules">
+      <div class="rule"><div class="rn">01</div><div><h4>신인팀만 나옵니다</h4><p>꿈꿀단지 공연장 무대에 서는 신인 밴드가 대상입니다.</p></div></div>
+      <div class="rule"><div class="rn">02</div><div><h4>4강에 들면 졸업</h4><p>4강에 오른 팀은 졸업하고 다시 나올 수 없습니다. 대회마다 새 얼굴이 무대에 섭니다.</p></div></div>
+      <div class="rule"><div class="rn">03</div><div><h4>중립 무대에서 추첨 매칭</h4><p>상대는 추첨으로 정하고, 두 팀 누구의 홈도 아닌 제3의 공연장에서 맞붙습니다.</p></div></div>
+      <div class="rule win"><div class="rn coin" data-coin="au"></div><div><h4>우승팀에게 기념 코인</h4><p>우승한 팀에는 대회 기념 코인을 드립니다.</p></div></div>
+    </div>
+    <div class="cupfoot">대진과 일정은 참가 팀이 확정되면 이 자리에 공개합니다</div>
+  </div>
 </div>
 
 <div class="pg" id="pg-key">
   <div class="kbox">
-    <div class="e">AUTHENTICITY CHECK</div>
+    <div class="e" data-ko="정품 확인">정품 확인</div>
     <h2>키링 확인</h2>
     <div class="kfield">
       <span class="kfix">BKNS</span>
@@ -422,15 +490,15 @@ a.logo{color:inherit;text-decoration:none;cursor:pointer;user-select:none;-webki
 <div class="pg" id="pg-about">
   <div class="awrap">
     <section class="ahero">
-      <div class="e">LIVE CLUB NETWORK</div>
+      <div class="e" data-ko="전국 라이브클럽 네트워크">전국 라이브클럽 네트워크</div>
       <h2>벗꽃<i>낭시</i></h2>
-      <div class="mean"><span><b>벗</b>친구</span><span><b>꽃</b>꽃</span><span><b>낭</b>낭만</span><span><b>시</b>시인들</span></div>
+      <div class="mean"><span><b>벗</b>친구</span><span><b>꽃</b>피는 밤</span><span><b>낭</b>낭만</span><span><b>시</b>시인들</span></div>
       <p>무대 위의 밤을 응원하는 가장 반짝이는 방법.<br>관객의 마음이 코인이 되고, 코인이 공연팀의 내일이 됩니다.</p>
-      <div class="motto">LOVE · LIBERTY · LABOR</div>
+      <div class="motto" data-ko="사랑 · 자유 · 노동">사랑 · 자유 · 노동</div>
     </section>
 
     <section class="asec">
-      <div class="e">ABOUT</div>
+      <div class="e" data-ko="우리는">우리는</div>
       <h3>하나의 이름, 세 개의 무대</h3>
       <p class="sub">“음악 하려면 홍대로 가야 한다”는 공식을 지우고 싶었습니다. 각 지역에는 각 지역의 밴드가 있고, 그 밴드를 사랑하는 관객이 있습니다.</p>
       <div class="g3">
@@ -441,30 +509,52 @@ a.logo{color:inherit;text-decoration:none;cursor:pointer;user-select:none;-webki
     </section>
 
     <section class="asec">
-      <div class="e">KKUMKKULDANJI</div>
+      <div class="e" data-ko="꿈꿀단지">꿈꿀단지</div>
       <h3>꿈꿀단지 팁박스</h3>
       <div class="flow">
         <div><b>꽃</b><small>코인 교환기</small></div><div class="ar">→</div>
         <div><b>꿀</b><small>코인</small></div><div class="ar">→</div>
         <div><b>꿀단지</b><small>팁박스</small></div>
       </div>
-      <div class="coinlist">
-        <div class="coinrow"><div class="disc cu"></div><div><h5>동코인</h5><p>1 크레딧 · 노랑 버튼 폭죽</p></div><div class="pr">2,000원</div></div>
-        <div class="coinrow"><div class="disc ag"></div><div><h5>은코인</h5><p>10 크레딧 · 빨강 버튼 대형 폭죽</p></div><div class="pr">20,000원</div></div>
-        <div class="coinrow"><div class="disc au"></div><div><h5>금코인</h5><p>100 크레딧 · 파랑 버튼 꿀통 애니메이션</p></div><div class="pr">200,000원</div></div>
+      <div class="ph3" id="photos">
+        <figure class="ph" data-photo="tipbox">
+          <div class="phin"><svg class="line" viewBox="0 0 120 100" aria-hidden="true"><rect x="22" y="30" width="76" height="62" rx="10"/><rect x="34" y="42" width="52" height="24" rx="4"/><path d="M50 18h20M60 18v12"/><path d="M48 80h24"/><circle cx="60" cy="10" r="5"/></svg></div>
+          <figcaption>꿈꿀단지 팁박스<small>실물 사진이 들어갈 자리</small></figcaption>
+        </figure>
+        <figure class="ph" data-photo="coin">
+          <div class="phin coins"><span data-coin="cu"></span><span data-coin="ag"></span><span data-coin="au"></span></div>
+          <figcaption>금·은·동코인<small>사진 전까지는 그림으로</small></figcaption>
+        </figure>
+        <figure class="ph" data-photo="stage">
+          <div class="phin"><svg class="line" viewBox="0 0 120 100" aria-hidden="true"><path d="M60 40v48M46 92h28"/><rect x="52" y="14" width="16" height="26" rx="8"/><path d="M20 10l18 40M100 10L82 50" stroke-dasharray="3 5"/></svg></div>
+          <figcaption>공연 현장<small>공연 사진이 들어갈 자리</small></figcaption>
+        </figure>
       </div>
-      <p class="silent">🔇 공연을 방해하지 않도록 완전 무음으로 설계했습니다.</p>
+      <div class="coinlist">
+        <div class="coinrow"><div class="cpair" data-pair="cu"></div><div><h5>동코인</h5><p>1 크레딧 · 노랑 버튼 폭죽</p></div><div class="pr">2,000원</div></div>
+        <div class="coinrow"><div class="cpair" data-pair="ag"></div><div><h5>은코인</h5><p>10 크레딧 · 빨강 버튼 대형 폭죽</p></div><div class="pr">20,000원</div></div>
+        <div class="coinrow"><div class="cpair" data-pair="au"></div><div><h5>금코인</h5><p>100 크레딧 · 파랑 버튼 꿀통 애니메이션</p></div><div class="pr">200,000원</div></div>
+      </div>
+      <p class="silent">🔇 폭죽·꿀통 이펙트는 소리 없이 화면으로만 터집니다. 코인이 떨어지는 소리만 남겨 공연을 방해하지 않습니다.</p>
     </section>
 
     <section class="asec">
-      <div class="e">NETWORK</div>
+      <div class="e" data-ko="스무 자리">스무 자리</div>
       <h3>딱 20곳에서 끝납니다</h3>
+      <p class="sub">꿈꿀단지를 두는 곳은 전국 스무 곳까지입니다. 한 지역에 한두 곳만 두어 그 동네 클럽의 자리를 지킵니다.</p>
+      <div class="seats" id="seats" role="img" aria-label="전국 스무 자리 현황"></div>
+      <div class="seatlegend"><span><i class="on"></i>운영 중<span class="demo">예시</span></span><span><i></i>남은 자리</span><span><i class="last"></i>마지막 스무 번째</span></div>
+      <div class="g3 seatwhy">
+        <div class="acard"><div class="n">스무 곳</div><h4>자리가 차면 끝</h4><p>스무 곳이 차면 더 늘리지 않습니다. 크게 키우기보다 한 곳 한 곳이 오래 가는 쪽을 택했습니다.</p></div>
+        <div class="acard"><div class="n">최부잣집</div><h4>넘치게 모으지 않는다</h4><p>경주 최부잣집은 재산을 만 석 넘게 모으지 말라는 가르침을 지켰습니다. 벗꽃낭시도 그 마음으로 선을 긋습니다.</p></div>
+        <div class="acard"><div class="n">서촌</div><h4>마지막은 서울 서촌</h4><p>열아홉 지역이 먼저 채워지고, 스무 번째 자리는 서울 서촌의 클럽 벗꽃낭시입니다. 그래서 지도 위 서울은 아직 물음표입니다.</p></div>
+      </div>
     </section>
 
     <section class="asec">
       <div class="partner">
         <div>
-          <div class="e" style="font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;color:var(--blossom-dim)">FOR CLUB OWNERS</div>
+          <div class="e" style="font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;color:var(--blossom-dim)" data-ko="클럽 사장님께">클럽 사장님께</div>
           <h3 style="font-family:var(--disp);font-weight:400;font-size:clamp(1.5rem,5vw,2rem);line-height:1.3">우리 클럽에<br>꿈꿀단지를 들이세요</h3>
           <ul>
             <li>기기를 두기만 하면 공연마다 수익이 생깁니다</li>
@@ -473,14 +563,14 @@ a.logo{color:inherit;text-decoration:none;cursor:pointer;user-select:none;-webki
           </ul>
         </div>
         <div class="cta">
-          <a href="mailto:salsuga1@gmail.com?subject=%5B%EA%BF%88%EA%BF%80%EB%8B%A8%EC%A7%80%5D%20%ED%8C%8C%ED%8A%B8%EB%84%88%20%EB%AC%B8%EC%9D%98">파트너 문의하기</a>
-          <small>salsuga1@gmail.com</small>
+          <a id="pmLink" href="mailto:forever_gb1@naver.com?subject=%5B%EA%BF%88%EA%BF%80%EB%8B%A8%EC%A7%80%5D%20%ED%8C%8C%ED%8A%B8%EB%84%88%20%EB%AC%B8%EC%9D%98">파트너 문의하기</a>
+          <small id="pmText">forever_gb1@naver.com</small>
         </div>
       </div>
     </section>
 
     <section class="asec">
-      <div class="e">MUSIC</div>
+      <div class="e" data-ko="음악">음악</div>
       <h3>밴드 벗꽃낭시</h3>
       <p class="sub">수염맨이 쓴 노래들. 정식 발매곡과 자작곡을 유튜브에서 들을 수 있습니다.</p>
       <div class="songs"><span>꽃비</span><span>가난한 사랑노래</span></div>
@@ -494,7 +584,7 @@ a.logo{color:inherit;text-decoration:none;cursor:pointer;user-select:none;-webki
 <div class="pg" id="pg-pay">
   <div class="pywrap">
     <section class="pyhead">
-      <div class="e">ARTIST PAYOUT</div>
+      <div class="e" data-ko="공연팀 정산">공연팀 정산</div>
       <h2>공연자 정산</h2>
       <span class="pill">청구하면 3영업일 안에 입금</span>
     </section>
@@ -589,6 +679,11 @@ a.logo{color:inherit;text-decoration:none;cursor:pointer;user-select:none;-webki
 <script>
 const SHEET_URL='https://script.google.com/macros/s/AKfycbxcVjXYTeRCsayP_qhx0Wz-YQJEN-FE8sggaHb0Q7Z6fUERBfs8Vj1eOZoTsoAQ7CkiKg/exec';
 
+/* ── 설정 ── */
+var MAP_THEME='calm';                                  /* calm: 한 가지 색 + 운영 지역 분홍 · color: 예전 알록달록 */
+var PARTNER_MAIL='forever_gb1@naver.com';              /* 파트너 문의 메일 — 바꿀 때 여기만 */
+var PHOTOS={tipbox:'',coin:'',stage:''};               /* 사진 파일 경로를 넣으면 사진이 들어갑니다 (예: 'img/tipbox.jpg') */
+
 const SLOTS={
   "경기도":2,"부산광역시":2,"인천광역시":2,
   "대구광역시":1,"광주광역시":1,"대전광역시":1,
@@ -626,6 +721,7 @@ function go(id,el){
 function buildStatus(){
   var n=0; for(var p in VENUES) n+=VENUES[p].length;
   document.getElementById('litB').textContent=n;
+  buildSeats();
 }
 
 function buildRanks(){
@@ -669,52 +765,94 @@ function shade(hex,f){
 var DEPTH=13, STEP=1.0;
 
 
+/* 새 시안 색: 한 가지 차분한 색 + 운영 지역만 분홍 */
+var CALM={face:'#D6CDD9',side:'#5B5061',hi:'#FF9BB6',hiSide:'#8E4459',seoul:'#8A8390',seoulSide:'#46404B'};
+/* 좁은 지역 글자 겹침 방지 (지도 좌표 단위) */
+var NUDGE={'세종특별자치시':[-6,-3],'충청북도':[7,-1],'대전광역시':[2,3],'인천광역시':[2,1],'울산광역시':[2,-2],'부산광역시':[-2,3]};
+var SMALL_LABEL={'인천광역시':1};   /* 면적이 아주 작은 지역은 글자를 조금 작게 */
+var DOTS_UP={'인천광역시':1};       /* 점을 글자 위에 */
+
+function faceOf(name,hv){
+  if(MAP_THEME==='color') return hv?'#FF9BB6':(TINT[name]||'#CFC7D6');
+  if(name==='서울특별시') return CALM.seoul;
+  return hv?CALM.hi:CALM.face;
+}
+function sideOf(name,hv){
+  if(MAP_THEME==='color') return shade(TINT[name]||'#CFC7D6',.42);
+  if(name==='서울특별시') return CALM.seoulSide;
+  return hv?CALM.hiSide:CALM.side;
+}
+
 function buildMap(){
   var svg=document.getElementById('krmap');
   var names=[]; for(var n in PATHS) names.push(n);
+  var calm=MAP_THEME!=='color';
+  svg.classList.toggle('calm',calm);
+
+  if(calm){
+    var defs=el('defs',{});
+    defs.innerHTML='<filter id="glow" x="-40%" y="-40%" width="180%" height="180%">'+
+      '<feGaussianBlur in="SourceAlpha" stdDeviation="4.5" result="b"/>'+
+      '<feFlood flood-color="#FF9BB6" flood-opacity="1"/><feComposite in2="b" operator="in" result="g"/>'+
+      '<feMerge><feMergeNode in="g"/><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
+    svg.appendChild(defs);
+  }
 
   /* 측면 — 깊은 층부터 쌓아 두께를 만든다 */
   var sides=el('g',{});
   for(var dp=DEPTH; dp>=1; dp--){
     for(var i=0;i<names.length;i++){
-      var nm=names[i], o=PATHS[nm];
-      sides.appendChild(el('path',{d:o.d, fill:shade(TINT[nm]||'#CFC7D6',.42),
+      var nm=names[i], o=PATHS[nm], h0=!!(VENUES[nm]&&VENUES[nm].length);
+      sides.appendChild(el('path',{d:o.d, fill:sideOf(nm,h0),
         transform:'translate(0,'+(dp*STEP).toFixed(2)+')'}));
     }
   }
   svg.appendChild(sides);
 
-  /* 윗면 + 라벨 */
-  var top=el('g',{});
+  /* 윗면 */
+  var top=el('g',{}), marks=el('g',{}), labels=el('g',{});
   for(var k=0;k<names.length;k++){
     (function(name){
       var o=PATHS[name];
       var hv=!!(VENUES[name]&&VENUES[name].length);
       var seoul=name==='서울특별시';
-      var base=hv?'#FF9BB6':(TINT[name]||'#CFC7D6');
-      var path=el('path',{d:o.d,'class':'province'+(hv?' hv':'')+(seoul?' seoul':''),
-        fill:base, tabindex:seoul?'-1':'0'});
+      var base=faceOf(name,hv);
+      var a={d:o.d,'class':'province'+(hv?' hv':'')+(seoul?' seoul':''), fill:base, tabindex:seoul?'-1':'0'};
+      if(calm&&hv) a.filter='url(#glow)';
+      var path=el('path',a);
       path.dataset.base=base;
       if(!seoul){
         path.addEventListener('click',function(){openP(name);});
-        path.addEventListener('mouseenter',function(){this.setAttribute('fill',shade(base,1.14));});
+        path.addEventListener('mouseenter',function(){this.setAttribute('fill',shade(base,1.08));});
         path.addEventListener('mouseleave',function(){this.setAttribute('fill',base);});
         path.addEventListener('keydown',function(e){
           if(e.key==='Enter'||e.key===' '){e.preventDefault();openP(name);}});
       }
       top.appendChild(path);
+
+      var nx=(NUDGE[name]||[0,0])[0], ny=(NUDGE[name]||[0,0])[1];
+      var lx=o.cx+nx, ly=o.cy+2+ny;
       if(hv){
-        top.appendChild(el('circle',{cx:o.cx,cy:o.cy-14,r:10,'class':'pdot-ring'}));
-        top.appendChild(el('circle',{cx:o.cx,cy:o.cy-14,r:3.6,'class':'pdot'}));
+        marks.appendChild(el('circle',{cx:o.cx,cy:o.cy-14,r:10,'class':'pdot-ring'}));
+        marks.appendChild(el('circle',{cx:o.cx,cy:o.cy-14,r:3.6,'class':'pdot'}));
       }
-      if(!seoul){
-        var t=el('text',{x:o.cx,y:o.cy+2,'class':'plabel'+(hv?' hv':'')});
-        t.textContent=SHORT[name]||name;
-        top.appendChild(t);
+      /* 글자는 모든 지역을 다 그린 뒤 맨 위에 — 이웃 지역에 가려지지 않게 */
+      var t=el('text',{x:lx,y:ly,'class':'plabel'+(hv?' hv':'')+(seoul?' q':'')+(SMALL_LABEL[name]?' sm':'')});
+      t.textContent=seoul?'?':(SHORT[name]||name);
+      labels.appendChild(t);
+
+      /* 남은 자리 수만큼 흐린 점 */
+      if(calm&&!seoul){
+        var left=(SLOTS[name]||1)-((VENUES[name]||[]).length);
+        for(var d=0;d<left;d++){
+          marks.appendChild(el('circle',{cx:(lx+(d-(left-1)/2)*5.4).toFixed(1),cy:(ly+(DOTS_UP[name]?-9:9.5)).toFixed(1),r:1.9,'class':'seatdot'+(DOTS_UP[name]?' halo':'')}));
+        }
       }
     })(names[k]);
   }
   svg.appendChild(top);
+  svg.appendChild(marks);
+  svg.appendChild(labels);
 }
 
 function openP(n){document.getElementById('ov').classList.add('on');showList(n);}
@@ -777,6 +915,82 @@ function buildBracket(){
     html+='</div></div>';
   });
   wrap.innerHTML=html;
+}
+
+/* ── 코인 그림 (실물 사진 전까지) ── */
+var COIN={cu:{hi:'#F2BC98',mid:'#C27C4A',lo:'#7B4322',ink:'#57300F',t:'동'},
+          ag:{hi:'#FFFFFF',mid:'#C8C9C3',lo:'#7B7C76',ink:'#4E4F49',t:'은'},
+          au:{hi:'#FFEDB0',mid:'#E2AC3C',lo:'#94640F',ink:'#6A4608',t:'금'}};
+var COIN_N=0;
+function coinSVG(k,side){
+  var c=COIN[k], id='cg'+(COIN_N++), i, s='';
+  s+='<svg viewBox="0 0 100 100" aria-hidden="true"><defs><radialGradient id="'+id+'" cx="34%" cy="28%" r="80%">'+
+     '<stop offset="0" stop-color="'+c.hi+'"/><stop offset=".55" stop-color="'+c.mid+'"/><stop offset="1" stop-color="'+c.lo+'"/></radialGradient></defs>';
+  s+='<circle cx="50" cy="50" r="48" fill="url(#'+id+')"/>';
+  s+='<circle cx="50" cy="50" r="45" fill="none" stroke="'+c.ink+'" stroke-opacity=".45" stroke-width="3.2" stroke-dasharray="1.4 2"/>';
+  s+='<circle cx="50" cy="50" r="38.5" fill="none" stroke="'+c.ink+'" stroke-opacity=".55" stroke-width="1.5"/>';
+  if(side==='back'){
+    /* 뒷면: 벚꽃 다섯 잎 + 점 테두리 */
+    for(i=0;i<5;i++) s+='<ellipse cx="50" cy="35" rx="8.5" ry="13" fill="'+c.ink+'" fill-opacity=".5" transform="rotate('+(i*72)+' 50 50)"/>';
+    s+='<circle cx="50" cy="50" r="5" fill="'+c.hi+'" fill-opacity=".9"/>';
+    for(i=0;i<16;i++){var a=i*Math.PI/8;s+='<circle cx="'+(50+32*Math.cos(a)).toFixed(1)+'" cy="'+(50+32*Math.sin(a)).toFixed(1)+'" r="1.3" fill="'+c.ink+'" fill-opacity=".45"/>';}
+  }else{
+    /* 앞면: 벌집 육각형 + 이름 */
+    var hex=function(cx,cy,r){var p=[];for(var j=0;j<6;j++){var b=Math.PI/3*j+Math.PI/6;p.push((cx+r*Math.cos(b)).toFixed(1)+','+(cy+r*Math.sin(b)).toFixed(1));}return p.join(' ');};
+    s+='<polygon points="'+hex(50,50,23)+'" fill="'+c.ink+'" fill-opacity=".14" stroke="'+c.ink+'" stroke-opacity=".6" stroke-width="1.6"/>';
+    [[50,19],[50,81],[23,34.5],[77,34.5],[23,65.5],[77,65.5]].forEach(function(q){
+      s+='<polygon points="'+hex(q[0],q[1],6)+'" fill="none" stroke="'+c.ink+'" stroke-opacity=".32" stroke-width="1.2"/>';});
+    s+='<text x="50" y="51" text-anchor="middle" dominant-baseline="central" font-family="Jua,sans-serif" font-size="25" fill="'+c.ink+'" fill-opacity=".85">'+c.t+'</text>';
+  }
+  return s+'</svg>';
+}
+function buildCoins(){
+  document.querySelectorAll('.disc.cu,.disc.ag,.disc.au').forEach(function(d){
+    var k=d.classList.contains('cu')?'cu':(d.classList.contains('ag')?'ag':'au');
+    d.classList.add('art'); d.innerHTML=coinSVG(k,'front');
+  });
+  document.querySelectorAll('[data-pair]').forEach(function(d){
+    var k=d.getAttribute('data-pair');
+    d.innerHTML='<span title="앞면">'+coinSVG(k,'front')+'</span><span title="뒷면">'+coinSVG(k,'back')+'</span>';
+  });
+  document.querySelectorAll('[data-coin]').forEach(function(d){
+    d.innerHTML=coinSVG(d.getAttribute('data-coin'),d.getAttribute('data-side')||'front');
+  });
+}
+function buildPhotos(){
+  document.querySelectorAll('[data-photo]').forEach(function(f){
+    var src=PHOTOS[f.getAttribute('data-photo')];
+    if(!src) return;
+    var cap=f.querySelector('figcaption'), alt=cap?cap.firstChild.textContent:'';
+    f.querySelector('.phin').innerHTML='<img src="'+src+'" alt="'+alt+'" loading="lazy">';
+    f.classList.add('has');
+    var sm=cap&&cap.querySelector('small'); if(sm) sm.remove();
+  });
+}
+
+/* ── 스무 자리 ── */
+var SEAT_ORDER=['인천광역시','인천광역시','경기도','경기도','강원도','충청북도','충청남도','세종특별자치시','대전광역시','전라북도',
+  '광주광역시','전라남도','경상북도','대구광역시','경상남도','울산광역시','부산광역시','부산광역시','제주특별자치도'];
+function buildSeats(){
+  var w=document.getElementById('seats'); if(!w) return;
+  var used={}, h='';
+  SEAT_ORDER.forEach(function(p,i){
+    used[p]=(used[p]||0)+1;
+    var on=((VENUES[p]||[]).length)>=used[p];
+    h+='<div class="seat'+(on?' on':'')+'"><b>'+(i+1)+'</b><span>'+SHORT[p]+'</span></div>';
+  });
+  h+='<div class="seat last"><b>20</b><span>서촌</span></div>';
+  w.innerHTML=h;
+}
+
+function applyContact(){
+  var ok=PARTNER_MAIL&&PARTNER_MAIL.indexOf('○')<0;
+  var a=document.getElementById('pmLink'), t=document.getElementById('pmText');
+  if(a){
+    t.textContent=PARTNER_MAIL;
+    if(ok) a.href='mailto:'+PARTNER_MAIL+'?subject='+encodeURIComponent('[꿈꿀단지] 파트너 문의');
+    else {a.removeAttribute('href');a.style.opacity='.55';t.textContent=PARTNER_MAIL+' (주소 확정 전)';}
+  }
 }
 
 function petals(){
@@ -956,7 +1170,9 @@ function pyInit(){
 buildStatus();
 buildRanks();
 buildMap();
-buildBracket();
+buildCoins();
+buildPhotos();
+applyContact();
 petals();
 pyInit();
 loadLive();
