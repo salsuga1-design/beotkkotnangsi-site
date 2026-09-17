@@ -281,15 +281,94 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .songs span{background:var(--ink2);border:1px solid var(--ink3);border-radius:99px;padding:.5rem 1rem;font-family:var(--disp)}
 .ytb{display:inline-block;margin-top:1.2rem;border:1px solid var(--line);color:var(--blossom);border-radius:99px;padding:.65rem 1.2rem;text-decoration:none;font-weight:600;font-size:.9rem}
 .afoot{text-align:center;color:var(--faint);font-size:.75rem;padding:2rem 1rem 0}
+
+/* ── 로고 = 홈 ── */
+a.logo{color:inherit;text-decoration:none;cursor:pointer;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
+
+/* ── 공연자 정산 ── */
+#pg-pay{padding-bottom:3rem}
+.pywrap{max-width:560px;margin:0 auto;padding:0 1.1rem;line-height:1.55;word-break:keep-all}
+.pyhead{text-align:center;padding:clamp(2.6rem,8vw,4.2rem) 0 1.8rem}
+.pyhead .e{font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;color:var(--blossom-dim);margin-bottom:.8rem}
+.pyhead h2{font-family:var(--disp);font-weight:400;font-size:clamp(2rem,7vw,2.8rem);line-height:1.15;margin-bottom:1rem}
+.pycard{background:var(--ink2);border:1px solid var(--ink3);border-radius:22px;padding:1.3rem 1.25rem;margin-bottom:1rem}
+.pycard.alt{border-color:var(--line);background:linear-gradient(135deg,rgba(255,155,182,.1),var(--ink2))}
+.pycard h3{font-family:var(--disp);font-weight:400;font-size:1.25rem;margin-bottom:.9rem}
+.pycard h3 small{display:block;font-family:var(--body);font-size:.76rem;color:var(--faint);margin-top:.15rem}
+.pyrow{display:flex;align-items:center;gap:.8rem;padding:.55rem 0}
+.pyrow+.pyrow{border-top:1px solid rgba(255,255,255,.05)}
+.pyrow .disc{width:34px;height:34px}
+.pyname{flex:1;min-width:0}
+.pyname b{display:block;font-weight:700;font-size:.95rem}
+.pyname span{font-size:.76rem;color:var(--muted)}
+.pystep{display:flex;align-items:center;flex:none;background:var(--ink);border:1px solid var(--ink3);border-radius:99px;overflow:hidden;transition:border-color .2s}
+.pystep:focus-within{border-color:var(--blossom)}
+.pystep button{width:2.5rem;height:2.5rem;font-size:1.15rem;color:var(--muted)}
+.pystep button:hover{color:var(--blossom)}
+.pystep input{width:3rem;text-align:center;background:none;border:none;color:var(--paper);font-family:var(--mono);font-size:1rem;font-weight:700;font-variant-numeric:tabular-nums;-moz-appearance:textfield}
+.pystep input:focus{outline:none}
+.pystep input::-webkit-outer-spin-button,.pystep input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.pysum{margin-top:.9rem;padding-top:.9rem;border-top:1px dashed var(--ink3)}
+.pyline{display:flex;justify-content:space-between;gap:1rem;font-size:.85rem;color:var(--muted);padding:.18rem 0}
+.pyline em{font-style:normal;white-space:nowrap;font-family:var(--mono);font-weight:600;font-variant-numeric:tabular-nums;color:var(--paper)}
+.pyline.minus em{color:#FFB3A6}
+.pytotal{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--ink3)}
+.pytotal span{font-family:var(--disp);font-size:1.1rem}
+.pytotal b{font-family:var(--mono);font-size:clamp(1.55rem,6vw,1.95rem);font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums;white-space:nowrap}
+.pynote{font-size:.75rem;color:var(--faint);margin-top:.75rem}
+.pysteps{list-style:none;counter-reset:py}
+.pysteps li{display:flex;gap:.85rem;padding:.55rem 0}
+.pysteps li::before{counter-increment:py;content:counter(py);width:1.75rem;height:1.75rem;flex:none;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;background:rgba(255,155,182,.12);color:var(--blossom);
+  font-family:var(--mono);font-weight:700;font-size:.8rem}
+.pysteps b{display:block;font-weight:700;font-size:.93rem}
+.pysteps span{font-size:.82rem;color:var(--muted)}
+.pybtn{display:block;width:100%;text-align:center;text-decoration:none;background:var(--blossom);color:var(--ink);
+  font-weight:700;font-size:.93rem;padding:.9rem 1.4rem;border-radius:26px;margin-top:.8rem;transition:.2s}
+.pybtn:hover{background:#FFB3C6}
+.pybtn.is-off{background:var(--ink3);color:var(--faint);cursor:not-allowed}
+.pyform{display:grid;gap:.55rem}
+.pyform .two{display:grid;grid-template-columns:1fr 8.5rem;gap:.55rem}
+@media(max-width:400px){.pyform .two{grid-template-columns:1fr 6.8rem}}
+.pyin{width:100%;min-width:0;background:var(--ink);border:1px solid var(--ink3);border-radius:18px;padding:.85rem 1rem;
+  color:var(--paper);font:inherit;font-size:.95rem;transition:border-color .2s}
+.pyin:focus{outline:none;border-color:var(--blossom)}
+.pyin::placeholder{color:var(--faint)}
+.pyin.num{font-family:var(--mono);font-weight:700;letter-spacing:.2em;text-align:center}
+.pyform .pybtn{margin-top:.1rem}
+#pyOut{margin-top:1rem}
+.pyitem{display:flex;justify-content:space-between;align-items:center;gap:.9rem;padding:.8rem 0}
+.pyitem+.pyitem{border-top:1px solid var(--ink3)}
+.pyitem .l{min-width:0}
+.pyitem .l b{display:block;font-weight:700;font-size:.9rem}
+.pyitem .l span{font-family:var(--mono);font-size:.72rem;color:var(--faint)}
+.pyitem .r{text-align:right;flex:none}
+.pyitem .r b{display:block;font-family:var(--mono);font-weight:700;font-size:1.05rem;font-variant-numeric:tabular-nums}
+.pyitem .r small{display:block;font-size:.72rem;color:var(--muted);margin-top:.2rem}
+.pybadge{display:inline-block;font-size:.7rem;font-weight:700;padding:.12rem .55rem;border-radius:99px;margin-top:.25rem}
+.pybadge.wait{background:rgba(239,192,106,.14);color:var(--gold)}
+.pybadge.done{background:rgba(255,155,182,.16);color:var(--blossom)}
+.pybadge.hold{background:rgba(255,139,122,.12);color:#FFB3A6}
+.pycard.alt p{font-size:.9rem}
+.pycard.alt p+p{margin-top:.35rem}
+.pycard.alt p b{color:var(--blossom)}
+.pyfaq{border-top:1px solid var(--ink3);padding:.75rem 0}
+.pyfaq:first-of-type{border-top:none;padding-top:.1rem}
+.pyfaq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:1rem;font-weight:700;font-size:.9rem}
+.pyfaq summary::-webkit-details-marker{display:none}
+.pyfaq summary::after{content:'+';color:var(--blossom);font-family:var(--mono);font-weight:700}
+.pyfaq[open] summary::after{content:'−'}
+.pyfaq p{font-size:.85rem;color:var(--muted);margin-top:.45rem}
 </style>
 </head>
 <body>
 
 <header class="bar">
-  <div class="logo">벗꽃<i>낭시</i></div>
+  <a class="logo" href="./" aria-label="벗꽃낭시 홈으로" onclick="goHome();return false;">벗꽃<i>낭시</i></a>
   <nav class="navwrap">
     <button class="nav on" onclick="go('map',this)">랭킹</button>
     <button class="nav" onclick="go('cup',this)">밴드대회</button>
+    <button class="nav" onclick="go('pay',this)">공연자 정산</button>
     <button class="nav" onclick="go('key',this)">키링 확인</button>
     <button class="nav" onclick="go('about',this)">소개</button>
   </nav>
@@ -406,6 +485,99 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
     </section>
 
     <div class="afoot">© 2026 벗꽃낭시 · 꿈꿀단지 팁박스 (상표출원 중) · beotkkotnangsi.com</div>
+  </div>
+</div>
+
+<div class="pg" id="pg-pay">
+  <div class="pywrap">
+    <section class="pyhead">
+      <div class="e">ARTIST PAYOUT</div>
+      <h2>공연자 정산</h2>
+      <span class="pill">청구하면 3영업일 안에 입금</span>
+    </section>
+
+    <section class="pycard" aria-labelledby="pyCalcT">
+      <h3 id="pyCalcT">정산 금액 미리 계산<small>코인 수를 넣으면 대략 얼마 받는지 보여 드립니다</small></h3>
+      <div class="pyrow">
+        <div class="disc cu" aria-hidden="true"></div>
+        <div class="pyname"><b>동코인</b><span>2,000원</span></div>
+        <div class="pystep">
+          <button type="button" data-k="pyB" data-d="-1" aria-label="동코인 하나 빼기">−</button>
+          <input id="pyB" type="number" inputmode="numeric" min="0" max="9999" value="0" aria-label="동코인 개수">
+          <button type="button" data-k="pyB" data-d="1" aria-label="동코인 하나 더하기">+</button>
+        </div>
+      </div>
+      <div class="pyrow">
+        <div class="disc ag" aria-hidden="true"></div>
+        <div class="pyname"><b>은화</b><span>20,000원</span></div>
+        <div class="pystep">
+          <button type="button" data-k="pyS" data-d="-1" aria-label="은화 하나 빼기">−</button>
+          <input id="pyS" type="number" inputmode="numeric" min="0" max="9999" value="0" aria-label="은화 개수">
+          <button type="button" data-k="pyS" data-d="1" aria-label="은화 하나 더하기">+</button>
+        </div>
+      </div>
+      <div class="pyrow">
+        <div class="disc au" aria-hidden="true"></div>
+        <div class="pyname"><b>금화</b><span>200,000원 · 은화 10개로 교환</span></div>
+        <div class="pystep">
+          <button type="button" data-k="pyG" data-d="-1" aria-label="금화 하나 빼기">−</button>
+          <input id="pyG" type="number" inputmode="numeric" min="0" max="999" value="0" aria-label="금화 개수">
+          <button type="button" data-k="pyG" data-d="1" aria-label="금화 하나 더하기">+</button>
+        </div>
+      </div>
+      <div class="pysum" aria-live="polite">
+        <div class="pyline"><span>관객이 낸 금액</span><em id="pyGross">0원</em></div>
+        <div class="pyline"><span>부가세 뺀 금액 (÷1.1)</span><em id="pySupply">0원</em></div>
+        <div class="pyline"><span>공연자 몫 55%</span><em id="pyShare">0원</em></div>
+        <div class="pyline minus"><span>세금 3.3%</span><em id="pyTax">0원</em></div>
+        <div class="pytotal"><span>예상 입금액</span><b id="pyNet">0원</b></div>
+      </div>
+      <p class="pynote">예상 금액입니다. 실제 금액은 팁박스가 자동으로 센 마감 기록 기준입니다.</p>
+    </section>
+
+    <section class="pycard" aria-labelledby="pyHowT">
+      <h3 id="pyHowT">청구 방법</h3>
+      <ol class="pysteps">
+        <li><div><b>공연이 끝나면 팁박스 화면의 정산 QR 찍기</b><span>코인 수와 금액은 팁박스가 자동으로 기록합니다.</span></div></li>
+        <li><div><b>열린 청구서에 연락처·계좌 입력</b><span>정산 코드는 자동으로 들어갑니다. 팀 대표 한 명이 청구하고, 팀 안의 분배는 팀에서 정합니다.</span></div></li>
+        <li><div><b>3영업일 안에 입금</b><span>청구한 날부터 주말·공휴일을 빼고 3일 안에 팀 대표 계좌로 보내 드립니다.</span></div></li>
+        <li><div><b>처음 한 번만 서류 제출</b><span>신분증과 통장 사본. 세금 신고에만 쓰고, 다음부터는 QR만 찍으면 됩니다.</span></div></li>
+      </ol>
+      <a class="pybtn" id="pyClaim" href="#" target="_blank" rel="noopener">QR을 못 찍었다면 여기서 청구</a>
+      <p class="pynote">정산 코드는 마감 화면에 적혀 있습니다. 모르면 공연장 카운터에 물어보세요.</p>
+    </section>
+
+    <section class="pycard" aria-labelledby="pyLookT">
+      <h3 id="pyLookT">내 정산 조회<small>청구서에 적은 팀 이름과 연락처 뒤 4자리로 확인합니다</small></h3>
+      <form class="pyform" onsubmit="pyLookup();return false;">
+        <div class="two">
+          <input class="pyin" id="pyTeam" type="text" placeholder="팀 이름" maxlength="40" autocomplete="off" aria-label="팀 이름">
+          <input class="pyin num" id="pyTel" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="0000" autocomplete="off" aria-label="연락처 뒤 4자리">
+        </div>
+        <button class="pybtn" type="submit">조회</button>
+      </form>
+      <div class="kresult" id="pyOut" aria-live="polite"></div>
+    </section>
+
+    <section class="pycard alt" aria-labelledby="pyTrialT">
+      <h3 id="pyTrialT">체험 운영 중인 공연장이라면</h3>
+      <p>코인 판매와 정산을 <b>공연장 사장님이 직접</b> 합니다.</p>
+      <p>금액 계산은 위와 같고, 청구와 입금은 공연장 카운터에 말씀해 주세요.</p>
+    </section>
+
+    <section class="pycard" aria-labelledby="pyFaqT">
+      <h3 id="pyFaqT">자주 묻는 질문</h3>
+      <details class="pyfaq"><summary>왜 3.3%를 떼나요?</summary>
+        <p>공연 수입은 사업소득이라 지급할 때 3.3%를 미리 떼어 국세청에 대신 신고합니다. 5월 종합소득세 신고 때 정산되어 돌려받을 수도 있습니다.</p></details>
+      <details class="pyfaq"><summary>코인 수가 제 생각과 달라요.</summary>
+        <p>팁박스가 센 기록과 실물 코인을 마감 때 한 번 더 맞춰 봅니다. 차이가 있으면 조회 화면에 “확인 중”으로 나오고, 확인이 끝나면 바로 처리합니다.</p></details>
+      <details class="pyfaq"><summary>관객이 환불하면요?</summary>
+        <p>환불은 팁박스에 넣기 전 코인만 됩니다. 이미 넣은 코인은 공연자 몫에서 빠지지 않습니다.</p></details>
+      <details class="pyfaq"><summary>정산하면 랭킹에도 올라가나요?</summary>
+        <p>네. 팁박스에 들어간 코인은 정산과 같은 기록으로 랭킹 지도에 쌓입니다.</p></details>
+      <details class="pyfaq"><summary>3영업일이 지나도 입금이 안 됐어요.</summary>
+        <p>공연장 카운터에 팀 이름과 공연 날짜를 말씀해 주세요. 확인해서 바로 처리합니다.</p></details>
+    </section>
   </div>
 </div>
 
@@ -649,11 +821,88 @@ function show(kind,title,detail){
   res.innerHTML='<div class="kt">'+title+'</div><div>'+(detail||'')+'</div>';
 }
 
+/* ── 로고 누르면 홈(랭킹 지도) ── */
+function goHome(){
+  if(typeof closeP==='function') closeP();
+  go('map',document.querySelector('.nav'));
+}
+
+/* ── 공연자 정산 ── */
+const CLAIM_FORM_URL=''; /* 구글폼 청구서 링크를 넣으면 버튼이 켜집니다 */
+var PY_WON={pyB:2000,pyS:20000,pyG:200000};
+function pyEsc(t){return String(t==null?'':t).replace(/[&<>"']/g,function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function pyWon(n){return Math.round(n).toLocaleString('ko-KR')+'원';}
+function pyMd(d){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(d||'');return m?(+m[2])+'.'+(+m[3]):pyEsc(d);}
+function pyRead(id){
+  var inp=document.getElementById(id),v=parseInt(inp.value,10),mx=parseInt(inp.max,10);
+  if(isNaN(v)||v<0)v=0; if(v>mx)v=mx; return v;
+}
+function pyCalc(){
+  var gross=0; for(var k in PY_WON) gross+=pyRead(k)*PY_WON[k];
+  var share=Math.round(gross/1.1*0.55), tax=Math.floor(share*0.033);
+  document.getElementById('pyGross').textContent=pyWon(gross);
+  document.getElementById('pySupply').textContent=pyWon(gross/1.1);
+  document.getElementById('pyShare').textContent=pyWon(share);
+  document.getElementById('pyTax').textContent=(tax?'− ':'')+pyWon(tax);
+  document.getElementById('pyNet').textContent=pyWon(share-tax);
+}
+function pyLookup(){
+  var team=document.getElementById('pyTeam').value.trim();
+  var tel=document.getElementById('pyTel').value.replace(/\D/g,'');
+  var out=document.getElementById('pyOut');
+  function msg(kind,t,d){out.className='kresult show '+kind;out.innerHTML='<div class="kt">'+t+'</div><div>'+(d||'')+'</div>';}
+  if(!team){msg('fail','팀 이름을 입력해 주세요.');return;}
+  if(tel.length!==4){msg('fail','연락처 뒤 4자리를 입력해 주세요.','청구서에 적은 번호 기준입니다.');return;}
+  if(!SHEET_URL){msg('fail','조회 서버가 연결되지 않았습니다.','잠시 후 다시 시도해 주세요.');return;}
+  msg('ok','조회 중...','');
+  fetch(SHEET_URL+'?action=pay&team='+encodeURIComponent(team)+'&tel4='+tel)
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d&&d.error==='locked'){msg('fail','조회 시도가 너무 많습니다.','1시간 뒤 다시 시도해 주세요.');return;}
+      if(!d||!d.found){msg('fail','청구 내역을 찾지 못했습니다.','청구서에 적은 팀 이름과 번호 그대로 입력해 주세요. 청구 직후에는 1~2분 걸릴 수 있습니다.');return;}
+      var h='';
+      d.list.forEach(function(it){
+        var st=it.status||'접수';
+        var cls=st==='입금 완료'?'done':(st==='보류'?'hold':'wait');
+        var sub=st==='입금 완료'?(it.paid?pyMd(it.paid)+' 입금':''):(st==='보류'?'공연장 카운터에 문의해 주세요':(it.due?pyMd(it.due)+'까지 입금 예정':''));
+        h+='<div class="pyitem"><div class="l"><b>'+pyMd(it.date)+(it.venue?' · '+pyEsc(it.venue):'')+'</b><span>'+pyEsc(it.id)+'</span></div>'+
+           '<div class="r"><b>'+Number(it.net||0).toLocaleString('ko-KR')+'원</b><span class="pybadge '+cls+'">'+pyEsc(st)+'</span>'+
+           (sub?'<small>'+sub+'</small>':'')+'</div></div>';
+      });
+      out.className='kresult show ok';
+      out.innerHTML='<div class="kt">최근 청구 '+d.list.length+'건</div>'+h;
+    })
+    .catch(function(){msg('fail','조회에 실패했습니다.','잠시 후 다시 시도해 주세요.');});
+}
+function pyInit(){
+  var bs=document.querySelectorAll('.pystep button');
+  for(var i=0;i<bs.length;i++){
+    bs[i].addEventListener('click',function(){
+      var id=this.getAttribute('data-k'),inp=document.getElementById(id);
+      inp.value=Math.max(0,Math.min(parseInt(inp.max,10),pyRead(id)+parseInt(this.getAttribute('data-d'),10)));
+      pyCalc();
+    });
+  }
+  ['pyB','pyS','pyG'].forEach(function(id){
+    var inp=document.getElementById(id);
+    inp.addEventListener('input',pyCalc);
+    inp.addEventListener('blur',function(){inp.value=pyRead(id);pyCalc();});
+    inp.addEventListener('focus',function(){inp.select();});
+  });
+  var cb=document.getElementById('pyClaim');
+  if(CLAIM_FORM_URL){cb.href=CLAIM_FORM_URL;}
+  else{cb.classList.add('is-off');cb.textContent='청구서 준비 중';cb.setAttribute('aria-disabled','true');
+    cb.removeAttribute('target');cb.addEventListener('click',function(e){e.preventDefault();});}
+  pyCalc();
+}
+
 buildStatus();
 buildRanks();
 buildMap();
 buildBracket();
 petals();
+pyInit();
 </script>
 </body>
 </html>
