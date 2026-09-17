@@ -939,7 +939,15 @@ function pyInit(){
     inp.addEventListener('focus',function(){inp.select();});
   });
   var cb=document.getElementById('pyClaim');
-  if(CLAIM_FORM_URL){cb.href=CLAIM_FORM_URL;}
+  if(CLAIM_FORM_URL){
+    cb.href=CLAIM_FORM_URL;
+    /* 마감 화면 QR(홈페이지?c=정산코드)로 들어오면 청구서에 코드가 미리 채워집니다. 첫 화면은 그대로 지도 */
+    var qc='';try{qc=(new URLSearchParams(location.search).get('c')||'').trim();}catch(e){}
+    if(/^[A-Za-z0-9-]{6,30}$/.test(qc)){
+      cb.href=CLAIM_FORM_URL+'?usp=pp_url&entry.1322152581='+encodeURIComponent(qc.toUpperCase());
+      cb.textContent='정산 청구서 작성하기 ('+qc.toUpperCase()+')';
+    }
+  }
   else{cb.classList.add('is-off');cb.textContent='청구서 준비 중';cb.setAttribute('aria-disabled','true');
     cb.removeAttribute('target');cb.addEventListener('click',function(e){e.preventDefault();});}
   pyCalc();
