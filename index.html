@@ -71,16 +71,16 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .neonline.in{stroke:#FFF2F7;stroke-width:1.0;opacity:.88}
 .province.seoul{cursor:default}
 .slab{fill:#241C2B}
-.plabel{font-family:var(--disp);font-size:13.5px;font-weight:400;fill:#2C2433;
+.plabel{font-family:var(--disp);font-size:14.5px;font-weight:400;fill:#2C2433;
   text-anchor:middle;dominant-baseline:middle;pointer-events:none}
 .plabel.hv{fill:#5C1F30}
 .plabel.q{font-size:22px;fill:#F3EEF5;paint-order:stroke;stroke:#8A8390;stroke-width:2px}
 .plabel.sm{fill:#453A4E}
 .plabel.sm.hv{fill:#7A2A40}
 .plate{fill:url(#plateFace)}
-.neonline{stroke:#FFFFFF;stroke-width:1.9;opacity:1}
-.neonline.in{stroke:#FFD7E6;stroke-width:1.2;opacity:.95}
-.plabel{fill:#E9DEEF}
+.neonline{stroke:#FFFFFF;stroke-width:1.5;opacity:1}
+.neonline.in{stroke:#FFE8F1;stroke-width:1.0;opacity:1}
+.plabel{fill:#F6EEFA;font-weight:500}
 .plabel.hv{fill:#FFFFFF}
 .seatdot{fill:#C9BCD6;opacity:.45}
 .star{fill:#EDE4F2}
@@ -773,7 +773,7 @@ var DEPTH=13, STEP=1.0;
 
 
 /* 지도 색 — 차분한 한 판 + 운영 지역만 분홍 */
-var CALM={face:'#4A3E56',faceLo:'#332941',hi:'#FF9BB6',hiLo:'#E9628B',seoul:'#2E2739',slab:'#2B2333'};
+var CALM={face:'#574A64',faceLo:'#3B3049',hi:'#FF9BB6',hiLo:'#E9628B',seoul:'#2E2739',slab:'#2B2333'};
 
 /* 작은 지역은 지도 밖으로 빼서 지시선으로 연결 */
 var LEAD={
@@ -806,21 +806,21 @@ function buildMap(){
     '<linearGradient id="plateFace" x1="0" y1="0" x2="0.55" y2="1">'+
       '<stop offset="0" stop-color="#241E2E"/><stop offset="1" stop-color="#140F1B"/></linearGradient>'+
     '<filter id="spill" x="-40%" y="-40%" width="180%" height="180%">'+
-      '<feGaussianBlur stdDeviation="17"/></filter>'+
+      '<feGaussianBlur stdDeviation="13"/></filter>'+
     '<filter id="contact" x="-30%" y="-30%" width="160%" height="160%">'+
       '<feGaussianBlur stdDeviation="8"/></filter>'+
     '<filter id="bokeh" x="-60%" y="-60%" width="220%" height="220%">'+
       '<feGaussianBlur stdDeviation="1.6"/></filter>'+
     '<filter id="neon" x="-30%" y="-30%" width="160%" height="160%">'+
-      '<feGaussianBlur stdDeviation="1.7" result="b"/>'+
-      '<feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>'+
+      '<feGaussianBlur stdDeviation="0.9" result="b"/>'+
+      '<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>'+
     '<filter id="bloom" x="-60%" y="-60%" width="220%" height="220%">'+
-      '<feGaussianBlur in="SourceAlpha" stdDeviation="7" result="b"/>'+
+      '<feGaussianBlur in="SourceAlpha" stdDeviation="4.5" result="b"/>'+
       '<feFlood flood-color="#FF7FA6" flood-opacity="1"/><feComposite in2="b" operator="in" result="g"/>'+
-      '<feMerge><feMergeNode in="g"/><feMergeNode in="g"/><feMergeNode in="g"/></feMerge></filter>'+
-    '<radialGradient id="pool" cx="50%" cy="40%" r="58%">'+'<stop offset="0" stop-color="#FFC4D8" stop-opacity=".34"/>'+'<stop offset="1" stop-color="#FF9BB6" stop-opacity="0"/></radialGradient>'+'<linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">'+'<stop offset="0" stop-color="#FFE3EE" stop-opacity=".16"/>'+'<stop offset="1" stop-color="#FFE3EE" stop-opacity="0"/></linearGradient>'+'<filter id="beamblur" x="-40%" y="-40%" width="180%" height="180%">'+'<feGaussianBlur stdDeviation="26"/></filter>'+'<filter id="txtglow" x="-70%" y="-70%" width="240%" height="240%">'+
-      '<feGaussianBlur in="SourceAlpha" stdDeviation="3" result="b"/>'+
-      '<feFlood flood-color="#FF6E98" flood-opacity=".85"/><feComposite in2="b" operator="in" result="g"/>'+
+      '<feMerge><feMergeNode in="g"/><feMergeNode in="g"/></feMerge></filter>'+
+    '<radialGradient id="pool" cx="50%" cy="40%" r="58%">'+'<stop offset="0" stop-color="#FFC4D8" stop-opacity=".18"/>'+'<stop offset="1" stop-color="#FF9BB6" stop-opacity="0"/></radialGradient>'+'<linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">'+'<stop offset="0" stop-color="#FFE3EE" stop-opacity=".09"/>'+'<stop offset="1" stop-color="#FFE3EE" stop-opacity="0"/></linearGradient>'+'<filter id="beamblur" x="-40%" y="-40%" width="180%" height="180%">'+'<feGaussianBlur stdDeviation="26"/></filter>'+'<filter id="txtglow" x="-70%" y="-70%" width="240%" height="240%">'+
+      '<feGaussianBlur in="SourceAlpha" stdDeviation="1.6" result="b"/>'+
+      '<feFlood flood-color="#FF6E98" flood-opacity=".7"/><feComposite in2="b" operator="in" result="g"/>'+
       '<feMerge><feMergeNode in="g"/><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
   svg.appendChild(defs);
 
@@ -869,10 +869,10 @@ function buildMap(){
   svg.appendChild(el('ellipse',{cx:233,cy:290,rx:290,ry:320,fill:'url(#pool)','pointer-events':'none'}));
   /* 판 위에 번지는 빛 — 전체는 은은하게, 운영 지역은 분홍으로 */
   var spill=el('g',{filter:'url(#spill)'});
-  spill.appendChild(el('path',{d:SIL,fill:'#C9BCD6',opacity:'.16'}));
+  spill.appendChild(el('path',{d:SIL,fill:'#C9BCD6',opacity:'.09'}));
   for(var sp=0;sp<names.length;sp++){
     if(VENUES[names[sp]]&&VENUES[names[sp]].length)
-      spill.appendChild(el('path',{d:PATHS[names[sp]].d,fill:'#FF7FA6',opacity:'.62'}));
+      spill.appendChild(el('path',{d:PATHS[names[sp]].d,fill:'#FF7FA6',opacity:'.40'}));
   }
   svg.appendChild(spill);
 
@@ -884,7 +884,7 @@ function buildMap(){
   var sides=el('g',{});
   for(var dp=T.depth; dp>=1; dp--){
     var f=dp/T.depth;
-    var cr=Math.round(96-f*56), cg=Math.round(80-f*48), cb=Math.round(110-f*62);
+    var cr=Math.round(120-f*74), cg=Math.round(102-f*64), cb=Math.round(136-f*84);
     sides.appendChild(el('path',{d:SIL,fill:'rgb('+cr+','+cg+','+cb+')',
       transform:'translate(0,'+dp+')'}));
   }
