@@ -87,6 +87,10 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .olabel{font-family:var(--disp);font-size:20px;font-weight:700;fill:#FF9FBE;
   dominant-baseline:middle;pointer-events:none;letter-spacing:.2px}
 .olabel.hv{fill:#FFFFFF}
+.olabel.hot{fill:#FFFFFF}
+.ohit{fill:transparent;cursor:pointer}
+.ohit:hover{fill:rgba(255,155,182,.10)}
+.ohit:focus-visible{fill:rgba(255,155,182,.18);outline:none}
 .olabel.q{fill:#B9AEC2}
 .lead{fill:none;stroke:rgba(255,160,188,.6);stroke-width:.75}
 .lead.hv{stroke:rgba(255,255,255,.75)}
@@ -922,6 +926,7 @@ function buildMap(){
         var t=el('text',{x:tx,y:ly,'class':'olabel'+(hv?' hv':''),
           'text-anchor':isL?'end':'start',filter:'url(#txtglow)'});
         t.textContent=SHORT[name]||name;
+        if(!seoul) t.setAttribute('data-name',name);
         labels.appendChild(t);
         if(seoul){
           var q=el('text',{x:o.cx,y:o.cy,'class':'plabel q'});
@@ -964,6 +969,27 @@ function buildMap(){
 
   svg.appendChild(marks);
   svg.appendChild(labels);
+
+  /* 바깥 라벨 글씨도 눌러서 열 수 있게 (손가락 크기 만큼 넉넉히) */
+  var olab=labels.querySelectorAll('text.olabel[data-name]');
+  for(var oi=0;oi<olab.length;oi++){
+    (function(t){
+      var nm=t.getAttribute('data-name');
+      var bb;
+      try{ bb=t.getBBox(); }catch(e){ return; }
+      if(!bb||!bb.width) return;
+      var r=el('rect',{x:(bb.x-12).toFixed(1),y:(bb.y-11).toFixed(1),
+        width:(bb.width+24).toFixed(1),height:(bb.height+22).toFixed(1),
+        rx:9,'class':'ohit',tabindex:'0',role:'button'});
+      r.setAttribute('aria-label',(SHORT[nm]||nm)+' 공연장 보기');
+      r.addEventListener('click',function(){openP(nm);});
+      r.addEventListener('keydown',function(e){
+        if(e.key==='Enter'||e.key===' '){e.preventDefault();openP(nm);}});
+      r.addEventListener('mouseenter',function(){t.classList.add('hot');});
+      r.addEventListener('mouseleave',function(){t.classList.remove('hot');});
+      labels.insertBefore(r,t);
+    })(olab[oi]);
+  }
 }
 
 function openP(n){document.getElementById('ov').classList.add('on');showList(n);}
