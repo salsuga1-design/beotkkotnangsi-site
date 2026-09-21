@@ -891,8 +891,8 @@ function buildMap(){
   svg.appendChild(sides);
 
   var top=el('g',{});
-  top.appendChild(el('path',{d:SIL,fill:'url(#face)'}));
-  var marks=el('g',{}), labels=el('g',{});
+  top.appendChild(el('path',{d:SIL,fill:'url(#face)','pointer-events':'none'}));
+  var marks=el('g',{'pointer-events':'none'}), labels=el('g',{});
   for(var k=0;k<names.length;k++){
     (function(name){
       var o=PATHS[name];
@@ -955,7 +955,7 @@ function buildMap(){
   svg.appendChild(top);
 
   /* 운영 지역 분홍 번짐 */
-  var bl=el('g',{filter:'url(#bloom)',opacity:'.9'});
+  var bl=el('g',{filter:'url(#bloom)',opacity:'.9','pointer-events':'none'});
   for(var bi=0;bi<names.length;bi++){
     if(VENUES[names[bi]]&&VENUES[names[bi]].length)
       bl.appendChild(el('path',{d:PATHS[names[bi]].d,fill:'#FF8FB0'}));
