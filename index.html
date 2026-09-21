@@ -861,12 +861,11 @@ function buildMap(){
         'Q'+P[0].toFixed(1)+','+P[1].toFixed(1)+' '+p2[0].toFixed(1)+','+p2[1].toFixed(1);
   }
   pd+='Z';
-  svg.appendChild(el('path',{d:pd,'class':'plate'}));
+  /* 바닥 판 없음 (대표님 요청) */
 
 
-  svg.appendChild(el('path',{d:'M180,-190 L300,-190 L510,600 L-40,600 Z',fill:'url(#beam)',
-    filter:'url(#beamblur)','pointer-events':'none'}));
-  svg.appendChild(el('ellipse',{cx:233,cy:290,rx:290,ry:320,fill:'url(#pool)','pointer-events':'none'}));
+
+
   /* 판 위에 번지는 빛 — 전체는 은은하게, 운영 지역은 분홍으로 */
   var spill=el('g',{filter:'url(#spill)'});
   spill.appendChild(el('path',{d:SIL,fill:'#C9BCD6',opacity:'.09'}));
@@ -877,7 +876,7 @@ function buildMap(){
   svg.appendChild(spill);
 
   /* 판에 지는 그림자 */
-  svg.appendChild(el('g',{filter:'url(#contact)',opacity:'.62'})).appendChild(
+  svg.appendChild(el('g',{filter:'url(#contact)',opacity:'.4'})).appendChild(
     el('path',{d:SIL,fill:'#07050B',transform:'translate(6,'+(T.depth+9)+')'}));
 
   /* 두께 — 밝은 아크릴 옆면 (아래로 갈수록 어둡게) */
