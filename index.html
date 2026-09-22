@@ -777,7 +777,7 @@ var CALM={face:'#574A64',faceLo:'#3B3049',hi:'#FF9BB6',hiLo:'#E9628B',seoul:'#2E
 
 /* 작은 지역은 지도 밖으로 빼서 지시선으로 연결 */
 var LEAD={
-  '서울특별시':['L',100],'인천광역시':['L',140],'세종특별자치시':['L',240],
+  '인천광역시':['L',140],'세종특별자치시':['L',240],
   '대전광역시':['L',282],'광주광역시':['L',404],
   '대구광역시':['R',316],'울산광역시':['R',362],'부산광역시':['R',408]
 };
@@ -927,15 +927,11 @@ function buildMap(){
         t.textContent=SHORT[name]||name;
         if(!seoul) t.setAttribute('data-name',name);
         labels.appendChild(t);
-        if(seoul){
-          var q=el('text',{x:o.cx,y:o.cy,'class':'plabel q'});
-          q.textContent='?'; labels.appendChild(q);
-        }
         for(var d2=0;d2<left;d2++){
           labels.appendChild(el('circle',{cx:(tx+(isL?-1:1)*(4.5+d2*5.4)).toFixed(1),cy:(ly+13).toFixed(1),
             r:1.9,'class':'seatdot out'}));
         }
-      }else{
+      }else if(!seoul){
         var t2=el('text',{x:o.cx,y:o.cy,'class':'plabel'+(hv?' hv':'')});
         t2.textContent=txt;
         labels.appendChild(t2);
