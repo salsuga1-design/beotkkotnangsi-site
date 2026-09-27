@@ -12,7 +12,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jua&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Nunito:wght@400;600;700&family=Nanum+Brush+Script&family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root{
@@ -409,6 +409,13 @@ a.logo{color:inherit;text-decoration:none;cursor:pointer;user-select:none;-webki
 .ph.has{border-style:solid;border-color:var(--ink3)}
 @media(max-width:760px){.ph3{grid-template-columns:1fr 1fr}.ph3 .ph:first-child{grid-column:1/-1}}
 /* 스무 자리 */
+.asec h3.calli,h3.calli{font-family:"Nanum Brush Script","Noto Serif KR",serif;
+  font-size:clamp(2.6rem,7.4vw,4.6rem);line-height:1.18;font-weight:400;letter-spacing:.01em;
+  background:linear-gradient(105deg,#FFE3EC 0%,#FF9BB6 42%,#FFD9C2 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:none;filter:drop-shadow(0 2px 14px rgba(255,155,182,.28));margin:.1rem 0 .2rem}
+.calli .han{font-family:"Noto Serif KR",serif;font-weight:500;font-size:.78em;letter-spacing:.02em}
+@media(max-width:760px){.calli{font-size:clamp(2.1rem,10vw,3.2rem)}}
 .seats{display:grid;grid-template-columns:repeat(10,minmax(0,68px));gap:.55rem;margin-top:1.6rem}
 .seat{aspect-ratio:1;border-radius:50%;border:1px dashed #4a3f55;display:flex;flex-direction:column;align-items:center;justify-content:center;
   color:var(--faint);background:rgba(255,255,255,.015)}
@@ -556,14 +563,8 @@ body.live .seatlegend .demo{display:none}
 
     <section class="asec">
       <div class="e" data-ko="스무 자리">스무 자리</div>
-      <h3>딱 20곳에서 끝납니다</h3>
+      <h3 class="calli"><span class="han">滿開</span>(만개)하는 스무송이의 꽃</h3>
       <p class="sub">전국 스무 곳까지. 한 지역에 한두 곳만.</p>
-      <div class="seats" id="seats" role="img" aria-label="전국 스무 자리 현황"></div>
-      <div class="seatlegend"><span><i class="on"></i>운영 중<span class="demo">예시</span></span><span><i></i>남은 자리</span><span><i class="last"></i>마지막 스무 번째</span></div>
-      <div class="g3 seatwhy">
-        <div class="acard"><div class="n">스무 곳</div><h4>자리가 차면 끝</h4><p>스무 곳이 차면 더 받지 않음</p></div>
-        <div class="acard"><div class="n">서촌</div><h4>마지막은 서울 서촌</h4><p>열아홉 지역이 먼저. 스무 번째는 서울 서촌</p></div>
-      </div>
     </section>
 
     <section class="asec">
