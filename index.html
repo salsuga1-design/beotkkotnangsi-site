@@ -467,7 +467,7 @@ body.live .seatlegend .demo{display:none}
 <div class="pg on" id="pg-map">
   <div class="stage" id="petalHost">
     <div class="hud">
-      <div class="tally">전국 <b id="litB">1</b> / 20 운영 중</div>
+      <div class="tally">첫 자리 — <b>전주</b></div>
       <aside class="rank">
         <div class="rank-h"><span class="t">랭킹<span class="demo">예시</span></span><span class="s" data-ko="상위 3">상위 3</span></div>
         <div id="ranks"></div>
@@ -725,7 +725,7 @@ function go(id,el){
 
 function buildStatus(){
   var n=0; for(var p in VENUES) n+=VENUES[p].length;
-  document.getElementById('litB').textContent=n;
+  var _lb=document.getElementById('litB'); if(_lb) _lb.textContent=n;
   buildSeats();
 }
 
