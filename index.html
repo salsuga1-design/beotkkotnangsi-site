@@ -153,7 +153,9 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 @media(max-width:640px){
   .bar{height:54px;padding:0 .8rem}
   .logo{font-size:1.08rem}
-  .nav{padding:.38rem .6rem;font-size:.78rem}
+  .nav{padding:.38rem .5rem;font-size:.78rem}
+  .navwrap{gap:.1rem}
+  .nav .lf{display:none}
 }
 
 /* ── 오버레이 ── */
@@ -449,6 +451,59 @@ body.live .seatlegend .demo{display:none}
 .cupwrap .cupfoot{padding:1.6rem 0 0}
 [data-ko]{letter-spacing:.08em!important;font-family:var(--body)!important;font-weight:600}
 .rank-h .s[data-ko]{letter-spacing:.04em!important}
+/* ── 게시판 ── */
+.bdtabs{display:flex;gap:.4rem;overflow-x:auto;scrollbar-width:none;margin:0 0 1rem;padding-bottom:.1rem}
+.bdtabs::-webkit-scrollbar{display:none}
+.bdtab{flex:none;padding:.5rem .95rem;border-radius:99px;border:1px solid var(--ink3);background:var(--ink2);color:var(--muted);font-size:.84rem;font-weight:600;white-space:nowrap}
+.bdtab small{font-size:.68rem;font-weight:600;color:var(--faint);margin-left:.3rem}
+.bdtab:hover{color:var(--paper)}
+.bdtab.on{background:var(--blossom);border-color:var(--blossom);color:var(--ink)}
+.bdtab.on small{color:rgba(18,14,23,.6)}
+.bdtop{display:flex;align-items:center;justify-content:space-between;gap:.8rem;margin-bottom:.4rem}
+.bdtop h3{margin:0}
+.bdtop h3 small{display:block;font-family:var(--body);font-size:.74rem;color:var(--faint);margin-top:.15rem}
+.bdwrite{flex:none;padding:.55rem 1rem;border-radius:99px;background:var(--blossom);color:var(--ink);font-weight:700;font-size:.84rem}
+.bdwrite:hover{background:#FFB3C6}
+.bdrow{display:block;width:100%;text-align:left;padding:.85rem 0;border-top:1px solid var(--ink3)}
+.bdrow:first-child{border-top:none}
+.bdrow b{display:block;font-weight:600;font-size:.94rem;color:var(--paper);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bdrow b em{font-style:normal;font-family:var(--mono);font-size:.78rem;font-weight:700;color:var(--blossom);margin-left:.35rem}
+.bdrow span{display:block;font-size:.74rem;color:var(--faint);margin-top:.2rem}
+.bdrow:hover b{color:var(--blossom)}
+.bdempty{text-align:center;color:var(--muted);font-size:.88rem;padding:2.2rem 0 1.6rem}
+.bdpager{display:flex;justify-content:center;gap:.35rem;margin-top:.9rem}
+.bdpager button{min-width:2.2rem;height:2.2rem;border-radius:99px;font-family:var(--mono);font-size:.82rem;font-weight:700;color:var(--muted)}
+.bdpager button.on{background:var(--ink3);color:var(--paper)}
+.bdback{font-size:.82rem;color:var(--muted);margin-bottom:.8rem}
+.bdback:hover{color:var(--blossom)}
+.bdtitle{font-family:var(--disp);font-weight:400;font-size:1.35rem;line-height:1.35;margin-bottom:.35rem;word-break:break-all}
+.bdmeta{font-size:.76rem;color:var(--faint);padding-bottom:.9rem;border-bottom:1px solid var(--ink3)}
+.bdbody{white-space:pre-wrap;word-break:break-word;font-size:.93rem;line-height:1.7;padding:1rem 0 1.1rem;min-height:4rem}
+.bdacts{display:flex;justify-content:flex-end;gap:.4rem}
+.bdacts button{font-size:.76rem;color:var(--faint);padding:.3rem .6rem;border-radius:99px;border:1px solid var(--ink3)}
+.bdacts button:hover{color:var(--paper);border-color:var(--faint)}
+.bdcmts{margin-top:1rem;padding-top:.9rem;border-top:1px dashed var(--ink3)}
+.bdcmts h4{font-size:.86rem;font-weight:700;margin-bottom:.4rem}
+.bdcmt{padding:.7rem 0;border-top:1px solid rgba(255,255,255,.05)}
+.bdcmt:first-of-type{border-top:none}
+.bdcmt .h{display:flex;justify-content:space-between;align-items:center;gap:.6rem;font-size:.76rem;color:var(--faint)}
+.bdcmt .h b{color:var(--muted);font-weight:700;margin-right:.4rem}
+.bdcmt .h button{font-size:.72rem;color:var(--faint)}
+.bdcmt .h button:hover{color:var(--paper)}
+.bdcmt p{white-space:pre-wrap;word-break:break-word;font-size:.88rem;margin-top:.25rem}
+.bdform{display:grid;gap:.55rem;margin-top:.7rem}
+.bdform .two{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}
+textarea.pyin{resize:vertical;min-height:9rem;line-height:1.6;font-family:var(--body)}
+.bdform.c textarea.pyin{min-height:4.6rem}
+.bdform .row{display:flex;gap:.55rem}
+.bdform .row .pybtn{margin:0}
+.bdform .row .ghost{flex:none;width:auto;padding-left:1.3rem;padding-right:1.3rem;background:var(--ink3);color:var(--muted)}
+.bdhp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.bdmsg{font-size:.8rem;color:#FFB3A6;min-height:1.1rem}
+.bdmsg.ok{color:var(--blossom)}
+.bdpw{display:flex;gap:.4rem;margin-top:.5rem;justify-content:flex-end}
+.bdpw .pyin{max-width:11rem;padding:.55rem .9rem;font-size:.84rem}
+.bdpw button{padding:.5rem .9rem;border-radius:99px;background:var(--ink3);color:var(--paper);font-size:.8rem;font-weight:700}
 </style>
 </head>
 <body>
@@ -458,9 +513,10 @@ body.live .seatlegend .demo{display:none}
   <nav class="navwrap">
     <button class="nav on" onclick="go('map',this)">랭킹</button>
     <button class="nav" onclick="go('cup',this)">밴드대회</button>
-    <button class="nav" onclick="go('pay',this)">공연자 정산</button>
-    <button class="nav" onclick="go('key',this)">키링 확인</button>
+    <button class="nav" onclick="go('pay',this)"><span class="lf">공연자 </span>정산</button>
+    <button class="nav" onclick="go('key',this)">키링<span class="lf"> 확인</span></button>
     <button class="nav" onclick="go('about',this)">소개</button>
+    <button class="nav" onclick="go('board',this)">게시판</button>
   </nav>
 </header>
 
@@ -675,6 +731,19 @@ body.live .seatlegend .demo{display:none}
       <details class="pyfaq"><summary>3영업일이 지나도 입금이 안 됐어요.</summary>
         <p>공연장 카운터에 팀 이름과 공연 날짜를 말씀해 주세요. 확인해서 바로 처리합니다.</p></details>
     </section>
+  </div>
+</div>
+
+<div class="pg" id="pg-board">
+  <div class="pywrap">
+    <section class="pyhead">
+      <div class="e" data-ko="공연장 · 밴드 · 관객">공연장 · 밴드 · 관객</div>
+      <h2>게시판</h2>
+      <span class="pill">로그인 없이 닉네임으로</span>
+    </section>
+    <div class="bdtabs" id="bdTabs" role="tablist" aria-label="게시판 고르기"></div>
+    <section class="pycard" id="bdView" aria-live="polite"><div class="bdempty">불러오는 중…</div></section>
+    <p class="pynote" style="text-align:center;margin-bottom:2rem">전화번호·계좌 같은 개인정보는 적지 마세요. 신고가 3번 쌓인 글은 자동으로 숨겨집니다.</p>
   </div>
 </div>
 
@@ -1301,6 +1370,159 @@ petals();
 pyInit();
 loadLive();
 setInterval(loadLive,60000);
+
+/* ── 게시판 (자유게시판 + 공연장별) — 글은 운영 시트 '게시판' 탭에 쌓입니다 ── */
+var BD={board:'FREE',boards:[],page:1,post:null,busy:false};
+function bdLS(k,v){try{if(v===undefined)return localStorage.getItem(k)||'';localStorage.setItem(k,v);}catch(e){return '';}}
+function bdWhen(iso,full){
+  var d=new Date(iso);if(isNaN(d))return '';
+  var p=function(n){return (n<10?'0':'')+n;},t=p(d.getHours())+':'+p(d.getMinutes());
+  if(full)return d.getFullYear()+'.'+(d.getMonth()+1)+'.'+d.getDate()+' '+t;
+  var now=new Date();
+  return d.toDateString()===now.toDateString()?t:(d.getMonth()+1)+'.'+d.getDate();
+}
+function bdName(code){
+  for(var i=0;i<BD.boards.length;i++){var b=BD.boards[i];if(b.code===code)return b.code==='FREE'?b.name:(b.city?b.city+' · ':'')+b.name;}
+  return '자유게시판';
+}
+function bdSoon(code){for(var i=0;i<BD.boards.length;i++)if(BD.boards[i].code===code)return BD.boards[i].soon;return false;}
+function bdHash(h){try{history.replaceState(null,'',h?'#'+h:location.pathname+location.search);}catch(e){}}
+function bdGet(q){return fetch(SHEET_URL+q).then(function(r){return r.json();});}
+function bdSend(o){return fetch(SHEET_URL,{method:'POST',body:JSON.stringify(o)}).then(function(r){return r.json();});}
+function bdView(h){document.getElementById('bdView').innerHTML=h;}
+function bdFail(){bdView('<div class="bdempty">게시판을 불러오지 못했습니다.<br>잠시 뒤 다시 시도해 주세요.</div>');}
+
+function bdTabs(){
+  var h='';
+  BD.boards.forEach(function(b){
+    var nm=b.code==='FREE'?b.name:(b.city?b.city+' · ':'')+b.name;
+    h+='<button class="bdtab'+(b.code===BD.board?' on':'')+'" role="tab" aria-selected="'+(b.code===BD.board)+'" onclick="bdOpen(\''+pyEsc(b.code)+'\',1)">'+pyEsc(nm)+(b.soon?'<small>준비중</small>':'')+'</button>';
+  });
+  document.getElementById('bdTabs').innerHTML=h;
+}
+
+function bdOpen(code,page){
+  BD.board=code||'FREE';BD.page=page||1;BD.post=null;
+  if(BD.boards.length)bdTabs();
+  bdView('<div class="bdempty">불러오는 중…</div>');
+  bdHash('board/'+BD.board);
+  bdGet('?action=board&b='+encodeURIComponent(BD.board)+'&page='+BD.page).then(function(d){
+    if(!d||!d.ok)return bdFail();
+    BD.boards=d.boards||BD.boards;BD.board=d.board;BD.page=d.page;bdTabs();
+    var sub=BD.board==='FREE'?'밴드·관객·공연장 누구나':(bdSoon(BD.board)?'오픈 준비 중인 공연장입니다':'이 공연장 이야기');
+    var h='<div class="bdtop"><h3>'+pyEsc(bdName(BD.board))+'<small>'+sub+'</small></h3><button class="bdwrite" onclick="bdWriteForm()">글쓰기</button></div>';
+    if(!d.posts.length)h+='<div class="bdempty">아직 글이 없습니다.<br>첫 글을 남겨 주세요.</div>';
+    else{
+      h+='<div>';
+      d.posts.forEach(function(p){
+        h+='<button class="bdrow" onclick="bdRead('+p.id+')"><b>'+pyEsc(p.title)+(p.cmt?'<em>'+p.cmt+'</em>':'')+'</b><span>'+pyEsc(p.nick)+' · '+bdWhen(p.at)+'</span></button>';
+      });
+      h+='</div>';
+      if(d.pages>1){
+        h+='<div class="bdpager">';
+        var s=Math.max(1,d.page-2),e=Math.min(d.pages,s+4);
+        for(var i=s;i<=e;i++)h+='<button class="'+(i===d.page?'on':'')+'" onclick="bdOpen(\''+pyEsc(BD.board)+'\','+i+')">'+i+'</button>';
+        h+='</div>';
+      }
+    }
+    bdView(h);
+  }).catch(bdFail);
+}
+
+function bdRead(id){
+  bdView('<div class="bdempty">불러오는 중…</div>');
+  bdGet('?action=bpost&id='+id).then(function(d){
+    if(!d||!d.ok){bdView('<button class="bdback" onclick="bdOpen(BD.board,BD.page)">← 목록</button><div class="bdempty">'+pyEsc(d&&d.error||'글을 불러오지 못했습니다.')+'</div>');return;}
+    var p=d.post;BD.post=p;
+    if(p.board!==BD.board){BD.board=p.board;if(BD.boards.length)bdTabs();}
+    bdHash('board/'+p.board+'/'+p.id);
+    var h='<button class="bdback" onclick="bdOpen(BD.board,BD.page)">← '+pyEsc(bdName(p.board))+'</button>'
+      +'<div class="bdtitle">'+pyEsc(p.title)+'</div>'
+      +'<div class="bdmeta">'+pyEsc(p.nick)+' · '+bdWhen(p.at,true)+'</div>'
+      +'<div class="bdbody">'+pyEsc(p.body)+'</div>'
+      +'<div class="bdacts"><button onclick="bdReport('+p.id+',this)">신고</button><button onclick="bdAskPw('+p.id+',\'bdPw'+p.id+'\')">삭제</button></div>'
+      +'<div id="bdPw'+p.id+'"></div>'
+      +'<div class="bdcmts"><h4>댓글 '+d.comments.length+'</h4>';
+    d.comments.forEach(function(c){
+      h+='<div class="bdcmt"><div class="h"><span><b>'+pyEsc(c.nick)+'</b>'+bdWhen(c.at,true)+'</span><span><button onclick="bdReport('+c.id+',this)">신고</button> · <button onclick="bdAskPw('+c.id+',\'bdPw'+c.id+'\')">삭제</button></span></div><p>'+pyEsc(c.body)+'</p><div id="bdPw'+c.id+'"></div></div>';
+    });
+    h+='<form class="bdform c" onsubmit="bdSubmit(this,'+p.id+');return false;">'
+      +'<div class="two"><input class="pyin" name="nick" maxlength="12" placeholder="닉네임" autocomplete="off" value="'+pyEsc(bdLS('bdNick'))+'"><input class="pyin" name="pw" type="password" maxlength="20" placeholder="비밀번호 (지울 때)" autocomplete="new-password"></div>'
+      +'<textarea class="pyin" name="body" maxlength="500" placeholder="댓글을 남겨 주세요"></textarea>'
+      +'<input class="bdhp" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true">'
+      +'<div class="bdmsg"></div><button class="pybtn" type="submit">댓글 달기</button></form></div>';
+    bdView(h);
+  }).catch(bdFail);
+}
+
+function bdWriteForm(){
+  bdHash('board/'+BD.board+'/write');
+  bdView('<button class="bdback" onclick="bdOpen(BD.board,BD.page)">← '+pyEsc(bdName(BD.board))+'</button>'
+    +'<h3>글쓰기<small>'+pyEsc(bdName(BD.board))+'에 올라갑니다</small></h3>'
+    +'<form class="bdform" onsubmit="bdSubmit(this,0);return false;">'
+    +'<div class="two"><input class="pyin" name="nick" maxlength="12" placeholder="닉네임" autocomplete="off" value="'+pyEsc(bdLS('bdNick'))+'"><input class="pyin" name="pw" type="password" maxlength="20" placeholder="비밀번호 (지울 때)" autocomplete="new-password"></div>'
+    +'<input class="pyin" name="title" maxlength="60" placeholder="제목" autocomplete="off">'
+    +'<textarea class="pyin" name="body" maxlength="2000" placeholder="내용"></textarea>'
+    +'<input class="bdhp" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true">'
+    +'<div class="bdmsg"></div>'
+    +'<div class="row"><button class="pybtn ghost" type="button" onclick="bdOpen(BD.board,BD.page)">취소</button><button class="pybtn" type="submit">올리기</button></div></form>');
+  var f=document.querySelector('#bdView form');if(f)f[bdLS('bdNick')?'title':'nick'].focus();
+}
+
+function bdSubmit(f,parent){
+  if(BD.busy)return;
+  var msg=f.querySelector('.bdmsg'),v=function(n){return f[n]?f[n].value.trim():'';};
+  var o={action:'boardWrite',board:BD.board,parent:parent||'',nick:v('nick'),pw:f.pw.value,title:v('title'),body:v('body'),hp:f.hp.value};
+  if(!o.nick){msg.textContent='닉네임을 적어 주세요.';return;}
+  if(o.pw.length<4){msg.textContent='비밀번호는 4자 이상 적어 주세요. 글을 지울 때 씁니다.';return;}
+  if(!parent&&!o.title){msg.textContent='제목을 적어 주세요.';return;}
+  if(!o.body){msg.textContent='내용을 적어 주세요.';return;}
+  BD.busy=true;msg.className='bdmsg ok';msg.textContent='올리는 중…';
+  bdSend(o).then(function(d){
+    BD.busy=false;
+    if(!d||!d.ok){msg.className='bdmsg';msg.textContent=d&&d.error||'올리지 못했습니다. 잠시 뒤 다시 시도해 주세요.';return;}
+    bdLS('bdNick',o.nick);
+    if(parent)bdRead(parent);else bdRead(d.id);
+  }).catch(function(){BD.busy=false;msg.className='bdmsg';msg.textContent='올리지 못했습니다. 잠시 뒤 다시 시도해 주세요.';});
+}
+
+function bdAskPw(id,box){
+  var el=document.getElementById(box);if(!el)return;
+  if(el.innerHTML){el.innerHTML='';return;}
+  el.innerHTML='<form class="bdpw" onsubmit="bdDelete('+id+',this);return false;"><input class="pyin" type="password" name="pw" maxlength="20" placeholder="쓸 때 넣은 비밀번호" autocomplete="off"><button type="submit">지우기</button></form><div class="bdmsg" style="text-align:right"></div>';
+  el.querySelector('input').focus();
+}
+
+function bdDelete(id,f){
+  var msg=f.nextElementSibling;
+  bdSend({action:'boardDelete',id:id,pw:f.pw.value}).then(function(d){
+    if(!d||!d.ok){msg.textContent=d&&d.error||'지우지 못했습니다.';return;}
+    if(BD.post&&BD.post.id===id)bdOpen(BD.board,BD.page);else bdRead(BD.post.id);
+  }).catch(function(){msg.textContent='지우지 못했습니다.';});
+}
+
+function bdReport(id,btn){
+  var done=bdLS('bdRep').split(',');
+  if(done.indexOf(String(id))>-1){btn.textContent='신고함';return;}
+  btn.disabled=true;
+  bdSend({action:'boardReport',id:id}).then(function(){
+    done.push(String(id));bdLS('bdRep',done.slice(-200).join(','));btn.textContent='신고함';
+  }).catch(function(){btn.disabled=false;});
+}
+
+function bdEnter(){if(!BD.boards.length||!document.querySelector('#bdView .bdtop,#bdView .bdtitle,#bdView form'))bdOpen(BD.board,BD.page);}
+(function(){
+  var _go=go;
+  go=function(id,el){_go(id,el);if(id==='board')bdEnter();else if(/^#board/.test(location.hash))bdHash('');};
+  var m=/^#board(?:\/([A-Za-z0-9.]+))?(?:\/(\d+))?/.exec(location.hash||'');
+  if(m){
+    var nb=[].slice.call(document.querySelectorAll('.nav')).filter(function(b){return /go\('board'/.test(b.getAttribute('onclick')||'');})[0];
+    if(m[1])BD.board=m[1].toUpperCase();
+    _go('board',nb);
+    if(m[2]){bdGet('?action=board&b='+encodeURIComponent(BD.board)).then(function(d){if(d&&d.ok){BD.boards=d.boards;bdTabs();}}).catch(function(){});bdRead(+m[2]);}
+    else bdOpen(BD.board,1);
+  }
+})();
 </script>
 </body>
 </html>
