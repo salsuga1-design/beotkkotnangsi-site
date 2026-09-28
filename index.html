@@ -490,7 +490,7 @@ body.live .seatlegend .demo{display:none}
 .bdrow:first-child{border-top:none}
 .bdrow b{display:block;font-weight:600;font-size:.94rem;color:var(--paper);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bdrow b em{font-style:normal;font-family:var(--mono);font-size:.78rem;font-weight:700;color:var(--blossom);margin-left:.35rem}
-.bdrow span{display:block;font-size:.74rem;color:var(--faint);margin-top:.2rem}
+.bdrow .tx>span{display:block;font-size:.74rem;color:var(--faint);margin-top:.2rem}
 .bdrow:hover b{color:var(--blossom)}
 .bdempty{text-align:center;color:var(--muted);font-size:.88rem;padding:2.2rem 0 1.6rem}
 .bdpager{display:flex;justify-content:center;gap:.35rem;margin-top:.9rem}
@@ -527,6 +527,28 @@ textarea.pyin{resize:vertical;min-height:9rem;line-height:1.6;font-family:var(--
 .bdpw{display:flex;gap:.4rem;margin-top:.5rem;justify-content:flex-end}
 .bdpw .pyin{max-width:11rem;padding:.55rem .9rem;font-size:.84rem}
 .bdpw button{padding:.5rem .9rem;border-radius:99px;background:var(--ink3);color:var(--paper);font-size:.8rem;font-weight:700}
+.bdrow{display:flex;align-items:center;gap:.8rem}
+.bdrow .tx{flex:1;min-width:0}
+.bdthumb{position:relative;flex:none;width:64px;height:64px;border-radius:12px;overflow:hidden;background:var(--ink3)}
+.bdthumb img{width:100%;height:100%;object-fit:cover;display:block}
+.bdthumb .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.bdthumb .play::before{content:"";width:24px;height:24px;border-radius:50%;background:rgba(18,14,23,.72)}
+.bdthumb .play::after{content:"";position:absolute;border-style:solid;border-width:5px 0 5px 8px;border-color:transparent transparent transparent #fff;margin-left:2px}
+.bdmedia{display:inline-block;font-style:normal;font-size:.66rem;font-weight:700;color:var(--gold);margin-left:.35rem}
+.bdpics{display:grid;gap:.6rem;margin:.2rem 0 1rem}
+.bdpics a{display:block;border-radius:14px;overflow:hidden;background:var(--ink3)}
+.bdpics img{width:100%;height:auto;display:block}
+.bdyt{position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000;margin:0 0 1rem}
+.bdyt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.bdbody a,.bdcmt p a{color:var(--blossom);text-decoration:underline;word-break:break-all}
+.bdpick{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+.bdpick label{display:inline-flex;align-items:center;gap:.4rem;padding:.6rem 1rem;border-radius:99px;border:1px dashed var(--blossom-dim);color:var(--blossom);font-size:.84rem;font-weight:700;cursor:pointer}
+.bdpick label:hover{background:rgba(255,155,182,.08)}
+.bdpick input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.bdprev{position:relative;width:64px;height:64px;border-radius:12px;overflow:hidden;background:var(--ink3)}
+.bdprev img{width:100%;height:100%;object-fit:cover;display:block}
+.bdprev button{position:absolute;top:3px;right:3px;width:20px;height:20px;border-radius:50%;background:rgba(18,14,23,.8);color:#fff;font-size:.8rem;line-height:20px;text-align:center}
+.bdhint{font-size:.74rem;color:var(--faint)}
 </style>
 </head>
 <body>
@@ -1421,6 +1443,43 @@ function bdHash(h){try{history.replaceState(null,'',h?'#'+h:location.pathname+lo
 function bdGet(q){return fetch(SHEET_URL+q).then(function(r){return r.json();});}
 function bdSend(o){return fetch(SHEET_URL,{method:'POST',body:JSON.stringify(o)}).then(function(r){return r.json();});}
 function bdView(h){document.getElementById('bdView').innerHTML=h;}
+
+/* 사진 · 유튜브 */
+var BD_YT=/(?:youtube\.com\/(?:watch\?(?:[^\s]*?&)?v=|shorts\/|live\/|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/g;
+function bdImg(id,w){return 'https://lh3.googleusercontent.com/d/'+encodeURIComponent(id)+'=w'+(w||1600);}
+function bdLinks(s){ /* 이미 이스케이프된 글에서 주소만 링크로 */
+  return s.replace(/https?:\/\/[^\s<]+/g,function(u){
+    var tail=(/[).,!?\]]+$/.exec(u)||[''])[0];u=u.slice(0,u.length-tail.length);
+    return '<a href="'+u+'" target="_blank" rel="noopener nofollow ugc">'+u+'</a>'+tail;});
+}
+function bdYts(body){var out=[],m;BD_YT.lastIndex=0;while((m=BD_YT.exec(body))&&out.length<3){if(out.indexOf(m[1])<0)out.push(m[1]);}return out;}
+var BD_PICS=[];
+function bdShrink(file){
+  return new Promise(function(res,rej){
+    var url=URL.createObjectURL(file),img=new Image();
+    img.onload=function(){
+      var max=1600,w=img.naturalWidth,h=img.naturalHeight,s=Math.min(1,max/Math.max(w,h));w=Math.round(w*s);h=Math.round(h*s);
+      var c=document.createElement('canvas');c.width=w;c.height=h;var x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,w,h);x.drawImage(img,0,0,w,h);
+      URL.revokeObjectURL(url);var q=.82,d=c.toDataURL('image/jpeg',q);
+      while(d.length>1500000&&q>.45){q-=.08;d=c.toDataURL('image/jpeg',q);}
+      res(d);
+    };
+    img.onerror=function(){URL.revokeObjectURL(url);rej();};
+    img.src=url;
+  });
+}
+function bdAddPics(inp){
+  var files=[].slice.call(inp.files||[]),msg=inp.form.querySelector('.bdmsg');inp.value='';
+  var room=3-BD_PICS.length;if(files.length>room){msg.className='bdmsg';msg.textContent='사진은 3장까지 올릴 수 있습니다.';files=files.slice(0,room);}
+  files.reduce(function(p,f){return p.then(function(){return bdShrink(f).then(function(d){BD_PICS.push(d);}).catch(function(){msg.className='bdmsg';msg.textContent='읽을 수 없는 사진이 있어 뺐습니다.';});});},Promise.resolve())
+    .then(bdDrawPics);
+}
+function bdDrawPics(){
+  var box=document.getElementById('bdPrev');if(!box)return;var h='';
+  BD_PICS.forEach(function(d,i){h+='<div class="bdprev"><img src="'+d+'" alt=""><button type="button" aria-label="사진 빼기" onclick="BD_PICS.splice('+i+',1);bdDrawPics()">×</button></div>';});
+  box.innerHTML=h;var lb=document.getElementById('bdPickL');if(lb)lb.style.display=BD_PICS.length>=3?'none':'';
+}
+
 function bdFail(){bdView('<div class="bdempty">게시판을 불러오지 못했습니다.<br>잠시 뒤 다시 시도해 주세요.</div>');}
 
 function bdCat(code,label,count,cls,soon){
@@ -1464,7 +1523,10 @@ function bdOpen(code,page){
     else{
       h+='<div>';
       d.posts.forEach(function(p){
-        h+='<button class="bdrow" onclick="bdRead('+p.id+')"><b>'+pyEsc(p.title)+(p.cmt?'<em>'+p.cmt+'</em>':'')+'</b><span>'+(BD.board==='ALL'?'<i class="bdtag">'+pyEsc(bdName(p.board))+'</i>':'')+pyEsc(p.nick)+' · '+bdWhen(p.at)+'</span></button>';
+        var th=p.pic?'<span class="bdthumb"><img src="'+bdImg(p.pic,200)+'" alt="" loading="lazy">'+(p.yt?'<i class="play"></i>':'')+'</span>'
+          :p.yt?'<span class="bdthumb"><img src="https://i.ytimg.com/vi/'+encodeURIComponent(p.yt)+'/mqdefault.jpg" alt="" loading="lazy"><i class="play"></i></span>':'';
+        var md=(p.pics?'<i class="bdmedia">사진 '+p.pics+'</i>':'')+(p.yt?'<i class="bdmedia">영상</i>':'');
+        h+='<button class="bdrow" onclick="bdRead('+p.id+')"><span class="tx"><b>'+pyEsc(p.title)+(p.cmt?'<em>'+p.cmt+'</em>':'')+'</b><span>'+(BD.board==='ALL'?'<i class="bdtag">'+pyEsc(bdName(p.board))+'</i>':'')+pyEsc(p.nick)+' · '+bdWhen(p.at)+md+'</span></span>'+th+'</button>';
       });
       h+='</div>';
       if(d.pages>1){
@@ -1488,12 +1550,14 @@ function bdRead(id){
     var h='<button class="bdback" onclick="bdOpen(BD.board,BD.page)">← '+pyEsc(bdName(BD.board))+'</button>'
       +'<div class="bdtitle">'+pyEsc(p.title)+'</div>'
       +'<div class="bdmeta">'+pyEsc(p.nick)+' · '+bdWhen(p.at,true)+'</div>'
-      +'<div class="bdbody">'+pyEsc(p.body)+'</div>'
+      +'<div class="bdbody">'+bdLinks(pyEsc(p.body))+'</div>'
+      +((p.pics||[]).length?'<div class="bdpics">'+p.pics.map(function(id){return '<a href="'+bdImg(id,2400)+'" target="_blank" rel="noopener"><img src="'+bdImg(id,1600)+'" alt="" loading="lazy"></a>';}).join('')+'</div>':'')
+      +bdYts(p.body).map(function(v){return '<div class="bdyt"><iframe src="https://www.youtube-nocookie.com/embed/'+v+'" title="유튜브 영상" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>';}).join('')
       +'<div class="bdacts"><button onclick="bdReport('+p.id+',this)">신고</button><button onclick="bdAskPw('+p.id+',\'bdPw'+p.id+'\')">삭제</button></div>'
       +'<div id="bdPw'+p.id+'"></div>'
       +'<div class="bdcmts"><h4>댓글 '+d.comments.length+'</h4>';
     d.comments.forEach(function(c){
-      h+='<div class="bdcmt"><div class="h"><span><b>'+pyEsc(c.nick)+'</b>'+bdWhen(c.at,true)+'</span><span><button onclick="bdReport('+c.id+',this)">신고</button> · <button onclick="bdAskPw('+c.id+',\'bdPw'+c.id+'\')">삭제</button></span></div><p>'+pyEsc(c.body)+'</p><div id="bdPw'+c.id+'"></div></div>';
+      h+='<div class="bdcmt"><div class="h"><span><b>'+pyEsc(c.nick)+'</b>'+bdWhen(c.at,true)+'</span><span><button onclick="bdReport('+c.id+',this)">신고</button> · <button onclick="bdAskPw('+c.id+',\'bdPw'+c.id+'\')">삭제</button></span></div><p>'+bdLinks(pyEsc(c.body))+'</p><div id="bdPw'+c.id+'"></div></div>';
     });
     h+='<form class="bdform c" onsubmit="bdSubmit(this,'+p.id+');return false;">'
       +'<div class="two"><input class="pyin" name="nick" maxlength="12" placeholder="닉네임" autocomplete="off" value="'+pyEsc(bdLS('bdNick'))+'"><input class="pyin" name="pw" type="password" maxlength="20" placeholder="비밀번호 (지울 때)" autocomplete="new-password"></div>'
@@ -1505,6 +1569,7 @@ function bdRead(id){
 }
 
 function bdWriteForm(){
+  BD_PICS=[];
   var def=BD.board==='ALL'?'FREE':BD.board,opts='';
   BD.boards.forEach(function(b){opts+='<option value="'+pyEsc(b.code)+'"'+(b.code===def?' selected':'')+'>'+pyEsc(bdName(b.code))+(b.soon?' (준비중)':'')+'</option>';});
   bdHash('board/'+BD.board+'/write');
@@ -1514,7 +1579,9 @@ function bdWriteForm(){
     +'<select class="pyin" name="board" aria-label="올릴 게시판">'+opts+'</select>'
     +'<div class="two"><input class="pyin" name="nick" maxlength="12" placeholder="닉네임" autocomplete="off" value="'+pyEsc(bdLS('bdNick'))+'"><input class="pyin" name="pw" type="password" maxlength="20" placeholder="비밀번호 (지울 때)" autocomplete="new-password"></div>'
     +'<input class="pyin" name="title" maxlength="60" placeholder="제목" autocomplete="off">'
-    +'<textarea class="pyin" name="body" maxlength="2000" placeholder="내용"></textarea>'
+    +'<textarea class="pyin" name="body" maxlength="2000" placeholder="내용 — 유튜브 링크를 붙여 넣으면 글 안에서 바로 재생됩니다"></textarea>'
+    +'<div class="bdpick"><label id="bdPickL">＋ 사진 추가<input type="file" accept="image/*" multiple onchange="bdAddPics(this)"></label><div class="bdpick" id="bdPrev"></div></div>'
+    +'<div class="bdhint">사진은 3장까지 · 공연 영상은 유튜브에 올리고 링크를 붙여 주세요</div>'
     +'<input class="bdhp" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true">'
     +'<div class="bdmsg"></div>'
     +'<div class="row"><button class="pybtn ghost" type="button" onclick="bdOpen(BD.board,BD.page)">취소</button><button class="pybtn" type="submit">올리기</button></div></form>');
@@ -1525,15 +1592,16 @@ function bdSubmit(f,parent){
   if(BD.busy)return;
   var msg=f.querySelector('.bdmsg'),v=function(n){return f[n]?f[n].value.trim():'';};
   var o={action:'boardWrite',board:(f.board&&f.board.value)||(BD.board==='ALL'?'FREE':BD.board),parent:parent||'',nick:v('nick'),pw:f.pw.value,title:v('title'),body:v('body'),hp:f.hp.value};
+  if(!parent&&BD_PICS.length)o.pics=BD_PICS.map(function(d){return d.split(',')[1];});
   if(!o.nick){msg.textContent='닉네임을 적어 주세요.';return;}
   if(o.pw.length<4){msg.textContent='비밀번호는 4자 이상 적어 주세요. 글을 지울 때 씁니다.';return;}
   if(!parent&&!o.title){msg.textContent='제목을 적어 주세요.';return;}
   if(!o.body){msg.textContent='내용을 적어 주세요.';return;}
-  BD.busy=true;msg.className='bdmsg ok';msg.textContent='올리는 중…';
+  BD.busy=true;msg.className='bdmsg ok';msg.textContent=o.pics?'사진과 함께 올리는 중… (몇 초 걸립니다)':'올리는 중…';
   bdSend(o).then(function(d){
     BD.busy=false;
     if(!d||!d.ok){msg.className='bdmsg';msg.textContent=d&&d.error||'올리지 못했습니다. 잠시 뒤 다시 시도해 주세요.';return;}
-    bdLS('bdNick',o.nick);
+    bdLS('bdNick',o.nick);if(!parent)BD_PICS=[];
     if(parent)bdRead(parent);else bdRead(d.id);
   }).catch(function(){BD.busy=false;msg.className='bdmsg';msg.textContent='올리지 못했습니다. 잠시 뒤 다시 시도해 주세요.';});
 }
