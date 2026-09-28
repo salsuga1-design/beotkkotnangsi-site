@@ -1485,7 +1485,7 @@ function bdRead(id){
     var p=d.post;BD.post=p;
     if(p.board!==BD.board&&BD.board!=='ALL'){BD.board=p.board;if(BD.boards.length)bdTabs();}
     bdHash('board/'+p.board+'/'+p.id);
-    var h='<button class="bdback" onclick="bdOpen(BD.board,BD.page)">← '+pyEsc(bdName(p.board))+'</button>'
+    var h='<button class="bdback" onclick="bdOpen(BD.board,BD.page)">← '+pyEsc(bdName(BD.board))+'</button>'
       +'<div class="bdtitle">'+pyEsc(p.title)+'</div>'
       +'<div class="bdmeta">'+pyEsc(p.nick)+' · '+bdWhen(p.at,true)+'</div>'
       +'<div class="bdbody">'+pyEsc(p.body)+'</div>'
