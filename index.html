@@ -629,19 +629,19 @@ body.live .seatlegend .demo{display:none}
         <div class="pyline minus"><span>세금 3.3% (소득세 3%·지방소득세 0.3%)</span><em id="pyTax">0원</em></div>
         <div class="pytotal"><span>예상 입금액</span><b id="pyNet">0원</b></div>
       </div>
-      <p class="pynote">예상 금액입니다. 세금은 10원 미만을 떼고 계산하며, 실제 금액은 팁박스가 자동으로 센 마감 기록 기준입니다.</p>
+      <p class="pynote">예상 금액입니다. 세금은 10원 미만을 떼고 계산하며, 실제 금액은 청구서에 올린 팁박스 화면·실물 코인 사진으로 확인한 개수 기준입니다.</p>
     </section>
 
     <section class="pycard" aria-labelledby="pyHowT">
       <h3 id="pyHowT">청구 방법</h3>
       <ol class="pysteps">
-        <li><div><b>공연이 끝나면 팁박스 마감 화면의 QR 찍기</b><span>홈페이지가 열리면 위 메뉴의 <b style="display:inline;color:var(--blossom)">공연자 정산</b>으로 오세요.</span></div></li>
-        <li><div><b>아래 청구서 작성</b><span>마감 화면의 정산 코드와 연락처를 적고 <b style="display:inline">팁박스 화면 사진</b>과 <b style="display:inline">실물 코인 사진</b>을 올려 주세요. 계좌와 주민등록번호는 처음 한 번만 적으시면 되고, 다음부터는 묻지 않습니다. 팀 대표 한 명이 청구하고, 팀 안의 분배는 팀에서 정합니다.</span></div></li>
+        <li><div><b>공연이 끝나면 사진 두 장 찍기</b><span>코인 개수가 뜬 <b style="display:inline">팁박스 화면</b> 한 장, <b style="display:inline">실물 코인</b> 한 장. 청구서에 이 두 장을 올립니다.</span></div></li>
+        <li><div><b>아래 청구서 작성</b><span>공연일·연락처·공연장을 고르고 팁박스 화면에 뜬 금·은·동 코인 개수를 적은 뒤, 찍어 둔 사진 두 장을 올려 주세요. 계좌와 주민등록번호는 처음 한 번만 적으시면 되고, 다음부터는 묻지 않습니다. 팀 대표 한 명이 청구하고, 팀 안의 분배는 팀에서 정합니다.</span></div></li>
         <li><div><b>3영업일 안에 입금</b><span>공연일부터 주말·공휴일을 빼고 3일 안에 팀 대표 계좌로 보내 드립니다. 늦게 청구하면 청구한 날부터 셉니다.</span></div></li>
         <li><div><b>주민등록번호는 세금 신고에만</b><span>3.3% 원천징수 신고에 꼭 필요해서 청구서에 적어 주세요. 공개되지 않고, 이 홈페이지 조회에도 나오지 않습니다.</span></div></li>
       </ol>
       <a class="pybtn" id="pyClaim" href="#" target="_blank" rel="noopener">정산 청구서 작성하기</a>
-      <p class="pynote">정산 코드는 마감 화면에 적혀 있습니다. 모르면 공연장 카운터에 물어보세요. 사진을 올리려면 구글 로그인이 필요합니다. <a href="privacy.html" style="color:var(--muted);text-decoration:underline">개인정보처리방침</a></p>
+      <p class="pynote">사진을 올리려면 구글 로그인이 필요합니다. <a href="privacy.html" style="color:var(--muted);text-decoration:underline">개인정보처리방침</a></p>
     </section>
 
     <section class="pycard" aria-labelledby="pyLookT">
@@ -667,7 +667,7 @@ body.live .seatlegend .demo{display:none}
       <details class="pyfaq"><summary>왜 3.3%를 떼나요?</summary>
         <p>공연 수입은 사업소득이라 지급할 때 3.3%를 미리 떼어 국세청에 대신 신고합니다. 5월 종합소득세 신고 때 정산되어 돌려받을 수도 있습니다.</p></details>
       <details class="pyfaq"><summary>코인 수가 제 생각과 달라요.</summary>
-        <p>팁박스가 센 기록과 실물 코인을 마감 때 공연팀 대표와 함께 한 번 더 맞춰 봅니다. 차이가 있으면 조회 화면에 “확인 중”으로 나오고, 확인이 끝나면 바로 처리합니다.</p></details>
+        <p>청구서에 올린 팁박스 화면 사진과 실물 코인 사진을 본사에서 직접 맞춰 봅니다. 차이가 있으면 조회 화면에 “확인 중”으로 나오고, 확인이 끝나면 바로 처리합니다.</p></details>
       <details class="pyfaq"><summary>관객이 환불하면요?</summary>
         <p>환불은 팁박스에 넣기 전 코인만 됩니다. 이미 넣은 코인은 공연자 몫에서 빠지지 않습니다.</p></details>
       <details class="pyfaq"><summary>정산하면 랭킹에도 올라가나요?</summary>
@@ -1285,12 +1285,6 @@ function pyInit(){
   var cb=document.getElementById('pyClaim');
   if(CLAIM_FORM_URL){
     cb.href=CLAIM_FORM_URL;
-    /* 마감 화면 QR(홈페이지?c=정산코드)로 들어오면 청구서에 코드가 미리 채워집니다. 첫 화면은 그대로 지도 */
-    var qc='';try{qc=(new URLSearchParams(location.search).get('c')||'').trim();}catch(e){}
-    if(/^[A-Za-z0-9-]{6,30}$/.test(qc)){
-      cb.href=CLAIM_FORM_URL+'?usp=pp_url&entry.1322152581='+encodeURIComponent(qc.toUpperCase());
-      cb.textContent='정산 청구서 작성하기 ('+qc.toUpperCase()+')';
-    }
   }
   else{cb.classList.add('is-off');cb.textContent='청구서 준비 중';cb.setAttribute('aria-disabled','true');
     cb.removeAttribute('target');cb.addEventListener('click',function(e){e.preventDefault();});}
