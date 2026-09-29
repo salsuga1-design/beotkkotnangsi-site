@@ -645,15 +645,15 @@ textarea.pyin{resize:vertical;min-height:9rem;line-height:1.6;font-family:var(--
       <div class="ph3" id="photos">
         <figure class="ph" data-photo="tipbox">
           <div class="phin"><svg class="line" viewBox="0 0 120 100" aria-hidden="true"><rect x="22" y="30" width="76" height="62" rx="10"/><rect x="34" y="42" width="52" height="24" rx="4"/><path d="M50 18h20M60 18v12"/><path d="M48 80h24"/><circle cx="60" cy="10" r="5"/></svg></div>
-          <figcaption>꿈꿀단지 팁박스<small>실물 사진이 들어갈 자리</small></figcaption>
+          <figcaption>꿈꿀단지 팁박스<small>공연장에 놓이는 코인 팁박스</small></figcaption>
         </figure>
         <figure class="ph" data-photo="coin">
           <div class="phin coins"><span data-coin="cu"></span><span data-coin="ag"></span><span data-coin="au"></span></div>
-          <figcaption>금·은·동코인<small>사진 전까지는 그림으로</small></figcaption>
+          <figcaption>금·은·동코인<small>코인 교환기에서 바꿔 팁박스에 넣습니다</small></figcaption>
         </figure>
         <figure class="ph" data-photo="stage">
           <div class="phin"><svg class="line" viewBox="0 0 120 100" aria-hidden="true"><path d="M60 40v48M46 92h28"/><rect x="52" y="14" width="16" height="26" rx="8"/><path d="M20 10l18 40M100 10L82 50" stroke-dasharray="3 5"/></svg></div>
-          <figcaption>공연 현장<small>공연 사진이 들어갈 자리</small></figcaption>
+          <figcaption>공연 현장<small>관객이 넣은 코인이 무대에 선 팀의 정산이 됩니다</small></figcaption>
         </figure>
       </div>
       <div class="coinlist">
@@ -661,12 +661,12 @@ textarea.pyin{resize:vertical;min-height:9rem;line-height:1.6;font-family:var(--
         <div class="coinrow"><div class="cpair" data-pair="ag"></div><div><h5>은코인</h5><p>10 크레딧</p></div><div class="pr">20,000원</div></div>
         <div class="coinrow"><div class="cpair" data-pair="au"></div><div><h5>금코인</h5><p>100 크레딧</p></div><div class="pr">200,000원</div></div>
       </div>
-      <p class="silent">🔇 이펙트는 소리 없이 화면만 구현됩니다. 코인이 떨어지는 소리만 남겨 공연을 방해하지 않습니다.</p>
+      <p class="silent">🔇 이펙트는 화면으로만 나오고 소리는 내지 않습니다. 들리는 건 코인이 떨어지는 소리뿐이라 공연을 방해하지 않습니다.</p>
     </section>
 
     <section class="asec">
       <div class="e" data-ko="스무 자리">스무 자리</div>
-      <h3 class="calli"><img class="han" src="mangae.png" alt="滿開">(만개)하는 스무송이의 꽃</h3>
+      <h3 class="calli"><img class="han" src="mangae.png" alt="滿開">(만개)하는 스무 송이의 꽃</h3>
       <p class="sub">전국 스무 곳까지. 한 지역에 한두 곳만.</p>
     </section>
 
@@ -796,7 +796,7 @@ textarea.pyin{resize:vertical;min-height:9rem;line-height:1.6;font-family:var(--
       <details class="pyfaq"><summary>인증을 해지하거나 다른 공연장으로 옮기려면요?</summary>
         <p>한 팀은 한 공연장만 인증받습니다. 해지는 맺을 때처럼 양측 합의입니다. 밴드와 공연장 사장님이 위의 <b style="display:inline">클럽 인증 해지</b>에서 각각 신청하면 그때 풀리고, 한쪽만 신청한 동안은 그대로 인증팀입니다. 해지되면 새 인증을 받을 때까지 랭킹에서 빠지고, 다른 공연장 인증을 새로 받을 수 있습니다. 정산금과 지난 정산 기록은 그대로입니다.</p></details>
       <details class="pyfaq"><summary>3영업일이 지나도 입금이 안 됐어요.</summary>
-        <p>공연장 카운터에 팀 이름과 공연 날짜를 말씀해 주세요. 확인해서 바로 처리합니다.</p></details>
+        <p>먼저 위의 <b style="display:inline">내 정산 조회</b>에서 진행 상태를 확인해 주세요. ‘확인 중’이면 사진 대조가 아직 끝나지 않은 것입니다. 그래도 늦어지면 공연장 카운터에 팀 이름과 공연 날짜를 말씀해 주세요. 확인해서 바로 처리합니다.</p></details>
     </section>
   </div>
 </div>
@@ -1401,7 +1401,7 @@ function pyLookup(){
         var st=it.status||'접수';
         var cls=st==='입금 완료'?'done':(st==='보류'?'hold':'wait');
         var sub=st==='입금 완료'?(it.paid?pyMd(it.paid)+' 입금':''):(st==='보류'?'공연장 카운터에 문의해 주세요':(it.due?pyMd(it.due)+'까지 입금 예정':''));
-        h+='<div class="pyitem"><div class="l"><b>'+pyMd(it.date)+(it.venue?' · '+pyEsc(it.venue):'')+'</b><span>'+pyEsc(it.id)+'</span></div>'+
+        h+='<div class="pyitem"><div class="l"><b>'+pyMd(it.date)+(it.venue?' · '+pyEsc(it.venue):'')+'</b></div>'+
            '<div class="r"><b>'+Number(it.net||0).toLocaleString('ko-KR')+'원</b><span class="pybadge '+cls+'">'+pyEsc(st)+'</span>'+
            (sub?'<small>'+sub+'</small>':'')+'</div></div>';
       });

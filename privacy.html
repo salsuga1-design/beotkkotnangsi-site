@@ -41,12 +41,14 @@ footer{color:var(--faint);font-size:.8rem;text-align:center;margin-top:1.4rem}
 <section>
 <h2>1. 받는 정보와 쓰는 곳</h2>
 <table>
-<tr><th>공연자 정산 청구서</th><td>정산 코드, 팀 이름, 대표자 이름, 연락처, 은행·계좌번호·예금주, 주민등록번호, 팁박스 화면 사진, 실물 코인 사진<br><span class="small">사진을 올릴 때 구글 로그인이 필요하며, 올린 파일에는 구글 계정 정보가 함께 기록됩니다.</span></td></tr>
+<tr><th>공연자 정산 청구서</th><td>공연장·공연일·코인 개수, 팀 이름, 대표자 이름, 연락처, 은행·계좌번호·예금주, 주민등록번호, 팁박스 화면 사진, 실물 코인 사진<br><span class="small">사진을 올릴 때 구글 로그인이 필요하며, 올린 파일에는 구글 계정 정보가 함께 기록됩니다.</span></td></tr>
 <tr><th>쓰는 곳</th><td>정산금 계산과 입금, 원천징수 신고, 중복·오류 청구 확인, 문의 답변</td></tr>
 <tr><th>내 정산 조회</th><td>팀 이름과 연락처 뒤 4자리는 조회할 때만 쓰고 저장하지 않습니다. 틀린 조회가 반복되면 막기 위해 1시간 동안만 횟수를 셉니다.</td></tr>
+<tr><th>클럽 인증 해지</th><td>팀 이름과 연락처 뒤 4자리(사장님은 공연장 인증 비밀번호)는 본인 확인에만 쓰고 따로 저장하지 않습니다. 해지를 신청한 쪽과 시각만 인증 기록에 남깁니다.</td></tr>
+<tr><th>게시판</th><td>닉네임, 비밀번호(암호화해서 저장), 글·댓글 내용, 올린 사진. 본인 글을 지울 때 비밀번호를 확인하는 데 쓰고, 신고가 쌓인 글을 가리는 데 신고 횟수를 셉니다.<br><span class="small">글은 누구나 볼 수 있으니 전화번호·계좌 같은 개인정보는 적지 마세요.</span></td></tr>
 <tr><th>키링 확인·위조 신고</th><td>키링 코드와 (적은 경우) 산 곳 이름만 받습니다. 개인을 알아볼 수 있는 정보는 받지 않습니다.</td></tr>
 </table>
-<p class="small">홈페이지는 쿠키를 쓰지 않습니다.</p>
+<p class="small">홈페이지는 쿠키를 쓰지 않습니다. 게시판에 쓴 닉네임은 다음에 다시 적지 않도록 쓰고 있는 기기의 브라우저에만 저장됩니다. 게시글 속 유튜브 영상을 재생하면 유튜브(Google)의 개인정보 정책이 적용됩니다.</p>
 </section>
 
 <section>
@@ -58,6 +60,7 @@ footer{color:var(--faint);font-size:.8rem;text-align:center;margin-top:1.4rem}
 <section>
 <h2>3. 보관 기간과 파기</h2>
 <p>청구서 내용과 첨부 사진은 정산 증빙이라, 세법상 보존 의무에 따라 해당 과세기간 신고기한부터 <b>5년</b> 보관한 뒤 지웁니다(국세기본법 제85조의3).</p>
+<p>게시판 글과 사진은 글쓴이가 지우거나 운영자가 내릴 때까지 보관합니다. 글쓴이가 글을 지우면 올린 사진도 함께 지웁니다.</p>
 <p>기간이 끝난 파일은 복구할 수 없게 삭제합니다.</p>
 </section>
 
@@ -74,9 +77,9 @@ footer{color:var(--faint);font-size:.8rem;text-align:center;margin-top:1.4rem}
 <h2>5. 맡겨서 처리하는 곳 (국외 보관 포함)</h2>
 <table>
 <tr><th>받는 곳</th><td>Google LLC</td></tr>
-<tr><th>맡기는 일</th><td>청구서 접수(Google Forms), 정산 기록 보관(Google Sheets·Drive), 조회 서버(Apps Script)</td></tr>
+<tr><th>맡기는 일</th><td>청구서 접수(Google Forms), 정산 기록·게시판 글과 사진 보관(Google Sheets·Drive), 조회·게시판 서버(Apps Script)</td></tr>
 <tr><th>보관 국가</th><td>미국 등 Google 데이터센터 소재 국가</td></tr>
-<tr><th>시기·방법</th><td>청구서를 제출할 때 인터넷으로 전송</td></tr>
+<tr><th>시기·방법</th><td>청구서를 제출하거나 게시판에 글을 올릴 때 인터넷으로 전송</td></tr>
 <tr><th>보관 기간</th><td>위 3번과 같음</td></tr>
 </table>
 <p class="small">홈페이지 자체는 GitHub Pages에서 제공되며, 접속 기록은 GitHub의 정책에 따릅니다. 국외 보관을 원하지 않으면 청구서 대신 아래 연락처로 문의해 주세요. 다만 정산 처리가 늦어질 수 있습니다.</p>
@@ -107,7 +110,7 @@ footer{color:var(--faint);font-size:.8rem;text-align:center;margin-top:1.4rem}
 <section>
 <h2>9. 바뀌는 경우</h2>
 <p>이 방침이 바뀌면 시행 7일 전부터 이 페이지에 알립니다.</p>
-<p class="small">시행일: 2026년 9월 20일</p>
+<p class="small">시행일: 2026년 9월 20일<br>개정: 2026년 9월 29일 — 게시판·클럽 인증 해지 항목 추가, 청구서의 정산 코드 항목 삭제</p>
 </section>
 
 <footer><a href="/">벗꽃낭시 홈으로</a></footer>
