@@ -1488,7 +1488,35 @@ function bdName(code){
 }
 function bdSoon(code){for(var i=0;i<BD.boards.length;i++)if(BD.boards[i].code===code)return BD.boards[i].soon;return false;}
 function bdHash(h){try{history.replaceState(null,'',h?'#'+h:location.pathname+location.search);}catch(e){}}
-function bdGet(q){return fetch(SHEET_URL+q).then(function(r){return r.json();});}
+/* 빠르게 뜨게: 한 번 받은 목록·글은 기억해 두고 바로 그린 뒤, 서버 답이 오면 달라졌을 때만 다시 그립니다.
+   목록은 브라우저에 남겨 다음 방문 때도 바로 뜨고, 글 본문은 이 창에서만 기억합니다. */
+var BD_C={},BD_P={},BD_SEQ=0,BD_LIST=[];
+function bdIsList(q){return q.indexOf('?action=board&')===0;}
+function bdCacheGet(q){
+  if(BD_C[q])return BD_C[q];
+  if(bdIsList(q))try{var s=localStorage.getItem('bd'+q);if(s)return BD_C[q]=JSON.parse(s);}catch(e){}
+  return null;
+}
+function bdCacheSet(q,d){BD_C[q]=d;if(bdIsList(q))try{localStorage.setItem('bd'+q,JSON.stringify(d));}catch(e){}}
+function bdEachList(fn){ /* 기억해 둔 목록마다 손보기 (글 쓰기·지우기 직후) */
+  var keys={};Object.keys(BD_C).forEach(function(k){keys[k]=1;});
+  try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf('bd?action=board&')===0)keys[k.slice(2)]=1;}}catch(e){}
+  Object.keys(keys).forEach(function(q){if(!bdIsList(q))return;var d=bdCacheGet(q);if(d&&d.posts){fn(d,q);bdCacheSet(q,d);}});
+}
+function bdGet(q){ /* 같은 요청이 이미 가는 중이면 그걸 같이 기다림 */
+  if(BD_P[q])return BD_P[q];
+  return BD_P[q]=fetch(SHEET_URL+q).then(function(r){return r.json();})
+    .then(function(d){delete BD_P[q];if(d&&d.ok)bdCacheSet(q,d);return d;},function(e){delete BD_P[q];throw e;});
+}
+function bdLoad(q,draw,fail,wait){
+  var seq=++BD_SEQ,c=bdCacheGet(q),shown=c?JSON.stringify(c):'';
+  if(c)draw(c);else bdView(wait||'<div class="bdempty">불러오는 중…</div>');
+  bdGet(q).then(function(d){
+    if(seq!==BD_SEQ)return; /* 그사이 다른 화면으로 갔으면 건드리지 않음 */
+    if(!d||!d.ok){if(!c)fail(d);return;}
+    if(JSON.stringify(d)!==shown)draw(d);
+  }).catch(function(){if(seq===BD_SEQ&&!c)fail();});
+}
 function bdSend(o){return fetch(SHEET_URL,{method:'POST',body:JSON.stringify(o)}).then(function(r){return r.json();});}
 function bdView(h){document.getElementById('bdView').innerHTML=h;}
 
@@ -1560,11 +1588,9 @@ function bdPick(code){bdSideToggle(false);bdOpen(code,1);}
 function bdOpen(code,page){
   BD.board=code||'FREE';BD.page=page||1;BD.post=null;
   if(BD.boards.length)bdTabs();
-  bdView('<div class="bdempty">불러오는 중…</div>');
   bdHash('board/'+BD.board);
-  bdGet('?action=board&b='+encodeURIComponent(BD.board)+'&page='+BD.page).then(function(d){
-    if(!d||!d.ok)return bdFail();
-    BD.boards=d.boards||BD.boards;BD.all=d.all||0;BD.board=d.board;BD.page=d.page;bdTabs();
+  bdLoad('?action=board&b='+encodeURIComponent(BD.board)+'&page='+BD.page,function(d){
+    BD.boards=d.boards||BD.boards;BD.all=d.all||0;BD.board=d.board;BD.page=d.page;BD_LIST=d.posts||[];bdTabs();
     var sub=BD.board==='ALL'?'모든 게시판의 새 글':BD.board==='FREE'?'밴드·관객·공연장 누구나':(bdSoon(BD.board)?'오픈 준비 중인 공연장입니다':'이 공연장 이야기');
     var h='<div class="bdtop"><h3>'+pyEsc(bdName(BD.board))+'<small>'+sub+'</small></h3><button class="bdwrite" onclick="bdWriteForm()">글쓰기</button></div>';
     if(!d.posts.length)h+='<div class="bdempty">아직 글이 없습니다.<br>첫 글을 남겨 주세요.</div>';
@@ -1585,14 +1611,19 @@ function bdOpen(code,page){
       }
     }
     bdView(h);
-  }).catch(bdFail);
+  },bdFail);
 }
 
 function bdRead(id){
-  bdView('<div class="bdempty">불러오는 중…</div>');
-  bdGet('?action=bpost&id='+id).then(function(d){
-    if(!d||!d.ok){bdView('<button class="bdback" onclick="bdOpen(BD.board,BD.page)">← 목록</button><div class="bdempty">'+pyEsc(d&&d.error||'글을 불러오지 못했습니다.')+'</div>');return;}
-    var p=d.post;BD.post=p;
+  /* 본문을 기다리는 동안 목록에 있던 제목·닉네임은 먼저 보여 줌 */
+  var row=null;for(var i=0;i<BD_LIST.length;i++)if(BD_LIST[i].id===id)row=BD_LIST[i];
+  var wait=row?'<button class="bdback" onclick="bdOpen(BD.board,BD.page)">← '+pyEsc(bdName(BD.board))+'</button>'
+    +'<div class="bdtitle">'+pyEsc(row.title)+'</div><div class="bdmeta">'+pyEsc(row.nick)+' · '+bdWhen(row.at,true)+'</div>'
+    +'<div class="bdempty">본문 불러오는 중…</div>':'';
+  bdLoad('?action=bpost&id='+id,function(d){
+    var p=d.post;
+    var of=document.querySelector('#bdView form.bdform.c'),keep=of&&BD.post&&BD.post.id===p.id?{nick:of.nick.value,pw:of.pw.value,body:of.body.value}:null;
+    BD.post=p;
     if(p.board!==BD.board&&BD.board!=='ALL'){BD.board=p.board;if(BD.boards.length)bdTabs();}
     bdHash('board/'+p.board+'/'+p.id);
     var h='<button class="bdback" onclick="bdOpen(BD.board,BD.page)">← '+pyEsc(bdName(BD.board))+'</button>'
@@ -1613,11 +1644,12 @@ function bdRead(id){
       +'<input class="bdhp" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true">'
       +'<div class="bdmsg"></div><button class="pybtn" type="submit">댓글 달기</button></form></div>';
     bdView(h);
-  }).catch(bdFail);
+    if(keep){var nf=document.querySelector('#bdView form.bdform.c');if(nf){nf.nick.value=keep.nick;nf.pw.value=keep.pw;nf.body.value=keep.body;}}
+  },function(d){bdView('<button class="bdback" onclick="bdOpen(BD.board,BD.page)">← 목록</button><div class="bdempty">'+pyEsc(d&&d.error||'글을 불러오지 못했습니다.')+'</div>');},wait);
 }
 
 function bdWriteForm(){
-  BD_PICS=[];
+  BD_SEQ++;BD_PICS=[];
   var def=BD.board==='ALL'?'FREE':BD.board,opts='';
   BD.boards.forEach(function(b){opts+='<option value="'+pyEsc(b.code)+'"'+(b.code===def?' selected':'')+'>'+pyEsc(bdName(b.code))+(b.soon?' (준비중)':'')+'</option>';});
   bdHash('board/'+BD.board+'/write');
@@ -1650,7 +1682,18 @@ function bdSubmit(f,parent){
     BD.busy=false;
     if(!d||!d.ok){msg.className='bdmsg';msg.textContent=d&&d.error||'올리지 못했습니다. 잠시 뒤 다시 시도해 주세요.';return;}
     bdLS('bdNick',o.nick);if(!parent)BD_PICS=[];
-    if(parent)bdRead(parent);else bdRead(d.id);
+    /* 서버에 다시 묻기 전에, 방금 쓴 글·댓글을 기억해 둔 화면에 먼저 넣어 바로 보여 줌 */
+    var now=new Date().toISOString();
+    if(parent){
+      var pc=BD_C['?action=bpost&id='+parent];
+      if(pc&&d.id)pc.comments.push({id:d.id,nick:o.nick,body:o.body,at:now});
+      bdEachList(function(l){l.posts.forEach(function(p){if(p.id===parent)p.cmt=(p.cmt||0)+1;});});
+      bdRead(parent);
+    }else{
+      if(!o.pics)BD_C['?action=bpost&id='+d.id]={ok:true,post:{id:d.id,board:o.board,title:o.title,nick:o.nick,at:now,body:o.body,pics:[]},comments:[]};
+      bdEachList(function(l,q){if(/&page=1$/.test(q)&&(l.board===o.board||l.board==='ALL'))l.posts.unshift({id:d.id,board:o.board,title:o.title,nick:o.nick,at:now,cmt:0,pics:0});});
+      bdRead(d.id);
+    }
   }).catch(function(){BD.busy=false;msg.className='bdmsg';msg.textContent='올리지 못했습니다. 잠시 뒤 다시 시도해 주세요.';});
 }
 
@@ -1665,6 +1708,14 @@ function bdDelete(id,f){
   var msg=f.nextElementSibling;
   bdSend({action:'boardDelete',id:id,pw:f.pw.value}).then(function(d){
     if(!d||!d.ok){msg.textContent=d&&d.error||'지우지 못했습니다.';return;}
+    /* 지운 글·댓글은 기억해 둔 화면에서도 바로 뺌 */
+    delete BD_C['?action=bpost&id='+id];
+    var pc=BD.post&&BD_C['?action=bpost&id='+BD.post.id];
+    if(pc)pc.comments=pc.comments.filter(function(c){return c.id!==id;});
+    bdEachList(function(l){
+      l.posts=l.posts.filter(function(p){return p.id!==id;});
+      if(BD.post&&BD.post.id!==id)l.posts.forEach(function(p){if(p.id===BD.post.id&&p.cmt)p.cmt--;});
+    });
     if(BD.post&&BD.post.id===id)bdOpen(BD.board,BD.page);else bdRead(BD.post.id);
   }).catch(function(){msg.textContent='지우지 못했습니다.';});
 }
@@ -1689,6 +1740,9 @@ function bdEnter(){if(!BD.boards.length||!document.querySelector('#bdView .bdtop
     _go('board',nb);
     if(m[2]){bdGet('?action=board&b='+encodeURIComponent(BD.board)).then(function(d){if(d&&d.ok){BD.boards=d.boards;bdTabs();}}).catch(function(){});bdRead(+m[2]);}
     else bdOpen(BD.board,1);
+  }else{
+    /* 게시판 버튼을 누르기 전에 자유게시판 첫 쪽을 미리 받아 둠 (첫 화면 로딩이 끝난 뒤) */
+    setTimeout(function(){bdGet('?action=board&b=FREE&page=1').catch(function(){});},1500);
   }
 })();
 </script>
