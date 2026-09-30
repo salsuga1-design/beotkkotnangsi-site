@@ -1622,7 +1622,9 @@ function bdRead(id){
     +'<div class="bdempty">본문 불러오는 중…</div>':'';
   bdLoad('?action=bpost&id='+id,function(d){
     var p=d.post;
-    var of=document.querySelector('#bdView form.bdform.c'),keep=of&&BD.post&&BD.post.id===p.id?{nick:of.nick.value,pw:of.pw.value,body:of.body.value}:null;
+    /* 뒤에서 다시 그릴 때 쓰던 댓글·안내 문구·입력 위치를 그대로 살림 */
+    var of=document.querySelector('#bdView form.bdform.c'),om=of&&of.querySelector('.bdmsg'),ae=document.activeElement;
+    var keep=of&&BD.post&&BD.post.id===p.id?{nick:of.nick.value,pw:of.pw.value,body:of.body.value,mc:om.className,mt:om.textContent,focus:ae&&ae.form===of?ae.name:''}:null;
     BD.post=p;
     if(p.board!==BD.board&&BD.board!=='ALL'){BD.board=p.board;if(BD.boards.length)bdTabs();}
     bdHash('board/'+p.board+'/'+p.id);
@@ -1644,7 +1646,11 @@ function bdRead(id){
       +'<input class="bdhp" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true">'
       +'<div class="bdmsg"></div><button class="pybtn" type="submit">댓글 달기</button></form></div>';
     bdView(h);
-    if(keep){var nf=document.querySelector('#bdView form.bdform.c');if(nf){nf.nick.value=keep.nick;nf.pw.value=keep.pw;nf.body.value=keep.body;}}
+    if(keep){var nf=document.querySelector('#bdView form.bdform.c');if(nf){
+      nf.nick.value=keep.nick;nf.pw.value=keep.pw;nf.body.value=keep.body;
+      var nm=nf.querySelector('.bdmsg');nm.className=keep.mc;nm.textContent=keep.mt;
+      if(keep.focus&&nf[keep.focus])nf[keep.focus].focus();
+    }}
   },function(d){bdView('<button class="bdback" onclick="bdOpen(BD.board,BD.page)">← 목록</button><div class="bdempty">'+pyEsc(d&&d.error||'글을 불러오지 못했습니다.')+'</div>');},wait);
 }
 
@@ -1678,9 +1684,11 @@ function bdSubmit(f,parent){
   if(!parent&&!o.title){msg.textContent='제목을 적어 주세요.';return;}
   if(!o.body){msg.textContent='내용을 적어 주세요.';return;}
   BD.busy=true;msg.className='bdmsg ok';msg.textContent=o.pics?'사진과 함께 올리는 중… (몇 초 걸립니다)':'올리는 중…';
+  /* 기다리는 사이 화면이 다시 그려졌으면 지금 보이는 입력칸에 안내를 띄움 */
+  var cur=function(){var cf=document.querySelector('#bdView form.bdform'+(parent?'.c':':not(.c)'));return cf?cf.querySelector('.bdmsg'):msg;};
   bdSend(o).then(function(d){
     BD.busy=false;
-    if(!d||!d.ok){msg.className='bdmsg';msg.textContent=d&&d.error||'올리지 못했습니다. 잠시 뒤 다시 시도해 주세요.';return;}
+    if(!d||!d.ok){msg=cur();msg.className='bdmsg';msg.textContent=d&&d.error||'올리지 못했습니다. 잠시 뒤 다시 시도해 주세요.';return;}
     bdLS('bdNick',o.nick);if(!parent)BD_PICS=[];
     /* 서버에 다시 묻기 전에, 방금 쓴 글·댓글을 기억해 둔 화면에 먼저 넣어 바로 보여 줌 */
     var now=new Date().toISOString();
@@ -1694,7 +1702,7 @@ function bdSubmit(f,parent){
       bdEachList(function(l,q){if(/&page=1$/.test(q)&&(l.board===o.board||l.board==='ALL'))l.posts.unshift({id:d.id,board:o.board,title:o.title,nick:o.nick,at:now,cmt:0,pics:0});});
       bdRead(d.id);
     }
-  }).catch(function(){BD.busy=false;msg.className='bdmsg';msg.textContent='올리지 못했습니다. 잠시 뒤 다시 시도해 주세요.';});
+  }).catch(function(){BD.busy=false;msg=cur();msg.className='bdmsg';msg.textContent='올리지 못했습니다. 잠시 뒤 다시 시도해 주세요.';});
 }
 
 function bdAskPw(id,box){
