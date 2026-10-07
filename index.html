@@ -566,6 +566,46 @@ textarea.pyin{resize:vertical;min-height:9rem;line-height:1.6;font-family:var(--
 .bdprev img{width:100%;height:100%;object-fit:cover;display:block}
 .bdprev button{position:absolute;top:3px;right:3px;width:20px;height:20px;border-radius:50%;background:rgba(18,14,23,.8);color:#fff;font-size:.8rem;line-height:20px;text-align:center}
 .bdhint{font-size:.74rem;color:var(--faint)}
+
+/* ── 휴대폰 최적화 (2026-10-07) ── */
+.pyquick{display:grid;grid-template-columns:1.25fr 1fr;gap:.5rem;margin-top:1.2rem}
+.pyquick .pybtn{margin:0;padding-left:.6rem;padding-right:.6rem;white-space:nowrap}
+.pyquick .pybtn.ghost{background:var(--ink3);color:var(--paper)}
+.demonote{word-break:keep-all}
+#pyLookT{scroll-margin-top:110px}
+.pyfaq{padding:.15rem 0}
+.pyfaq:first-of-type{padding-top:0}
+.pyfaq summary{min-height:44px;align-items:center}
+.pyfaq p{margin:.05rem 0 .75rem}
+.pystep input{height:2.5rem}
+.pclose{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;margin:-.65rem -.65rem 0 0;padding:0}
+.pyseg button{min-height:44px}
+.bdwrite{min-height:42px}
+.pynote a{display:inline-block;padding:.4rem 0}
+.bdrow b{display:flex;align-items:baseline;min-width:0}
+.bdrow b .tt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.bdrow b em{flex:none}
+.mbr{display:none}
+@media(max-width:640px){
+  .pyin,select.pyin,textarea.pyin,.bdpw .pyin,.kinput{font-size:16px}
+  .mbr{display:inline}
+  .flow{flex-wrap:nowrap;gap:.35rem}
+  .flow div{flex:1 1 0;min-width:0;padding:.75rem .35rem}
+  .flow .ar{flex:none}
+  .flow b{font-size:1.05rem}
+  .flow small{font-size:.72rem;word-break:keep-all}
+}
+@media(max-width:860px){
+  .rank{width:162px}
+  .rk{font-size:.68rem}
+  .rteam2{font-size:.82rem}
+  .rrow2.top .rteam2{font-size:.9rem}
+  .rcoin2{font-size:.68rem}
+  .tally{font-size:.74rem}
+  .demonote{font-size:.7rem}
+  .rank-h .t{font-size:.86rem}
+  .rank-h .demo{font-size:.66rem}
+}
 </style>
 </head>
 <body>
@@ -683,7 +723,7 @@ textarea.pyin{resize:vertical;min-height:9rem;line-height:1.6;font-family:var(--
 
     <section class="asec">
       <div class="e" data-ko="스무 자리">스무 자리</div>
-      <h3 class="calli"><img class="han" src="mangae.png" alt="滿開">(만개)하는 스무 송이의 꽃</h3>
+      <h3 class="calli"><img class="han" src="mangae.png" alt="滿開">(만개)하는<br class="mbr"> 스무 송이의 꽃</h3>
       <p class="sub">전국 스무 곳까지. 한 지역에 한두 곳만.</p>
     </section>
 
@@ -712,6 +752,31 @@ textarea.pyin{resize:vertical;min-height:9rem;line-height:1.6;font-family:var(--
       <div class="e" data-ko="공연팀 정산">공연팀 정산</div>
       <h2>공연자 정산</h2>
       <span class="pill">청구하면 3영업일 안에 입금</span>
+      <div class="pyquick"><a class="pybtn" id="pyClaimTop" href="#" target="_blank" rel="noopener">정산 청구서 작성</a><a class="pybtn ghost" href="#pyLookT" onclick="document.getElementById('pyLookT').scrollIntoView({behavior:'smooth',block:'start'});return false;">내 정산 조회</a></div>
+    </section>
+
+    <section class="pycard" aria-labelledby="pyHowT">
+      <h3 id="pyHowT">청구 방법</h3>
+      <ol class="pysteps">
+        <li><div><b>공연이 끝나면 사진 두 장 찍기</b><span>코인 개수가 뜬 <b style="display:inline">팁박스 화면</b> 한 장, <b style="display:inline">실물 코인</b> 한 장. 청구서에 이 두 장을 올립니다.</span></div></li>
+        <li><div><b>아래 청구서 작성</b><span>공연일·연락처·공연장을 고르고 팁박스 화면에 뜬 금·은·동 코인 개수를 적은 뒤, 찍어 둔 사진 두 장을 올려 주세요. 계좌와 주민등록번호는 처음 한 번만 적으시면 되고, 다음부터는 묻지 않습니다. 팀 대표 한 명이 청구하고, 팀 안의 분배는 팀에서 정합니다.</span></div></li>
+        <li><div><b>3영업일 안에 입금</b><span>공연일부터 주말·공휴일을 빼고 3일 안에 팀 대표 계좌로 보내 드립니다. 늦게 청구하면 청구한 날부터 셉니다.</span></div></li>
+        <li><div><b>주민등록번호는 세금 신고에만</b><span>3.3% 원천징수 신고에 꼭 필요해서 청구서에 적어 주세요. 공개되지 않고, 이 홈페이지 조회에도 나오지 않습니다.</span></div></li>
+      </ol>
+      <a class="pybtn" id="pyClaim" href="#" target="_blank" rel="noopener">정산 청구서 작성하기</a>
+      <p class="pynote">사진을 올리려면 구글 로그인이 필요합니다. <a href="privacy.html" style="color:var(--muted);text-decoration:underline">개인정보처리방침</a></p>
+    </section>
+
+    <section class="pycard" aria-labelledby="pyLookT">
+      <h3 id="pyLookT">내 정산 조회<small>청구서에 적은 팀 이름과 연락처 뒤 4자리로 확인합니다</small></h3>
+      <form class="pyform" onsubmit="pyLookup();return false;">
+        <div class="two">
+          <input class="pyin" id="pyTeam" type="text" placeholder="팀 이름" maxlength="40" autocomplete="off" aria-label="팀 이름">
+          <input class="pyin num" id="pyTel" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="0000" autocomplete="off" aria-label="연락처 뒤 4자리">
+        </div>
+        <button class="pybtn" type="submit">조회</button>
+      </form>
+      <div class="kresult" id="pyOut" aria-live="polite"></div>
     </section>
 
     <section class="pycard" aria-labelledby="pyCalcT">
@@ -751,30 +816,6 @@ textarea.pyin{resize:vertical;min-height:9rem;line-height:1.6;font-family:var(--
         <div class="pytotal"><span>예상 입금액</span><b id="pyNet">0원</b></div>
       </div>
       <p class="pynote">예상 금액입니다. 세금은 10원 미만을 떼고 계산하며, 실제 금액은 청구서에 올린 팁박스 화면·실물 코인 사진으로 확인한 개수 기준입니다.</p>
-    </section>
-
-    <section class="pycard" aria-labelledby="pyHowT">
-      <h3 id="pyHowT">청구 방법</h3>
-      <ol class="pysteps">
-        <li><div><b>공연이 끝나면 사진 두 장 찍기</b><span>코인 개수가 뜬 <b style="display:inline">팁박스 화면</b> 한 장, <b style="display:inline">실물 코인</b> 한 장. 청구서에 이 두 장을 올립니다.</span></div></li>
-        <li><div><b>아래 청구서 작성</b><span>공연일·연락처·공연장을 고르고 팁박스 화면에 뜬 금·은·동 코인 개수를 적은 뒤, 찍어 둔 사진 두 장을 올려 주세요. 계좌와 주민등록번호는 처음 한 번만 적으시면 되고, 다음부터는 묻지 않습니다. 팀 대표 한 명이 청구하고, 팀 안의 분배는 팀에서 정합니다.</span></div></li>
-        <li><div><b>3영업일 안에 입금</b><span>공연일부터 주말·공휴일을 빼고 3일 안에 팀 대표 계좌로 보내 드립니다. 늦게 청구하면 청구한 날부터 셉니다.</span></div></li>
-        <li><div><b>주민등록번호는 세금 신고에만</b><span>3.3% 원천징수 신고에 꼭 필요해서 청구서에 적어 주세요. 공개되지 않고, 이 홈페이지 조회에도 나오지 않습니다.</span></div></li>
-      </ol>
-      <a class="pybtn" id="pyClaim" href="#" target="_blank" rel="noopener">정산 청구서 작성하기</a>
-      <p class="pynote">사진을 올리려면 구글 로그인이 필요합니다. <a href="privacy.html" style="color:var(--muted);text-decoration:underline">개인정보처리방침</a></p>
-    </section>
-
-    <section class="pycard" aria-labelledby="pyLookT">
-      <h3 id="pyLookT">내 정산 조회<small>청구서에 적은 팀 이름과 연락처 뒤 4자리로 확인합니다</small></h3>
-      <form class="pyform" onsubmit="pyLookup();return false;">
-        <div class="two">
-          <input class="pyin" id="pyTeam" type="text" placeholder="팀 이름" maxlength="40" autocomplete="off" aria-label="팀 이름">
-          <input class="pyin num" id="pyTel" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="0000" autocomplete="off" aria-label="연락처 뒤 4자리">
-        </div>
-        <button class="pybtn" type="submit">조회</button>
-      </form>
-      <div class="kresult" id="pyOut" aria-live="polite"></div>
     </section>
 
     <section class="pycard" aria-labelledby="pyLeaveT">
@@ -1479,6 +1520,7 @@ function pyInit(){
   var cb=document.getElementById('pyClaim');
   if(CLAIM_FORM_URL){
     cb.href=CLAIM_FORM_URL;
+    var ct=document.getElementById('pyClaimTop');if(ct)ct.href=CLAIM_FORM_URL;
   }
   else{cb.classList.add('is-off');cb.textContent='청구서 준비 중';cb.setAttribute('aria-disabled','true');
     cb.removeAttribute('target');cb.addEventListener('click',function(e){e.preventDefault();});}
@@ -1599,7 +1641,7 @@ function bdOpen(code,page){
         var th=p.pic?'<span class="bdthumb"><img src="'+bdImg(p.pic,200)+'" alt="" loading="lazy">'+(p.yt?'<i class="play"></i>':'')+'</span>'
           :p.yt?'<span class="bdthumb"><img src="https://i.ytimg.com/vi/'+encodeURIComponent(p.yt)+'/mqdefault.jpg" alt="" loading="lazy"><i class="play"></i></span>':'';
         var md=(p.pics?'<i class="bdmedia">사진 '+p.pics+'</i>':'')+(p.yt?'<i class="bdmedia">영상</i>':'');
-        h+='<button class="bdrow" onclick="bdRead('+p.id+')"><span class="tx"><b>'+pyEsc(p.title)+(p.cmt?'<em>'+p.cmt+'</em>':'')+'</b><span>'+(BD.board==='ALL'?'<i class="bdtag">'+pyEsc(bdName(p.board))+'</i>':'')+pyEsc(p.nick)+' · '+bdWhen(p.at)+md+'</span></span>'+th+'</button>';
+        h+='<button class="bdrow" onclick="bdRead('+p.id+')"><span class="tx"><b><span class="tt">'+pyEsc(p.title)+'</span>'+(p.cmt?'<em>'+p.cmt+'</em>':'')+'</b><span>'+(BD.board==='ALL'?'<i class="bdtag">'+pyEsc(bdName(p.board))+'</i>':'')+pyEsc(p.nick)+' · '+bdWhen(p.at)+md+'</span></span>'+th+'</button>';
       });
       h+='</div>';
       if(d.pages>1){
