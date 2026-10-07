@@ -1,0 +1,12 @@
+{
+  "name": "벗꽃낭시",
+  "short_name": "벗꽃낭시",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#120E17",
+  "theme_color": "#120E17",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

@@ -19,7 +19,7 @@
   --ink:#120E17; --ink2:#1B1522; --ink3:#2A2233;
   --line:rgba(255,155,182,.16);
   --blossom:#FF9BB6; --blossom-dim:#A8657C; --gold:#EFC06A;
-  --paper:#F6EDF0; --muted:#9A8CA3; --faint:#6B5F74;
+  --paper:#F6EDF0; --muted:#9A8CA3; --faint:#8A7E95;
   --disp:"Jua",sans-serif;
   --body:"Pretendard Variable",system-ui,sans-serif;
   --mono:"Nunito",sans-serif;
@@ -607,6 +607,14 @@ textarea.pyin{resize:vertical;min-height:9rem;line-height:1.6;font-family:var(--
   .rank-h .demo{font-size:.66rem}
 }
 </style>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="벗꽃낭시">
+<meta property="og:image" content="https://beotkkotnangsi.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
 </head>
 <body>
 
@@ -1554,7 +1562,8 @@ function bdName(code){
   return '자유게시판';
 }
 function bdSoon(code){for(var i=0;i<BD.boards.length;i++)if(BD.boards[i].code===code)return BD.boards[i].soon;return false;}
-function bdHash(h){try{history.replaceState(null,'',h?'#'+h:location.pathname+location.search);}catch(e){}}
+var BD_REPLACE=false;
+function bdHash(h){BD.lastHash=h||'';if(window.__routing)return;try{var want=h?'#'+h:'';if((location.hash||'')===want){BD_REPLACE=false;return;}var u=h?'#'+h:location.pathname+location.search;if(BD_REPLACE)history.replaceState(null,'',u);else history.pushState(null,'',u);BD_REPLACE=false;}catch(e){}}
 function bdGet(q){return fetch(SHEET_URL+q).then(function(r){return r.json();});}
 function bdSend(o){return fetch(SHEET_URL,{method:'POST',body:JSON.stringify(o)}).then(function(r){return r.json();});}
 function bdView(h){document.getElementById('bdView').innerHTML=h;}
@@ -1717,7 +1726,7 @@ function bdSubmit(f,parent){
     BD.busy=false;
     if(!d||!d.ok){msg.className='bdmsg';msg.textContent=d&&d.error||'올리지 못했습니다. 잠시 뒤 다시 시도해 주세요.';return;}
     bdLS('bdNick',o.nick);if(!parent)BD_PICS=[];
-    if(parent)bdRead(parent);else bdRead(d.id);
+    if(parent)bdRead(parent);else{BD_REPLACE=true;bdRead(d.id);}
   }).catch(function(){BD.busy=false;msg.className='bdmsg';msg.textContent='올리지 못했습니다. 잠시 뒤 다시 시도해 주세요.';});
 }
 
@@ -1732,7 +1741,7 @@ function bdDelete(id,f){
   var msg=f.nextElementSibling;
   bdSend({action:'boardDelete',id:id,pw:f.pw.value}).then(function(d){
     if(!d||!d.ok){msg.textContent=d&&d.error||'지우지 못했습니다.';return;}
-    if(BD.post&&BD.post.id===id)bdOpen(BD.board,BD.page);else bdRead(BD.post.id);
+    if(BD.post&&BD.post.id===id){BD_REPLACE=true;bdOpen(BD.board,BD.page);}else bdRead(BD.post.id);
   }).catch(function(){msg.textContent='지우지 못했습니다.';});
 }
 
@@ -1748,7 +1757,7 @@ function bdReport(id,btn){
 function bdEnter(){if(!BD.boards.length||!document.querySelector('#bdView .bdtop,#bdView .bdtitle,#bdView form'))bdOpen(BD.board,BD.page);}
 (function(){
   var _go=go;
-  go=function(id,el){_go(id,el);if(id==='board')bdEnter();else if(/^#board/.test(location.hash))bdHash('');};
+  go=function(id,el){_go(id,el);if(id==='board')bdEnter();};
   var m=/^#board(?:\/([A-Za-z0-9.]+))?(?:\/(\d+))?/.exec(location.hash||'');
   if(m){
     var nb=[].slice.call(document.querySelectorAll('.nav')).filter(function(b){return /go\('board'/.test(b.getAttribute('onclick')||'');})[0];
@@ -1757,6 +1766,53 @@ function bdEnter(){if(!BD.boards.length||!document.querySelector('#bdView .bdtop
     if(m[2]){bdGet('?action=board&b='+encodeURIComponent(BD.board)).then(function(d){if(d&&d.ok){BD.boards=d.boards;bdTabs();}}).catch(function(){});bdRead(+m[2]);}
     else bdOpen(BD.board,1);
   }
+})();
+
+/* ── 휴대폰 뒤로가기 — 메뉴·게시판·지도 팝업 이동을 브라우저 기록에 남깁니다 ── */
+(function(){
+  var PAGES=['map','cup','pay','key','about','board'];
+  function navBtn(id){return [].slice.call(document.querySelectorAll('.nav')).filter(function(b){return (b.getAttribute('onclick')||'').indexOf("go('"+id+"'")>-1;})[0];}
+  function cur(){var o=document.querySelector('.pg.on');return o?o.id.replace('pg-',''):'map';}
+  function showPg(id){
+    [].forEach.call(document.querySelectorAll('.pg'),function(p){p.classList.toggle('on',p.id==='pg-'+id);});
+    var nb=navBtn(id);[].forEach.call(document.querySelectorAll('.nav'),function(b){b.classList.toggle('on',b===nb);});
+    window.scrollTo(0,0);
+  }
+  function push(u,st){try{history.pushState(st||null,'',u);}catch(e){}}
+  var base=go;
+  go=function(id,el){
+    base(id,el);
+    if(window.__routing)return;
+    if(id==='board'){var w=BD.lastHash?'#'+BD.lastHash:'';if(w&&(location.hash||'')!==w)push(w);return;}
+    var want=id==='map'?'':'#'+id;
+    if((location.hash||'')!==want)push(want||location.pathname+location.search);
+  };
+  var _open=openP,_close=closeP;
+  openP=function(n){_open(n);if(!window.__routing)push(location.href,{ov:1});};
+  closeP=function(){var ov=document.getElementById('ov');if(!ov||!ov.classList.contains('on'))return;if(history.state&&history.state.ov)history.back();else _close();};
+  function route(){
+    var ov=document.getElementById('ov'),st=history.state;
+    if(ov&&ov.classList.contains('on')&&!(st&&st.ov))_close();
+    if(st&&st.ov)return;
+    var h=location.hash||'';
+    var m=/^#board(?:\/([A-Za-z0-9.]+))?(?:\/(\d+|write))?/.exec(h);
+    window.__routing=true;
+    try{
+      if(m){
+        if(m[1])BD.board=m[1].toUpperCase();
+        if(cur()!=='board')showPg('board');
+        if(m[2]==='write')bdWriteForm();
+        else if(m[2])bdRead(+m[2]);
+        else bdOpen(BD.board,1);
+      }else{
+        var id=h.replace('#','')||'map';if(PAGES.indexOf(id)<0)id='map';
+        if(cur()!==id)base(id,navBtn(id));
+      }
+    }finally{window.__routing=false;}
+  }
+  window.addEventListener('popstate',route);
+  var id0=(location.hash||'').replace('#','');
+  if(id0&&id0!=='board'&&PAGES.indexOf(id0)>-1){window.__routing=true;try{base(id0,navBtn(id0));}finally{window.__routing=false;}}
 })();
 </script>
 </body>
