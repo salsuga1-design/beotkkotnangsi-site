@@ -41,6 +41,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .logo{font-family:var(--disp);font-weight:400;font-size:1.45rem;letter-spacing:.01em;
   margin-right:auto;white-space:nowrap}
 .logo i{font-style:normal;color:var(--blossom)}
+.logo img{display:block;height:40px;width:auto}  /* 붓글씨 로고 (2026-10-12) */
 .navwrap{display:flex;gap:.25rem;overflow-x:auto;scrollbar-width:none}
 .navwrap::-webkit-scrollbar{display:none}
 .nav{padding:.5rem .95rem;font-size:.88rem;font-weight:500;color:var(--muted);
@@ -166,6 +167,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
   /* 휴대폰: 윗줄 로고, 아랫줄 메뉴 — 가로 스크롤 없이, 글자를 키운 휴대폰에선 메뉴가 두 줄로 내려감 */
   .bar{height:auto;flex-wrap:wrap;row-gap:.3rem;padding:.6rem .8rem .5rem}
   .logo{flex:1 0 100%;font-size:1.2rem;line-height:1.2}
+  .logo img{height:34px}
   .navwrap{flex:1 0 100%;flex-wrap:wrap;justify-content:space-between;overflow:visible;gap:.2rem .1rem}
   .nav{padding:.42rem .62rem;font-size:.84rem}
   .nav .lf{display:none}
@@ -619,7 +621,7 @@ textarea.pyin{resize:vertical;min-height:9rem;line-height:1.6;font-family:var(--
 <body>
 
 <header class="bar">
-  <a class="logo" href="./" aria-label="벗꽃낭시 홈으로" onclick="goHome();return false;">벗꽃<i>낭시</i></a>
+  <a class="logo" href="./" aria-label="벗꽃낭시 홈으로" onclick="goHome();return false;"><img src="logo.png" alt="벗꽃낭시" width="119" height="40"></a>
   <nav class="navwrap">
     <button class="nav on" onclick="go('map',this)">랭킹</button>
     <button class="nav" onclick="go('cup',this)">밴드대회</button>
