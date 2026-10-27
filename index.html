@@ -414,6 +414,7 @@ a.logo{color:inherit;text-decoration:none;cursor:pointer;user-select:none;-webki
 .gdcalc b{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .gdcalc .t b{color:var(--blossom);font-size:1rem}
 .gdcontact{text-align:center}
+.gdcalc b.gdv{font-family:var(--body);font-weight:600;font-size:.86rem;text-align:right}
 .gdwhy{font-family:"Noto Serif KR",serif;font-size:1rem;line-height:1.8;color:var(--paper);opacity:.85;margin:.2rem 0 .4rem}
 .pyseg{display:flex;gap:.25rem;background:var(--ink);border:1px solid var(--ink3);border-radius:99px;padding:.25rem;margin-bottom:.7rem}
 .pyseg button{flex:1;padding:.55rem .6rem;border-radius:99px;font-size:.84rem;font-weight:600;color:var(--muted)}
@@ -805,12 +806,23 @@ textarea.pyin{resize:vertical;min-height:9rem;line-height:1.6;font-family:var(--
     <section class="pycard">
       <h3>공연 날 순서</h3>
       <ol class="pysteps">
-        <li><div><b>공연 전</b><span>사장님께 팀 이름을 알려 주세요. 큰 화면에 팀 이름이 뜹니다.</span></div></li>
-        <li><div><b>공연 끝</b><span>사진 두 장을 찍어 둡니다.<br>① 코인 개수가 뜬 꿈꿀단지 화면<br>② 사장님이 꺼내 준 실물 코인</span></div></li>
-        <li><div><b>청구</b><span>QR을 찍고 <b style="display:inline">공연자 정산</b>에서 정산 청구서를 냅니다. 팀 대표 한 명만 내면 됩니다.</span></div></li>
-        <li><div><b>입금</b><span>공연일부터 3영업일 안에 팀 대표 계좌로 보내 드립니다.</span></div></li>
+        <li><div><b>공연 전</b><span>사장님께 팀 이름을 알려 주세요. 큰 화면에 팀 이름이 뜹니다. 랭킹은 팀 이름으로 쌓이니 늘 같은 이름을 써 주세요.</span></div></li>
+        <li><div><b>공연 끝 · 화면 사진</b><span>사장님이 태블릿에서 공연을 마감하면 그날 코인 개수와 정산 코드가 뜹니다. 이 화면을 찍습니다.</span></div></li>
+        <li><div><b>공연 끝 · 코인 사진</b><span>사장님이 꿈꿀단지에서 코인을 꺼내 주면, 종류별로 보이게 펼쳐 놓고 한 장 찍습니다.</span></div></li>
+        <li><div><b>청구</b><span>마감 화면의 QR이나 아래 버튼으로 공연자 정산에 들어가 정산 청구서를 냅니다. 팀 대표 한 명만 내면 되고, 집에 가서 내셔도 됩니다.</span></div></li>
+        <li><div><b>입금</b><span>공연일부터 3영업일 안에 팀 대표 계좌로 보내 드립니다. 처리 상황은 공연자 정산의 '내 정산 조회'에서 볼 수 있습니다.</span></div></li>
       </ol>
       <a class="pybtn" href="#" onclick="goPay();return false;">공연자 정산으로 가기</a>
+    </section>
+
+    <section class="pycard">
+      <h3>청구서에 필요한 것</h3>
+      <div class="gdcalc">
+        <div><span>사진 두 장</span><b class="gdv">마감 화면 · 실물 코인</b></div>
+        <div><span>구글 로그인</span><b class="gdv">사진 올릴 때</b></div>
+        <div><span>계좌 · 주민등록번호</span><b class="gdv">처음 한 번만</b></div>
+        <div><span>클럽 인증 비밀번호</span><b class="gdv">인증받을 때만</b></div>
+      </div>
     </section>
 
     <section class="pycard">
@@ -839,9 +851,9 @@ textarea.pyin{resize:vertical;min-height:9rem;line-height:1.6;font-family:var(--
       <details class="pyfaq"><summary>3.3%는 왜 떼나요?</summary><p>공연 수입은 사업소득이라 3.3%를 미리 떼어 벗꽃낭시가 대신 신고합니다. 5월 종합소득세 신고 때 돌려받을 수도 있습니다.</p></details>
       <details class="pyfaq"><summary>주민등록번호는 왜 적나요?</summary><p>세금 신고에 필요해 처음 한 번만 받습니다. 공개되지 않습니다.</p></details>
       <details class="pyfaq"><summary>팀원끼리는 어떻게 나누나요?</summary><p>팀 대표 한 명 계좌로 보내 드립니다. 나눔은 팀에서 정합니다.</p></details>
-      <details class="pyfaq"><summary>당일에 청구하지 못했어요.</summary><p>공연일부터 1년 안에만 내시면 됩니다. 늦게 내시면 청구한 날부터 3영업일 안에 보내 드립니다.</p></details>
+      <details class="pyfaq"><summary>며칠 지나서 청구해도 되나요?</summary><p>공연일부터 1년 안에만 내시면 됩니다. 늦게 내시면 청구한 날부터 3영업일 안에 보내 드립니다.</p></details>
+      <details class="pyfaq"><summary>마감 화면 사진을 못 찍었어요.</summary><p>다음 팀이 시작하기 전이라면 화면이 그대로 남아 있습니다. 바로 앞 공연이었다면 사장님이 태블릿의 '지난 마감 화면 다시 보기'로 다시 띄울 수 있습니다. 그보다 오래됐다면 메일로 문의해 주세요.</p></details>
       <details class="pyfaq"><summary>관객이 환불하면 몫이 줄어드나요?</summary><p>아니요. 꿈꿀단지에 넣은 코인은 공연팀 몫에서 빠지지 않습니다.</p></details>
-      <details class="pyfaq"><summary>사진을 못 찍었어요.</summary><p>사진으로 개수를 확인하므로 꼭 필요합니다. 먼저 사장님께 말씀해 주세요.</p></details>
     </section>
     </div>
 
@@ -854,21 +866,21 @@ textarea.pyin{resize:vertical;min-height:9rem;line-height:1.6;font-family:var(--
     </section>
 
     <section class="pycard">
-      <h3>공연 날 하실 일</h3>
+      <h3>팀마다 하실 일</h3>
       <ol class="pysteps">
-        <li><div><b>공연 전</b><span>태블릿에 팀 이름을 넣고 <b style="display:inline">공연 시작</b>을 누릅니다.</span></div></li>
-        <li><div><b>공연 끝</b><span><b style="display:inline">공연 끝</b>을 누르고 업주 번호를 넣습니다.<br>공연팀이 화면 사진을 찍으면 꿈꿀단지를 열어 코인을 꺼내 줍니다.<br>코인 사진까지 끝나면 동·은코인은 자판기에, 금코인은 카운터에 다시 둡니다.</span></div></li>
-        <li><div><b>카운터</b><span>은코인 10개를 받으면 금코인 1개로 바꿔 드립니다.<br>날짜와 금코인 번호를 적고, 받은 은코인은 자판기에 채웁니다.</span></div></li>
+        <li><div><b>공연 전</b><span>태블릿에 팀 이름을 넣고 <b style="display:inline">공연 시작</b>을 누릅니다. 전에 정산받은 팀은 이름 버튼으로 바로 고를 수 있습니다.</span></div></li>
+        <li><div><b>공연 끝</b><span><b style="display:inline">공연 끝</b>을 누르고 업주 번호를 넣습니다. 마감 화면이 뜨면 공연팀이 사진을 찍습니다. 이 화면은 다음 팀을 시작할 때까지 남아 있습니다.</span></div></li>
+        <li><div><b>코인 꺼내기</b><span>꿈꿀단지를 열어 코인을 꺼내 공연팀에게 보여 주세요. 공연팀이 코인 사진을 찍고 나면 동·은코인은 자판기에, 금코인은 카운터에 다시 둡니다.</span></div></li>
       </ol>
-      <p class="gdnote">꿈꿀단지 열쇠는 사장님이 보관합니다.</p>
+      <p class="gdnote">처음 온 공연팀에게는 마감 화면의 QR을 알려 주세요. 이 안내와 청구서가 모두 홈페이지에 있습니다.<br>꿈꿀단지 열쇠는 사장님이 보관합니다.</p>
     </section>
 
     <section class="pycard">
-      <h3>환불 요청이 오면</h3>
+      <h3>카운터에서</h3>
       <ol class="pysteps">
-        <li><div><b>넣기 전 코인만</b><span>꿈꿀단지에 넣지 않은 코인만, 당일 영업이 끝나기 전에 받습니다.</span></div></li>
-        <li><div><b>사진 보내기</b><span>받은 코인과 결제 내역을 찍어 벗꽃낭시에 보냅니다. 코인은 자판기에 다시 채웁니다.</span></div></li>
-        <li><div><b>카드 취소</b><span>환불은 벗꽃낭시가 카드 결제 취소로 처리합니다.</span></div></li>
+        <li><div><b>금코인 교환</b><span>손님이 은코인 10개를 내면 금코인 1개로 바꿔 드립니다. 날짜와 금코인 번호를 적고, 받은 은코인은 자판기에 채웁니다.</span></div></li>
+        <li><div><b>환불 요청</b><span>꿈꿀단지에 넣지 않은 코인만, 당일 영업이 끝나기 전에 받습니다. 받은 코인과 손님의 결제 내역을 사진으로 찍어 벗꽃낭시에 보내 주세요. 코인은 자판기에 다시 채웁니다.</span></div></li>
+        <li><div><b>카드 취소</b><span>환불은 벗꽃낭시가 손님의 카드 결제를 취소해 처리합니다.</span></div></li>
       </ol>
       <p class="gdnote"><b style="color:var(--blossom)">현금으로 코인을 팔거나 환불하시면 안 됩니다.</b></p>
     </section>
@@ -885,7 +897,7 @@ textarea.pyin{resize:vertical;min-height:9rem;line-height:1.6;font-family:var(--
 
     <section class="pycard">
       <h3>클럽 인증</h3>
-      <p class="gdp">키우고 싶은 팀에게 <b>클럽 인증 비밀번호</b>를 알려 주세요.</p>
+      <p class="gdp">이 공연장 이름으로 키우고 싶은 팀에게 <b>클럽 인증 비밀번호</b>를 알려 주세요.</p>
       <p class="gdp">그 팀이 정산 청구서에 비밀번호를 적으면 이 공연장의 인증팀이 됩니다.</p>
       <p class="gdnote">한 팀은 한 공연장에서만 인증받습니다. 해지는 팀과 사장님이 각각 '공연자 정산'에서 신청해야 풀립니다.</p>
     </section>
