@@ -63,7 +63,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
   transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;
   background:radial-gradient(circle,rgba(255,155,182,.12) 0%,transparent 65%)}
 .map-tilt{position:relative;z-index:1;width:100%;max-width:980px;margin:0 auto;
-  transform:rotateX(14deg) rotateZ(-3deg);
+  transform:rotateX(14deg);
   filter:drop-shadow(0 38px 50px rgba(0,0,0,.62))}
 .map-tilt svg{width:100%;height:auto;max-height:92vh;overflow:visible;display:block;margin:0 auto}
 
@@ -162,7 +162,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
   .certcta b{font-size:.88rem}
   .certcta span{font-size:.7rem}
   .certcta em{font-size:.68rem;margin-top:.35rem}
-  .map-tilt{transform:rotateX(10deg) rotateZ(-2deg)}
+  .map-tilt{transform:rotateX(10deg)}
 }
 @media(max-width:640px){
   /* 휴대폰: 윗줄 로고, 아랫줄 메뉴 — 가로 스크롤 없이, 글자를 키운 휴대폰에선 메뉴가 두 줄로 내려감 */
@@ -635,6 +635,12 @@ textarea.pyin{resize:vertical;min-height:9rem;line-height:1.6;font-family:var(--
   .rank-h .t{font-size:.86rem}
   .rank-h .demo{font-size:.66rem}
 }
+/* 2026-11-01 휴대폰 지도 지역 이름 크게 — 가독성 */
+@media(max-width:640px){#krmap .plabel{font-size:18px}}
+/* 2026-11-01 지도 안쪽 빈자리 점도 보이게 — 바깥 이름 점과 같은 결 */
+#krmap .seatdot:not(.out){fill:#E6DEEA;opacity:.6}
+#krmap .olabel{paint-order:stroke fill;stroke:#140F1A;stroke-width:3px;stroke-linejoin:round}
+#krmap .plabel.hv{fill:#4A1626;stroke:none}
 </style>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="벗꽃낭시">
@@ -674,7 +680,7 @@ textarea.pyin{resize:vertical;min-height:9rem;line-height:1.6;font-family:var(--
       </aside>
     </div>
     <div class="map-tilt">
-      <svg id="krmap" viewBox="24 -10 476 652" role="img" aria-label="전국 공연장 지도"></svg>
+      <svg id="krmap" viewBox="24 -10 426 652" role="img" aria-label="전국 공연장 지도"></svg>
     </div>
   </div>
 </div>
@@ -1105,6 +1111,9 @@ const VENUES={
   ]
 };
 
+/* 지역 이름 글자 위치 보정 [가로, 세로] — 광주 선·점과 겹치지 않게 */
+const LBL_OFF={"전라남도":[-4,34]};
+
 const SHORT={
   "서울특별시":"서울","부산광역시":"부산","대구광역시":"대구","인천광역시":"인천",
   "광주광역시":"광주","대전광역시":"대전","울산광역시":"울산","세종특별자치시":"세종",
@@ -1181,7 +1190,7 @@ var LEAD={
   '대전광역시':['L',282],'광주광역시':['L',404],
   '대구광역시':['R',316],'울산광역시':['R',362],'부산광역시':['R',408]
 };
-var LEFT_X=64, RIGHT_X=458;
+var LEFT_X=64, RIGHT_X=405;  /* 2026-11-01 오른쪽 이름을 지도 쪽으로 당겨 지도를 키움 (옛값 458) */
 var SMOFF={'광주광역시':-9,'대구광역시':10,'울산광역시':9,'부산광역시':9};
 
 function buildMap(){
@@ -1323,7 +1332,7 @@ function buildMap(){
         labels.appendChild(el('circle',{cx:o.cx,cy:o.cy,r:2.1,'class':'leaddot',
           opacity:hv?'1':'.65'}));
         var t=el('text',{x:tx,y:ly,'class':'olabel'+(hv?' hv':''),
-          'text-anchor':isL?'end':'start',filter:'url(#txtglow)'});
+          'text-anchor':isL?'end':'start'});  /* 2026-11-01 번짐 필터 제거 — 가독성 */
         t.textContent=SHORT[name]||name;
         if(!seoul) t.setAttribute('data-name',name);
         labels.appendChild(t);
@@ -1332,18 +1341,19 @@ function buildMap(){
             r:1.9,'class':'seatdot out'}));
         }
       }else if(!seoul){
-        var t2=el('text',{x:o.cx,y:o.cy,'class':'plabel'+(hv?' hv':'')});
+        var lo=LBL_OFF[name]||[0,0], lx=o.cx+lo[0], lyy=o.cy+lo[1];
+        var t2=el('text',{x:lx,y:lyy,'class':'plabel'+(hv?' hv':'')});
         t2.textContent=txt;
         labels.appendChild(t2);
         for(var d3=0;d3<left;d3++){
-          marks.appendChild(el('circle',{cx:(o.cx+(d3-(left-1)/2)*5.4).toFixed(1),cy:(o.cy+11).toFixed(1),
+          marks.appendChild(el('circle',{cx:(lx+(d3-(left-1)/2)*5.4).toFixed(1),cy:(lyy+11).toFixed(1),
             r:1.9,'class':'seatdot'}));
         }
       }
 
       if(hv){
-        marks.appendChild(el('circle',{cx:o.cx,cy:o.cy-15,r:10,'class':'pdot-ring'}));
-        marks.appendChild(el('circle',{cx:o.cx,cy:o.cy-15,r:3.6,'class':'pdot'}));
+        marks.appendChild(el('circle',{cx:o.cx,cy:o.cy-19,r:10,'class':'pdot-ring'}));
+        marks.appendChild(el('circle',{cx:o.cx,cy:o.cy-19,r:3.6,'class':'pdot'}));
       }
     })(names[k]);
   }
