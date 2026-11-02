@@ -767,7 +767,7 @@ textarea.pyin{resize:vertical;min-height:9rem;line-height:1.6;font-family:var(--
     <section class="asec">
       <div class="e" data-ko="열여섯 자리">열여섯 자리</div>
       <h3 class="calli"><img class="han" src="mangae.png" alt="滿開">(만개)하는<br class="mbr"> 열여섯 송이의 꽃</h3>
-      <p class="sub">전국 열여섯 곳까지. 시도마다 한 곳씩.</p>
+      <p class="sub">전국 열여섯 곳까지. 시도마다 한 곳, 부산은 두 곳.</p>
     </section>
 
     <section class="asec">
@@ -1096,17 +1096,18 @@ var MAP_THEME='calm';                                  /* calm: 한 가지 색 +
 var PARTNER_MAIL='forever_gb1@naver.com';              /* 파트너 문의 메일 — 바꿀 때 여기만 */
 var PHOTOS={tipbox:'',coin:'',stage:''};               /* 사진 파일 경로를 넣으면 사진이 들어갑니다 (예: 'img/tipbox.jpg') */
 
-/* 2026-11-02 전국 16 — 시도마다 한 자리, 대전·세종은 한 권역, 서촌이 16번째 (이전: 20, 인천·경기·부산 2자리) */
+/* 2026-11-02 전국 16 — 시도마다 한 자리, 대전·세종·광주·전남은 각각 한 권역, 부산 2자리, 서촌이 16번째
+   (이전: 20, 인천·경기·부산 2자리 → 같은 날 16 시도별 1자리 → 같은 날 광주·전남 통합(2026-07-01 전남광주통합특별시)으로 생긴 한 자리를 부산에) */
 const SLOTS={
-  "경기도":1,"부산광역시":1,"인천광역시":1,
+  "경기도":1,"부산광역시":2,"인천광역시":1,
   "대구광역시":1,"광주광역시":1,"대전광역시":1,
   "울산광역시":1,"세종특별자치시":1,"강원도":1,
   "충청북도":1,"충청남도":1,"전라북도":1,
   "전라남도":1,"경상북도":1,"경상남도":1,"제주특별자치도":1
 };
-/* 한 권역으로 묶인 시도: 세종은 대전 자리를 함께 씀 */
-const GROUP={"세종특별자치시":"대전광역시"};
-const GLABEL={"대전광역시":"대전·세종"};
+/* 한 권역으로 묶인 시도: 세종은 대전 자리, 전남은 광주 자리를 함께 씀 (전남광주통합특별시, 2026-07-01) */
+const GROUP={"세종특별자치시":"대전광역시","전라남도":"광주광역시"};
+const GLABEL={"대전광역시":"대전·세종","광주광역시":"광주·전남"};
 function grp(n){return GROUP[n]||n;}
 function gmembers(k){var a=[k];for(var m in GROUP){if(GROUP[m]===k)a.push(m);}return a;}
 function vlist(n){var k=grp(n),a=(VENUES[k]||[]).slice();for(var m in GROUP){if(GROUP[m]===k)a=a.concat(VENUES[m]||[]);}return a;}
@@ -1533,7 +1534,7 @@ function buildPhotos(){
 
 /* ── 열여섯 자리 ── */
 var SEAT_ORDER=['인천광역시','경기도','강원도','충청북도','충청남도','대전광역시','전라북도',
-  '광주광역시','전라남도','경상북도','대구광역시','경상남도','울산광역시','부산광역시','제주특별자치도'];
+  '광주광역시','경상북도','대구광역시','경상남도','울산광역시','부산광역시','부산광역시','제주특별자치도'];
 function buildSeats(){
   var w=document.getElementById('seats'); if(!w) return;
   var used={}, h='';
