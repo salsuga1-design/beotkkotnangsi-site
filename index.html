@@ -1108,6 +1108,7 @@ const SLOTS={
 const GROUP={"세종특별자치시":"대전광역시"};
 const GLABEL={"대전광역시":"대전·세종"};
 function grp(n){return GROUP[n]||n;}
+function gmembers(k){var a=[k];for(var m in GROUP){if(GROUP[m]===k)a.push(m);}return a;}
 function vlist(n){var k=grp(n),a=(VENUES[k]||[]).slice();for(var m in GROUP){if(GROUP[m]===k)a=a.concat(VENUES[m]||[]);}return a;}
 
 const VENUES={
@@ -1192,8 +1193,8 @@ var CALM={face:'#574A64',faceLo:'#3B3049',hi:'#FF9BB6',hiLo:'#E9628B',seoul:'#2E
 
 /* 작은 지역은 지도 밖으로 빼서 지시선으로 연결 */
 var LEAD={
-  '인천광역시':['L',140],'세종특별자치시':['L',240],
-  '대전광역시':['L',282],'광주광역시':['L',404],
+  '인천광역시':['L',140],
+  '대전광역시':['L',262],'광주광역시':['L',404],  /* 2026-11-02 대전·세종 한 라벨로 묶음 (옛값 세종 L240, 대전 L282) */
   '대구광역시':['R',316],'울산광역시':['R',362],'부산광역시':['R',408]
 };
 var LEFT_X=64, RIGHT_X=405;  /* 2026-11-01 오른쪽 이름을 지도 쪽으로 당겨 지도를 키움 (옛값 458) */
@@ -1312,14 +1313,19 @@ function buildMap(){
       var o=PATHS[name];
       var hv=vlist(name).length>0;
       var seoul=name==='서울특별시';
+      var gm=gmembers(grp(name)), gcx=0, gcy=0;
+      for(var gi=0;gi<gm.length;gi++){gcx+=PATHS[gm[gi]].cx;gcy+=PATHS[gm[gi]].cy;}
+      gcx/=gm.length; gcy/=gm.length;
       var lead=LEAD[name];
       var attr={d:o.d,'class':'province'+(hv?' hv':'')+(seoul?' seoul':''),
         fill:seoul?CALM.seoul:(hv?'url(#faceHi)':'url(#face)'), tabindex:seoul?'-1':'0'};
+      attr['data-grp']=grp(name);
       var path=el('path',attr);
       if(!seoul){
+        var gsel='path.province[data-grp="'+grp(name)+'"]';
         path.addEventListener('click',function(){openP(grp(name));});
-        path.addEventListener('mouseenter',function(){this.setAttribute('fill',hv?CALM.hi:'#F6F1F8');});
-        path.addEventListener('mouseleave',function(){this.setAttribute('fill',hv?'url(#faceHi)':'url(#face)');});
+        path.addEventListener('mouseenter',function(){var ps=svg.querySelectorAll(gsel);for(var q=0;q<ps.length;q++)ps[q].setAttribute('fill',hv?CALM.hi:'#F6F1F8');});
+        path.addEventListener('mouseleave',function(){var ps=svg.querySelectorAll(gsel);for(var q=0;q<ps.length;q++)ps[q].setAttribute('fill',hv?'url(#faceHi)':'url(#face)');});
         path.addEventListener('keydown',function(e){
           if(e.key==='Enter'||e.key===' '){e.preventDefault();openP(grp(name));}});
       }
@@ -1332,21 +1338,27 @@ function buildMap(){
         var side=lead[0], ly=lead[1], isL=side==='L';
         var tx=isL?LEFT_X:RIGHT_X;
         var sx=isL?tx+8:tx-8;
-        var ex=isL?Math.max(sx+8,o.cx-12):Math.min(sx-8,o.cx+12);
-        labels.appendChild(el('path',{d:'M'+sx+','+ly+'H'+ex+'L'+o.cx+','+o.cy,
+        var ex=isL?Math.max(sx+8,gcx-12):Math.min(sx-8,gcx+12);
+        labels.appendChild(el('path',{d:'M'+sx+','+ly+'H'+ex+'L'+gcx+','+gcy,
           'class':'lead'+(hv?' hv':'')}));
-        labels.appendChild(el('circle',{cx:o.cx,cy:o.cy,r:2.1,'class':'leaddot',
+        labels.appendChild(el('circle',{cx:gcx,cy:gcy,r:2.1,'class':'leaddot',
           opacity:hv?'1':'.65'}));
         var t=el('text',{x:tx,y:ly,'class':'olabel'+(hv?' hv':''),
           'text-anchor':isL?'end':'start'});  /* 2026-11-01 번짐 필터 제거 — 가독성 */
-        t.textContent=SHORT[name]||name;
+        if(GLABEL[name]){  /* 묶인 권역은 두 줄로 — 모바일에서 잘리지 않게 */
+          var gp=gmembers(name);
+          for(var gl=0;gl<gp.length;gl++){
+            var ts=el('tspan',{x:tx,y:(ly+(gl-(gp.length-1)/2)*21).toFixed(1)});
+            ts.textContent=SHORT[gp[gl]]; t.appendChild(ts);
+          }
+        }else t.textContent=SHORT[name]||name;
         if(!seoul) t.setAttribute('data-name',name);
         labels.appendChild(t);
         for(var d2=0;d2<left;d2++){
-          labels.appendChild(el('circle',{cx:(tx+(isL?-1:1)*(4.5+d2*5.4)).toFixed(1),cy:(ly+13).toFixed(1),
+          labels.appendChild(el('circle',{cx:(tx+(isL?-1:1)*(4.5+d2*5.4)).toFixed(1),cy:(ly+13+(GLABEL[name]?11:0)).toFixed(1),
             r:1.9,'class':'seatdot out'}));
         }
-      }else if(!seoul){
+      }else if(!seoul&&!GROUP[name]){
         var lo=LBL_OFF[name]||[0,0], lx=o.cx+lo[0], lyy=o.cy+lo[1];
         var t2=el('text',{x:lx,y:lyy,'class':'plabel'+(hv?' hv':'')});
         t2.textContent=txt;
@@ -1357,7 +1369,7 @@ function buildMap(){
         }
       }
 
-      if(hv){
+      if(hv&&!GROUP[name]){
         marks.appendChild(el('circle',{cx:o.cx,cy:o.cy-19,r:10,'class':'pdot-ring'}));
         marks.appendChild(el('circle',{cx:o.cx,cy:o.cy-19,r:3.6,'class':'pdot'}));
       }
@@ -1374,7 +1386,9 @@ function buildMap(){
   svg.appendChild(bl);
 
   /* 네온 경계선 — 해안선·시도 경계가 빛나게 */
-  var BORD=''; for(var bd=0;bd<names.length;bd++) BORD+=PATHS[names[bd]].d;
+  /* 묶인 권역(대전·세종)은 자기 경계를 그리지 않음 — 이웃 시도 경계가 바깥선을 그려 줘 안쪽 선만 사라짐 */
+  var BORD=''; for(var bd=0;bd<names.length;bd++){var bn=names[bd];
+    if(GROUP[bn]||gmembers(bn).length>1) continue; BORD+=PATHS[bn].d;}
   svg.appendChild(el('path',{d:BORD,'class':'neonline in',filter:'url(#neon)'}));
   svg.appendChild(el('path',{d:SIL,'class':'neonline',filter:'url(#neon)'}));
 
@@ -1392,7 +1406,7 @@ function buildMap(){
       var r=el('rect',{x:(bb.x-12).toFixed(1),y:(bb.y-11).toFixed(1),
         width:(bb.width+24).toFixed(1),height:(bb.height+22).toFixed(1),
         rx:9,'class':'ohit',tabindex:'0',role:'button'});
-      r.setAttribute('aria-label',(SHORT[nm]||nm)+' 공연장 보기');
+      r.setAttribute('aria-label',(GLABEL[nm]||SHORT[nm]||nm)+' 공연장 보기');
       r.addEventListener('click',function(){openP(nm);});
       r.addEventListener('keydown',function(e){
         if(e.key==='Enter'||e.key===' '){e.preventDefault();openP(nm);}});
