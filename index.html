@@ -670,13 +670,11 @@ textarea.pyin{resize:vertical;min-height:9rem;line-height:1.6;font-family:var(--
   <div class="stage" id="petalHost">
     <div class="hud">
       <div class="hudl">
-        <div class="tally">첫 자리 — <b>전주</b></div>
         <a class="certcta" href="#" onclick="goCert();return false;"><b>공연장 인증팀이 되세요</b><span>인증팀만 랭킹과 밴드대회에 오릅니다.</span><em>인증받는 법 →</em></a>
       </div>
       <aside class="rank">
-        <div class="rank-h"><span class="t">랭킹<span class="demo">예시</span></span><span class="s" data-ko="상위 3">상위 3</span></div>
+        <div class="rank-h"><span class="t">랭킹</span><span class="s" data-ko="상위 3">상위 3</span></div>
         <div id="ranks"></div>
-        <div class="demonote">파일럿 운영 전 예시 데이터입니다</div>
       </aside>
     </div>
     <div class="map-tilt">
@@ -1112,12 +1110,7 @@ function grp(n){return GROUP[n]||n;}
 function gmembers(k){var a=[k];for(var m in GROUP){if(GROUP[m]===k)a.push(m);}return a;}
 function vlist(n){var k=grp(n),a=(VENUES[k]||[]).slice();for(var m in GROUP){if(GROUP[m]===k)a=a.concat(VENUES[m]||[]);}return a;}
 
-const VENUES={
-  "전라북도":[
-    {code:"JJ.MIJ",city:"전주",name:"모이장",
-     bands:[{team:"밴드 리프(LIF)",coins:842},{team:"박윤호하모니카숲",coins:611},{team:"헥스코드 아트컴퍼니",coins:398}]}
-  ]
-};
+const VENUES={};
 
 /* 지역 이름 글자 위치 보정 [가로, 세로] — 광주 선·점과 겹치지 않게 */
 const LBL_OFF={"전라남도":[-4,34]};
@@ -1451,7 +1444,7 @@ function showDetail(pn,v){
   var s=v.bands.slice().sort(function(a,b){return b.coins-a.coins;});
   var h='<div class="phead"><div><h3>'+v.name+'</h3><span class="ptag">'+v.city+' · '+v.code+
     '</span></div><button class="pclose" onclick="closeP()" aria-label="닫기">✕</button></div>'+
-    '<div class="pbody"><button class="bbtn" id="bb">← '+(SHORT[pn]||pn)+' 목록으로</button><div class="demonote" style="margin:-.6rem 0 1rem">※ 파일럿 운영 전 예시 데이터입니다</div>';
+    '<div class="pbody"><button class="bbtn" id="bb">← '+(SHORT[pn]||pn)+' 목록으로</button>';
   s.forEach(function(b,i){
     h+='<div class="rrow '+(i===0?'r1':'')+'"><div class="rnum">'+(i+1)+
       '</div><div class="rteam">'+b.team+'<span class="rcode">('+v.code+
@@ -1619,7 +1612,7 @@ function show(kind,title,detail){
 }
 
 /* ── 랭킹 지도 실제 데이터 ──
-   SHEET_URL 이 비어 있으면 위의 예시 VENUES 를 그대로 씁니다.
+   SHEET_URL 이 비어 있으면 빈 지도를 그대로 둡니다.
    주소가 있으면 서버 순위를 불러와 같은 지도·랭킹 함수로 다시 그립니다 (1분마다, 바뀐 때만). */
 var LIVE_SIG='';
 function loadLive(){
@@ -1634,7 +1627,7 @@ function loadLive(){
           bands:(v.bands||[]).map(function(b){return {team:pyEsc(b.team),coins:Number(b.coins)||0};})};
       });
     }
-    if(!Object.keys(clean).length) return; /* 아직 등록된 공연장이 없으면 예시 지도 유지 */
+    if(!Object.keys(clean).length) return; /* 아직 운영 중인 공연장이 없으면 빈 지도 유지 */
     var sig=JSON.stringify(clean);
     document.body.classList.add('live');
     if(sig===LIVE_SIG) return;
