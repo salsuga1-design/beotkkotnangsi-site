@@ -765,7 +765,7 @@ textarea.pyin{resize:vertical;min-height:9rem;line-height:1.6;font-family:var(--
     <section class="asec">
       <div class="e" data-ko="열여섯 자리">열여섯 자리</div>
       <h3 class="calli"><img class="han" src="mangae.png" alt="滿開">(만개)하는<br class="mbr"> 열여섯 송이의 꽃</h3>
-      <p class="sub">전국 열여섯 곳까지. 시도마다 한 곳, 부산은 두 곳.</p>
+      <p class="sub">전국 열여섯 곳까지.</p>
     </section>
 
     <section class="asec">
@@ -1094,18 +1094,25 @@ var MAP_THEME='calm';                                  /* calm: 한 가지 색 +
 var PARTNER_MAIL='forever_gb1@naver.com';              /* 파트너 문의 메일 — 바꿀 때 여기만 */
 var PHOTOS={tipbox:'',coin:'',stage:''};               /* 사진 파일 경로를 넣으면 사진이 들어갑니다 (예: 'img/tipbox.jpg') */
 
-/* 2026-11-02 전국 16 — 시도마다 한 자리, 대전·세종·광주·전남은 각각 한 권역, 부산 2자리, 서촌이 16번째
-   (이전: 20, 인천·경기·부산 2자리 → 같은 날 16 시도별 1자리 → 같은 날 광주·전남 통합(2026-07-01 전남광주통합특별시)으로 생긴 한 자리를 부산에) */
+/* 2026-11-08 전국 16 — 생활권 배치: 생활권마다 최소 한 자리, 인구만큼 더. 서울 2(홍대 15번째·서촌 16번째)는 지도 밖 자리
+   경기·인천 3 · 강원 1 · 충청 2 · 대구·경북 2 · 전라 2 · 동남권 3 · 제주 1 = 14
+   (이전 2026-11-02: 시도마다 한 자리, 대전·세종·광주·전남 각각 한 권역, 부산 2자리 — "행정구역 편의주의"라 바꿈.
+    그 전: 20, 인천·경기·부산 2자리) */
 const SLOTS={
-  "경기도":1,"부산광역시":2,"인천광역시":1,
-  "대구광역시":1,"광주광역시":1,"대전광역시":1,
-  "울산광역시":1,"세종특별자치시":1,"강원도":1,
-  "충청북도":1,"충청남도":1,"전라북도":1,
-  "전라남도":1,"경상북도":1,"경상남도":1,"제주특별자치도":1
+  "경기도":3,"강원도":1,"대전광역시":2,"대구광역시":2,
+  "광주광역시":2,"부산광역시":3,"제주특별자치도":1
 };
-/* 한 권역으로 묶인 시도: 세종은 대전 자리, 전남은 광주 자리를 함께 씀 (전남광주통합특별시, 2026-07-01) */
-const GROUP={"세종특별자치시":"대전광역시","전라남도":"광주광역시"};
-const GLABEL={"대전광역시":"대전·세종","광주광역시":"광주·전남"};
+/* 생활권으로 묶인 시도 → 그 생활권 대표 시도 (2026-11-08) */
+const GROUP={
+  "인천광역시":"경기도",
+  "세종특별자치시":"대전광역시","충청북도":"대전광역시","충청남도":"대전광역시",
+  "경상북도":"대구광역시",
+  "전라남도":"광주광역시","전라북도":"광주광역시",
+  "경상남도":"부산광역시","울산광역시":"부산광역시"
+};
+const GLABEL={"경기도":"경기·인천","대전광역시":"충청","대구광역시":"대구·경북","광주광역시":"전라","부산광역시":"동남권"};
+/* 생활권 이름 글자 자리 [x, y] — 지도 안쪽 */
+const GPOS={"경기도":[176,168],"대전광역시":[150,238],"대구광역시":[330,262],"광주광역시":[152,424],"부산광역시":[282,392]};
 function grp(n){return GROUP[n]||n;}
 function gmembers(k){var a=[k];for(var m in GROUP){if(GROUP[m]===k)a.push(m);}return a;}
 function vlist(n){var k=grp(n),a=(VENUES[k]||[]).slice();for(var m in GROUP){if(GROUP[m]===k)a=a.concat(VENUES[m]||[]);}return a;}
@@ -1186,11 +1193,7 @@ var DEPTH=13, STEP=1.0;
 var CALM={face:'#574A64',faceLo:'#3B3049',hi:'#FF9BB6',hiLo:'#E9628B',seoul:'#2E2739',slab:'#2B2333'};
 
 /* 작은 지역은 지도 밖으로 빼서 지시선으로 연결 */
-var LEAD={
-  '인천광역시':['L',140],
-  '대전광역시':['L',262],'광주광역시':['L',404],  /* 2026-11-02 대전·세종 한 라벨로 묶음 (옛값 세종 L240, 대전 L282) */
-  '대구광역시':['R',316],'울산광역시':['R',362],'부산광역시':['R',408]
-};
+var LEAD={};  /* 2026-11-08 생활권 배치 — 모든 권역 이름을 지도 안에 씀 (옛값: 인천 L140, 대전·세종 L262, 광주 L404, 대구 R316, 울산 R362, 부산 R408) */
 var LEFT_X=64, RIGHT_X=405;  /* 2026-11-01 오른쪽 이름을 지도 쪽으로 당겨 지도를 키움 (옛값 458) */
 var SMOFF={'광주광역시':-9,'대구광역시':10,'울산광역시':9,'부산광역시':9};
 
@@ -1209,7 +1212,7 @@ function buildMap(){
 
   var defs=el('defs',{});
   defs.innerHTML=
-    '<linearGradient id="face" x1="0" y1="0" x2="0" y2="1">'+
+    '<linearGradient id="face" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="640">'+
       '<stop offset="0" stop-color="'+CALM.face+'"/><stop offset="1" stop-color="'+CALM.faceLo+'"/></linearGradient>'+
     '<linearGradient id="faceHi" x1="0" y1="0" x2="0" y2="1">'+
       '<stop offset="0" stop-color="'+CALM.hi+'"/><stop offset="1" stop-color="'+CALM.hiLo+'"/></linearGradient>'+
@@ -1313,6 +1316,7 @@ function buildMap(){
       var lead=LEAD[name];
       var attr={d:o.d,'class':'province'+(hv?' hv':'')+(seoul?' seoul':''),
         fill:seoul?CALM.seoul:(hv?'url(#faceHi)':'url(#face)'), tabindex:seoul?'-1':'0'};
+      if(!seoul){attr.stroke=attr.fill;attr['stroke-width']='0.7';attr['stroke-linejoin']='round';}  /* 2026-11-08 생활권 안 시도 사이 이음매 감춤 */
       attr['data-grp']=grp(name);
       var path=el('path',attr);
       if(!seoul){
@@ -1326,7 +1330,7 @@ function buildMap(){
       top.appendChild(path);
 
       var left=GROUP[name]?0:Math.max(0,(SLOTS[name]||1)-vlist(name).length);
-      var txt=seoul?'?':(SHORT[name]||name);
+      var txt=seoul?'?':(GLABEL[name]||SHORT[name]||name);
 
       if(lead){
         var side=lead[0], ly=lead[1], isL=side==='L';
@@ -1353,7 +1357,7 @@ function buildMap(){
             r:1.9,'class':'seatdot out'}));
         }
       }else if(!seoul&&!GROUP[name]){
-        var lo=LBL_OFF[name]||[0,0], lx=o.cx+lo[0], lyy=o.cy+lo[1];
+        var lo=LBL_OFF[name]||[0,0], gp0=GPOS[name], lx=gp0?gp0[0]:o.cx+lo[0], lyy=gp0?gp0[1]:o.cy+lo[1];
         var t2=el('text',{x:lx,y:lyy,'class':'plabel'+(hv?' hv':'')});
         t2.textContent=txt;
         labels.appendChild(t2);
@@ -1379,11 +1383,22 @@ function buildMap(){
   }
   svg.appendChild(bl);
 
-  /* 네온 경계선 — 해안선·시도 경계가 빛나게 */
-  /* 묶인 권역(대전·세종)은 자기 경계를 그리지 않음 — 이웃 시도 경계가 바깥선을 그려 줘 안쪽 선만 사라짐 */
+  /* 네온 경계선 — 해안선·생활권 경계가 빛나게 (2026-11-08)
+     묶이지 않은 시도는 제 경계를 그대로, 생활권은 바깥 경계만 — 안쪽 시도 선은 감춤 */
   var BORD=''; for(var bd=0;bd<names.length;bd++){var bn=names[bd];
     if(GROUP[bn]||gmembers(bn).length>1) continue; BORD+=PATHS[bn].d;}
   svg.appendChild(el('path',{d:BORD,'class':'neonline in',filter:'url(#neon)'}));
+  var gdefs=svg.querySelector('defs');
+  var gmi=0;
+  for(var gk in SLOTS){
+    var gm2=gmembers(gk); if(gm2.length<2) continue;
+    var mk=el('mask',{id:'gmask'+(gmi++),maskUnits:'userSpaceOnUse',x:'-100',y:'-100',width:'700',height:'900'});
+    mk.appendChild(el('rect',{x:-100,y:-100,width:700,height:900,fill:'white'}));
+    var gd='';
+    for(var q2=0;q2<gm2.length;q2++){mk.appendChild(el('path',{d:PATHS[gm2[q2]].d,fill:'black'}));gd+=PATHS[gm2[q2]].d;}
+    gdefs.appendChild(mk);
+    svg.appendChild(el('path',{d:gd,'class':'neonline in',style:'stroke-width:2.2',mask:'url(#'+mk.getAttribute('id')+')',filter:'url(#neon)'}));
+  }
   svg.appendChild(el('path',{d:SIL,'class':'neonline',filter:'url(#neon)'}));
 
   svg.appendChild(marks);
@@ -1526,8 +1541,8 @@ function buildPhotos(){
 }
 
 /* ── 열여섯 자리 ── */
-var SEAT_ORDER=['인천광역시','경기도','강원도','충청북도','충청남도','대전광역시','전라북도',
-  '광주광역시','경상북도','대구광역시','경상남도','울산광역시','부산광역시','부산광역시','제주특별자치도'];
+var SEAT_ORDER=['경기도','경기도','경기도','강원도','대전광역시','대전광역시','대구광역시','대구광역시',
+  '광주광역시','광주광역시','부산광역시','부산광역시','부산광역시','제주특별자치도'];  /* 2026-11-08 생활권 14 + 홍대 15 + 서촌 16 */
 function buildSeats(){
   var w=document.getElementById('seats'); if(!w) return;
   var used={}, h='';
@@ -1536,7 +1551,7 @@ function buildSeats(){
     var on=vlist(p).length>=used[p];
     h+='<div class="seat'+(on?' on':'')+'"><b>'+(i+1)+'</b><span>'+(GLABEL[p]||SHORT[p])+'</span></div>';
   });
-  h+='<div class="seat last"><b>16</b><span>서촌</span></div>';
+  h+='<div class="seat last"><b>15</b><span>홍대</span></div><div class="seat last"><b>16</b><span>서촌</span></div>';
   w.innerHTML=h;
 }
 
