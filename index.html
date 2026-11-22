@@ -73,6 +73,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .neonline.in{stroke:#FFF2F7;stroke-width:1.0;opacity:.88}
 .province.seoul{cursor:default}
 .slab{fill:#241C2B}
+#krmap .plabel.s{font-size:10px}  /* 2026-11-22 서울 — 작은 땅 안에 들어가게 */
 .plabel{font-family:var(--disp);font-size:14.5px;font-weight:400;fill:#2C2433;
   text-anchor:middle;dominant-baseline:middle;pointer-events:none}
 .plabel.hv{fill:#5C1F30}
@@ -1102,7 +1103,8 @@ var PHOTOS={tipbox:'',coin:'',stage:''};               /* 사진 파일 경로�
     그 전: 20, 인천·경기·부산 2자리) */
 const SLOTS={
   "경기도":3,"강원도":1,"대전광역시":2,"대구광역시":2,
-  "광주광역시":2,"부산광역시":3,"제주특별자치도":1
+  "광주광역시":2,"부산광역시":3,"제주특별자치도":1,
+  "서울특별시":2  /* 2026-11-22 서울도 지도 위 권역으로 (홍대 15·서촌 16). 옛: 지도 밖 자리, 지도엔 '?' */
 };
 /* 생활권으로 묶인 시도 → 그 생활권 대표 시도 (2026-11-08) */
 const GROUP={
@@ -1322,7 +1324,7 @@ function buildMap(){
     (function(name){
       var o=RPATHS[name];
       var hv=vlist(name).length>0;
-      var seoul=name==='서울특별시';
+      var seoul=false;  /* 2026-11-22 서울 활성화 — 다른 권역과 같게 (옛: name==='서울특별시') */
       var gm=gmembers(grp(name)), gcx=0, gcy=0;
       gcx=o.cx; gcy=o.cy;
       var lead=LEAD[name];
@@ -1370,12 +1372,13 @@ function buildMap(){
         }
       }else if(!seoul&&!GROUP[name]){
         var lo=LBL_OFF[name]||[0,0], gp0=GPOS[name], lx=gp0?gp0[0]:o.cx+lo[0], lyy=gp0?gp0[1]:o.cy+lo[1];
-        var t2=el('text',{x:lx,y:lyy,'class':'plabel'+(hv?' hv':''),'data-grp':name,'pointer-events':'none'});
+        var sm=name==='서울특별시'; if(sm){lyy-=3;}
+        var t2=el('text',{x:lx,y:lyy,'class':'plabel'+(hv?' hv':'')+(sm?' s':''),'data-grp':name,'pointer-events':'none'});
         t2.textContent=txt;
         labels.appendChild(t2);
         for(var d3=0;d3<left;d3++){
-          marks.appendChild(el('circle',{cx:(lx+(d3-(left-1)/2)*5.4).toFixed(1),cy:(lyy+11).toFixed(1),
-            r:1.9,'class':'seatdot'}));
+          marks.appendChild(el('circle',{cx:(lx+(d3-(left-1)/2)*(sm?4.2:5.4)).toFixed(1),cy:(lyy+(sm?8:11)).toFixed(1),
+            r:sm?1.5:1.9,'class':'seatdot'}));
         }
       }
 
@@ -1398,7 +1401,7 @@ function buildMap(){
   /* 네온 경계선 — 해안선·생활권 경계가 빛나게 (2026-11-08)
      묶이지 않은 시도는 제 경계를 그대로, 생활권은 바깥 경계만 — 안쪽 시도 선은 감춤 */
   /* 2026-11-22 권역 도형이 경계를 공유하므로 한 줄로 그림 (옛: 시도 경계 + 마스크로 권역 바깥선 — 선이 겹치고 이음매가 비침) */
-  var BORD=''; for(var bd=0;bd<names.length;bd++){if(names[bd]!=='서울특별시') BORD+=RPATHS[names[bd]].d;}
+  var BORD=''; for(var bd=0;bd<names.length;bd++){BORD+=RPATHS[names[bd]].d;}
   svg.appendChild(el('path',{d:BORD,'class':'neonline in',style:'stroke-width:1.6','fill-rule':'evenodd',filter:'url(#neon)'}));
   svg.appendChild(el('path',{d:SIL,'class':'neonline',filter:'url(#neon)'}));
 
@@ -1543,16 +1546,17 @@ function buildPhotos(){
 
 /* ── 열여섯 자리 ── */
 var SEAT_ORDER=['경기도','경기도','경기도','강원도','대전광역시','대전광역시','대구광역시','대구광역시',
-  '광주광역시','광주광역시','부산광역시','부산광역시','부산광역시','제주특별자치도'];  /* 2026-11-08 생활권 14 + 홍대 15 + 서촌 16 */
+  '광주광역시','광주광역시','부산광역시','부산광역시','부산광역시','제주특별자치도','서울특별시','서울특별시'];  /* 2026-11-08 생활권 14 + 홍대 15 + 서촌 16 · 2026-11-22 서울 2자리도 같은 방식으로 */
+var SEAT_NAME={14:'홍대',15:'서촌'};
 function buildSeats(){
   var w=document.getElementById('seats'); if(!w) return;
   var used={}, h='';
   SEAT_ORDER.forEach(function(p,i){
     used[p]=(used[p]||0)+1;
     var on=vlist(p).length>=used[p];
-    h+='<div class="seat'+(on?' on':'')+'"><b>'+(i+1)+'</b><span>'+(GLABEL[p]||SHORT[p])+'</span></div>';
+    h+='<div class="seat'+(on?' on':'')+'"><b>'+(i+1)+'</b><span>'+(SEAT_NAME[i]||GLABEL[p]||SHORT[p])+'</span></div>';
   });
-  h+='<div class="seat last"><b>15</b><span>홍대</span></div><div class="seat last"><b>16</b><span>서촌</span></div>';
+  /* 2026-11-22 홍대 15·서촌 16 고정칸(seat last) 대신 SEAT_ORDER에 서울 2자리로 */
   w.innerHTML=h;
 }
 
